@@ -1,2 +1,7 @@
 *.bak
 /bib/Papers/
+/project-proposal/*.aux
+/project-proposal/*.bbl
+/project-proposal/*.blg
+/project-proposal/*.log
+/project-proposal/*.gz
