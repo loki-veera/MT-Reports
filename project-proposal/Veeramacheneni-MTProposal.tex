@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage{hyperref}
 \usepackage{amssymb}
 \usepackage{graphicx}
 
@@ -67,7 +68,8 @@ The research questions answered by this thesis are:
     \item[\textbf{R1}] How to create a benchmark over 3D segmentation datasets for the OOD setting? i.e., create the in and out distribution datasets.
     \item[\textbf{R2}] How to extend current OOD detection methods from 2D classification task of 3D semantic segmentation?
     \item[\textbf{R3}] Is uncertainty quantification an effective approach to classify the OOD detection in 3D semantic segmentation models?
-    \item[\textbf{R4}] What metrics can be applied for the OOD detection task over 3D semantic segmentation models? 
+    % \item[\textbf{R4}] What metrics can be applied for the OOD detection task over 3D semantic segmentation models? 
+    \item[\textbf{R4}] How to evaluate the OOD detections over the 3D semantic segmentation task?
 \end{itemize}
 \section{Related Work}
 % \begin{itemize}
@@ -96,7 +98,7 @@ There exists a few open 3D LiDAR semantic segmentation datasets.
 Oakland \cite{oakland}, TUM city campus \cite{gehrung2017approach_tum_campus}, Semantic3D \cite{hackel2017semantic3d}, Paris-lille-3D \cite{roynard2018paris}, S3DIS \cite{Armeni_2016_CVPR_S3DIS} are a few datasets with static LiDAR and has point annotations.
 The other type of datasets includes sequential data.
 These type of datasets include Semantic KITTI \cite{Behley_2019_ICCV}, A2D2 \cite{geyer2020a2d2}, nuScenes-lidarSeg \cite{caesar2020nuscenes}, KITTI-360 \cite{Xie_2016_CVPR_KITTI_360}, Sydney Urban \cite{de2013unsupervised} and they have point annotations.
-There also exist 3D box annotations with sequential data and they are KITTI \cite{KITTI}, H3D \cite{H3D}, Waymo \cite{Sun_2020_CVPR_Waymo}, and DENSE \cite{Bijelic_2020_CVPR_DENSE}.
+There also exist 3D box annotations with sequential data and they are KITTI \cite{KITTI}, H3D \cite{H3D}, and DENSE \cite{Bijelic_2020_CVPR_DENSE}. %Waymo \cite{Sun_2020_CVPR_Waymo}, 
 GTA-V \cite{GTAV} and SynthCity \cite{griffiths2019synthcity} are only a few synthetic datasets available for 3D semantic segmentation.
 
 \subsection{OOD detection}
@@ -154,31 +156,32 @@ The bare minimum will include the following packages:
         \item[-] Literature search on the existing 3D datasets on semantic segmentation for benchmarking.
         \item[-] Literature search on the existing  3D models for semantic segementation.
         \item[-] Literature search over the out of distribution methods.
-        \item[-] Documentation.
+        % \item[-] Documentation.
     \end{itemize} 
     \item[WP2] Dataset OOD benchmark proposal
     \begin{itemize}
         \item[-] 3D semantic segmentation dataset collection for benchmarking.
         \item[-] Benchmark datasets for in-distribution and out-distribution.
-        \item[-] Documentation.
+        % \item[-] Documentation.
     \end{itemize}
     \item[WP3] Experimentation
     \begin{itemize}
         \item[-] Extend an existing 3D semantic segmentation model as baseline model for out of distribution detection problem.
         \item[-] Extend the state of the art (SOTA) 3D semantic segmentation model for out of distribution detection problem.
         % \item[-] Extend the implemented 3D model (baseline and SOTA) to out of distribution detection problem.
-        \item[-] Documentation. 
+        % \item[-] Documentation. 
     \end{itemize}
     \item[WP4] Evaluation
     \begin{itemize}
         \item[-] Evaluate the baseline model and SOTA model on the proposed evaluation methods.
         \item[-] Compare both the model on OOD detection
-        \item[-] Documentation
+        % \item[-] Documentation
     \end{itemize} 
     \item[WP5] Project Report
     \begin{itemize}
-        \item[-] Update and review existing report sections (literature, datasets, experimentation and evaluation)
-        \item[-] Report completion and submission
+        % \item[-] Update and review existing report sections (literature, datasets, experimentation and evaluation)
+        % \item[-] Report completion and submission
+        \item[-] Write the report
     \end{itemize} 
 \end{enumerate}
 % Keep in mind that depending on your project, you will probably need to add work packages that are more suited to your projects.
@@ -209,13 +212,15 @@ The bare minimum will include the following packages:
 
 \subsubsection*{Expected}
 \begin{itemize}
-    \item Systematic evaluation of the implemented baseline model over the benchmarked dataset
+    \item Systematic evaluation of the extended baseline model over the benchmarked dataset
     \item Extension of the state of the art model for OOD detection
+    \item Evaluation and comparison of the extended state of the art model to baseline algorithm
 \end{itemize}
 
 \subsubsection*{Desired}
 \begin{itemize}
-    \item Evaluation and comparison of the implemented state of the art model to baseline algorithm
+    % \item Evaluation and comparison of the extended state of the art model to baseline algorithm
+    \item Draft a research paper with the insights/findings from thesis
     \item Proposal of a refinement over the current OOD model for higher performance
 \end{itemize}
 
@@ -226,7 +231,7 @@ The detailed plan of tasks in duration of 6 months of thesis is given in figure 
 
 \begin{figure}[h!]
     \centering
-    \caption{Illustration of project timeline}
+    \caption{Illustration of project timeline over the period of six months}
     \includegraphics[scale=0.16]{images/rnd_deliverable_timeline}
     % \includegraphics[width=\textwidth]{images/rnd_deliverable_timeline}
     \label{fig:schedl}
@@ -234,7 +239,8 @@ The detailed plan of tasks in duration of 6 months of thesis is given in figure 
 
 \nocite{*}
 
-\bibliographystyle{plainnat} % Use the plainnat bibliography style
+% \bibliographystyle{plainnat} % Use the plainnat bibliography style
+\bibliographystyle{abbrv}
 \bibliography{bibliography.bib} % Use the bibliography.bib file as the source of references
 
 

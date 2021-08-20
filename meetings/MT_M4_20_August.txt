@@ -1,0 +1,16 @@
+20-August-2020   Thesis Meeting    Dr. Valdenegro
+-------------------------------------------------
+AGENDA: Project proposal feedback
+
+1. No need for documentation in every work package. Just "write report" in report work package is sufficient
+2. "How to evaluate OOD..." instead of "metrics for OOD..." in reasearch question 4.
+3. Change in deliverables
+    a. Add paper in desired
+    b. Move D1 -> E3
+4. Reduce the font size
+5. Change the citation style so the citations look small.
+-------------------------------------------------
+
+1. A paper on uncertainty surey at https://arxiv.org/abs/2107.03342
+2. Discussion on cross sensor datasets for OOD detection
+3. Go ahead with thesis -> Start by studying the datasets and their properties
