@@ -8,10 +8,10 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 
-\title{Out of distribution detection in 3D semantic segmentation models}
+\title{Out of distribution detection in 3D semantic segmentation}
 \author{Lokesh Veeramacheneni}
-\supervisors{Dr. Paul G Pl\"{o}ger\\ Dr. Matias Valdenegro Toro \\ Third Supervisor}
-\date{September 2021}
+\supervisors{Prof. Dr. Paul G Pl\"{o}ger\\ Dr. Matias Valdenegro Toro \\ Prof. Dr. Sebastian Houben }
+\date{October 2021}
 
 \thirdpartylogo{images/DFKI}
 
@@ -37,13 +37,33 @@ This uncertainty in addition to input as out of distribution (OOD) objects quest
 One such real-world example is Tesla autopilot stops after misdetecting a billboard with "STOP" written on it as a traffic stop sign \cite{tesla_fails}. 
 Another such failure is the same autopilot detecting the moon as a yellow sign and slows the car \cite{tesla_fails}.
 In all the above scenarios, the model is unable to detect the object as OOD and resulting in undesired outcomes.
+\cite{liang2017enhancing_ODIN}, \cite{bevandic2018discriminative}, \cite{Robinchan_2021_ICCV}, and \cite{angus2019_pixellevelOOD} define OOD as the input classes which
+are not included in the training set. This is because most of the training sets of
+datasets were assumed as a closed world that is the predictions are made on the
+predefined set of classes. When deployed in the real world the autonomous agent will
+encounter a new class which leads to dangerous situations as specified in the above
+example which is still an unsolved problem.
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{images/OOD.png}
+    \caption{Representation of the semantic space with the decision boundaries of four classes in training set in colour and the points in black are of OOD}
+    \label{fig:semantic_space}
+\end{figure}
+Figure \ref{fig:semantic_space} displays an example semantic
+space with decision boundaries between four classes in the training set and one OOD
+class represented in black. The training classes were vegetation, buildings, trunk
+and car, whereas the OOD class is a pole. During inference, the pole class is classified
+as trunk which is a wrong prediction. The ideal behaviour of the classifier is to specify
+this is an unknown class object and thus probably request for human input. In
+this thesis, we will try to extend the classifier to detect these unknown objects by
+exploring OOD detection methods and also quantified uncertainty.
 
 A decade long study has been performed on the task of semantic segmentation, \cite{ZHU201612} refers to all the traditional approaches based on handcrafted features.
 With the advent of deep learning, a richer feature representation led to mapping input to semantic labels as an end to end procedure.
 The most popular 3D semantic segmentation datasets in the context of autonomous driving are Semantic KITTI \cite{Behley_2019_ICCV}, nuScenes-lidarSeg \cite{caesar2020nuscenes} and Sydney Urban \cite{de2013unsupervised} collected by various sensors are publicly available.
 3D semantic segmentation datasets are limited in size and diversity because labelling is intensive and requires special skills to handle.
 
-There is a diverse range of methods for the task of 3D semantic segmentation. 
+There are a diverse range of methods for the task of 3D semantic segmentation. 
 They inlcude point based methods such as PointNet++ \cite{qi2017pointnet++}, RandLA-Net \cite{Hu_2020_CVPR_Randla}, and many more.
 There also exists image based methods which employ various projection algorithms and popular methods in this segment include SqueeseSegV3 \cite{Sequesesegv3_2018}, RangeNet++ \cite{Milioto2019}, and SalsaNext \cite{SalsaNext_2020}.
 Graph-based and Voxel-based methods are some of their kind to solve the task of 3D semantic segmentation.
@@ -66,7 +86,7 @@ This study is also challenging because the existing OOD methods are not easily a
 The research questions answered by this thesis are:
 \begin{itemize}
     \item[\textbf{R1}] How to create a benchmark over 3D segmentation datasets for the OOD setting? i.e., create the in and out distribution datasets.
-    \item[\textbf{R2}] How to extend current OOD detection methods from 2D classification task of 3D semantic segmentation?
+    \item[\textbf{R2}] How to extend current OOD detection methods from 2D classification task to 3D semantic segmentation?
     \item[\textbf{R3}] Is uncertainty quantification an effective approach to classify the OOD detection in 3D semantic segmentation models?
     % \item[\textbf{R4}] What metrics can be applied for the OOD detection task over 3D semantic segmentation models? 
     \item[\textbf{R4}] How to evaluate the OOD detections over the 3D semantic segmentation task?
@@ -120,7 +140,7 @@ The score is calculated at all layers then ensembled and given to threshold base
 Then a new classifier is utilized with a distinct objective function. 
 \cite{chen2020robust} proposes a novel method for improvement of robustness of OOD detection called Adversarial Learning with inlier and Outlier Exposure (ALOE) which served as an extension to Outlier Exposure proposed by \cite{hendrycks2018deep_OE}.
 \subsubsection{Uncertainty based}
-\cite{lakshminarayanan2016simple} uses ensembled models to evaluate epistemic uncertainty and later used to detect if the input is from in distribution. 
+\cite{lakshminarayanan2016simple} uses ensembled models to evaluate epistemic uncertainty and utilizes predictive entropy to clasify the in distribution and out of distribution samples.
 \cite{pmlr-v119-van-amersfoort20a} uses a novel radial basis function approach to calculate the epistemic uncertainty and argues OOD can be detected using epistemic uncertainty.
 The above methods evaluate the uncertainty on 2D models, there exists only \cite{bhandary2020evaluating} which apply the deep ensemble technique, Dropout and Dropconnet to the 3D semantic segmentation models to evaluate the uncertainty.
 
@@ -202,17 +222,19 @@ The bare minimum will include the following packages:
 
 \begin{itemize}
     \item Systematic literature survey of methods over
-        \subitem- Datasets in 3D LiDAR semantic segmentation
+        \subitem- Datasets in 3D semantic segmentation
         \subitem- Existing out of distribution methods 
-        \subitem- 3D models for semantic segmentation on LiDAR data
-    \item Proposal of 3D benchmarking datasets for out of distribution detection
-    \item Study of uncertainty estimation over 3D models for OOD detection
-    \item Extension of OOD detection method to a baseline 3D model
+        \subitem- Semantic segmentation models on 3D datasets
+    \item Proposal of benchmarking datasets for out of distribution detection in 3D semantic
+    segmentation
+    \item Study of uncertainty quantification in 3D semantic segmentation models
+    \item Implementation of method which uses quantified uncertainty for OOD detection
 \end{itemize}
 
 \subsubsection*{Expected}
 \begin{itemize}
-    \item Systematic evaluation of the extended baseline model over the benchmarked dataset
+    \item Systematic evaluation of the implemented OOD detection method over the
+    proposed dataset
     \item Extension of the state of the art model for OOD detection
     \item Evaluation and comparison of the extended state of the art model to baseline algorithm
 \end{itemize}
@@ -220,7 +242,7 @@ The bare minimum will include the following packages:
 \subsubsection*{Desired}
 \begin{itemize}
     % \item Evaluation and comparison of the extended state of the art model to baseline algorithm
-    \item Draft a research paper with the insights/findings from thesis
+    % \item Draft a research paper with the insights/findings from thesis
     \item Proposal of a refinement over the current OOD model for higher performance
 \end{itemize}
 
@@ -230,7 +252,6 @@ The bare minimum will include the following packages:
 The detailed plan of tasks in duration of 6 months of thesis is given in figure 1.
 
 \begin{figure}[h!]
-    \centering
     \caption{Illustration of project timeline over the period of six months}
     \includegraphics[scale=0.16]{images/rnd_deliverable_timeline}
     % \includegraphics[width=\textwidth]{images/rnd_deliverable_timeline}
