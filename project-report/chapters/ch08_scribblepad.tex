@@ -54,4 +54,36 @@ Eventhough synthetic datasets can be generated in large scale with cheap cost, t
     \item[$\bullet$] Add the mindmap for better visualization
     \item[$\bullet$] Discuss why SemanticKITTI and Semantic3D are of our interest     
 \end{itemize}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{c|c|c|c|c|c|c}
+        \hline
+        % acquisition type, dataset, frames, #points, classes, I/O, year
+        acquisition mode & dataset & frames & points (in million) & classes & scene type & pub. year \\
+        \hline
+        \multirow{7}{*}{static} & Oakland & 17 & 1.6 &  44 & outdoor & 2009 \\ 
+                                & Paris-lille-3D & 3 & 143 & 50 & outdoor & 2018 \\
+                                & Paris-rue-Madame & 2 & 20 & 17 & outdoor & 2014 \\
+                                & S3DIS & 5 & 215 & 12 & indoor & 2016 \\
+                                & Semantic3D & 30 & 4009 & 8 & outdoor & 2017 \\
+                                & TerraMobilita/IQmulus & 10 & 12 & 15 & outdoor & 2015 \\
+                                & TUM City Campus & 631 & 41 & 8 & outdoor & 2016 \\
+        \hline
+        \multirow{7}{*}{sequential} & a& c& b& g& r& 2\\
+                                    & a& c& b& g& r& 2\\
+                                    & a& c& b& g& r& 2\\
+                                    & a& c& b& g& r& 2\\
+                                    & a& c& b& g& r& 2\\
+                                    & a& c& b& g& r& 2\\
+                                    & a& c& b& g& r& 2\\
+        \hline
+        \multirow{3}{*}{synthetic} & a& c& b& g& r& 2\\
+                                   & a& c& b& g& r& 2\\
+                                   & a& c& b& g& r& 2\\
+        \hline
+    \end{tabular}
+    \caption{3D LiDAR datasets classified based on the acquisition type. Table updated from \cite{survey3d}}
+    \label{table:3d_lidar_datasets_table}
+\end{table}
 \end{document}
