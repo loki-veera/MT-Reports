@@ -51,8 +51,8 @@ Eventhough synthetic datasets can be generated in large scale with cheap cost, t
 
 The datasets belonging to the each acquisition type are summed up in  Table \ref{table:3d_lidar_datasets_table}.
 Most of the datasets from the Table \ref{table:3d_lidar_datasets_table} are taken from \cite{survey3d} and also as a part of this study, additional new datasets were added to the list.
-The newly added datasets include DALES (\#cite), ScanObjectNN (\#cite) in static mode and AIO Drive (\#cite), Toronto3D (\#cite) are additions in the sequential mode.
-\cite{survey3d} also classifies GTAV (\#cite) dataset as synthetic 3D LiDAR but the corresponding paper doesn't report any LiDAR dataset and proposed only 2D datasets for segmentation.
+The newly added datasets include DALES \cite{varney2020dales}, ScanObjectNN \cite{scanobejctnn} in static acquisition mode and AIO Drive \cite{Weng2020_AIODrive}, Toronto3D \cite{tan2020toronto3d} are additions in the sequential mode.
+\cite{survey3d} also classifies GTAV (\#cite) dataset as synthetic 3D LiDAR but the corresponding paper doesn't report any LiDAR dataset and proposed only 2D dataset for segmentation.
 The limited number of datasets in 3D LiDAR allowed us to study the characteristics of each individual datasets such as each class, data distribution and features of each point in point cloud. 
 It is summarized in Table (\#ref) in Appendix (\#chapter number)
 %%\section{TODO}
@@ -95,4 +95,12 @@ It is summarized in Table (\#ref) in Appendix (\#chapter number)
     \caption{3D LiDAR datasets classified based on the acquisition type. Table updated from \cite{survey3d}}
     \label{table:3d_lidar_datasets_table}
 \end{table}
+\newpage
+\section{Related work - Models}
+\begin{figure}
+    \centering
+    \includestandalone[width=0.8\linewidth]{images/models_plot}
+    \caption{Comparison of 3D semantic segmentation methods performance on SemanticKITTI dataset against the number of parameters. 
+             Blue points represent point based methods and red represented projection based methods.}
+\end{figure}
 \end{document}

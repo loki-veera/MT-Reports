@@ -46,6 +46,10 @@
 %-------------------------------------------------------------------------------
 %	VARIOUS REQUIRED PACKAGES AND CONFIGURATIONS
 %-------------------------------------------------------------------------------
+\usepackage{tikz,tikz-3dplot}
+\usetikzlibrary{patterns}
+\usepackage{pgfplots}
+\usepackage[mode=buildnew]{standalone}
 
 \usepackage[numbers]{natbib}\citeindextrue % Round brackets around citations, change to square for square brackets
 \usepackage{graphicx} % Required to include images
