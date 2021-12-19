@@ -1,0 +1,67 @@
+\documentclass[12pt]{article}
+\usepackage{lingmacros}
+\usepackage{tree-dvips}
+\usepackage{graphicx}
+\usepackage[textwidth=8in,textheight=10in]{geometry}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{color, colortbl}
+\definecolor{LightCyan}{rgb}{0.88,1,1}
+\definecolor{LightGreen}{rgb}{0, 0.9, 0}
+\definecolor{LightRed}{rgb}{0.9,0,0}
+\newcolumntype{L}{>{\centering\arraybackslash}m{7cm}}
+\newcolumntype{o}{>{\centering\arraybackslash}m{2.1cm}}
+\newcolumntype{s}{>{\centering\arraybackslash}m{1.3cm}}
+\title{Datasets for 3D semantic segmentation}
+\author{Lokesh Veeramacheneni}
+\date{September 10, 2021}
+
+\begin{document}
+\maketitle
+\begin{longtable}{|o|o|s|o|s|L|}
+    % \centering
+    % \begin{tabular}{|o|o|o|o|o|L|}
+    \hline
+    \textbf{Name} & \textbf{Sensor} & \textbf{Type} & \textbf{Publisher} & \textbf{\# Classes} & \textbf{Classes} \\ \hline
+\rowcolor{LightGreen}
+    Sydney Urban &
+  Velodyne HDL-64E &
+  O &
+  Australian center for field robotics &
+  26 & Bench, Bicycle, Biker, Building, Bus, Car, Cyclist, Excavator, Pedestrian, Pillar, Pole, Scooter, Ticket machine, Traffic lights, Traffic signs, Trailer, Trash, Tree, Truck, Trunk, Umbrella, Ute, Van, Vegetation, 4WD \\ \hline
+  
+  \rowcolor{LightCyan}
+  Semantic KITTI &
+  Velodyne HDL-64E &
+  O &
+  University of Bonn &
+  28 &
+  Road, Sidewalk, Parking, Building, Car, Truck, Bicycle, Motorcycle, Vegetation, Trunk, Terrain, Person, Bicyclist, Motorcyclist, Fence, Pole, Traffic signs, moving car, moving bicyclist, moving person, moving motorcyclitst, moving othervehicle, moving truck. moving bus, moving onrails, other vehicle, other ground, unlabeled (outlier) \\ \hline
+  
+  Semantic POSS     & HESAI Pandora    & O    & University of Peking                 & 14        & People, Rider, Car, Trunk, Plants, Traffic sign, Pole, Trashcan, Building, Cone/Stone, Fence, Bike, Ground, unlabeled                                                                                                                                                                                                                           \\ \hline
+nuScenes-lidarseg & Unknown-32       & O    & nuTonomy                             & 16        & Barrier, Bicycle, Bus (Bendy), Bus (Rigid), Car, Construction vehicle, Motorcycle, Pedestrian (Adult), Pedestrian (Child), Pedestrian (Construction worker), Pedestrian (police officer), Traffic cone, Trailer, Truck, Drivable surface, Other flat, Sidewalk, Terrain, Manmade, Vegetation                                                    \\ \hline
+
+Toronto-3D & Teledyne optech maverick & O & University of Waterloo & 8 & Road, Road marking, Natural, Building, Utility line, Pole, Car, Fence, Unclassified \\ \hline
+
+DALES \footnote{Aerial LiDAR} & Unknown & O & University of Dayton & 8 & Ground, Vegetation, Cars, Trucks, Powerlines, Fences, Poles, Buildings \\ \hline
+
+Pandaset & HESAI Pandar 64 + HESAI Pandar GT & O &Scale AI & 37 & Smoke, Exhaust, Vegetation, Road, Lane line marking, Stop line marking, Sidewalk, Driveway, Car, Pickuptruck, Medium sized trucks, Semi truck, Towed object, Motorcycle, Othervehicle-Construction vehicle, Other vehicle-unknown, , Other vehicle-Pedicab, Emergency vehicle, Bus, Personal mobility vehcile, Motorized scooter, Train, Trolley, Tram/Subway, Pedestrian, Pedestrial with object, Animals-Bird, Animals-Other, Pylons, Road Barriers, Signs, Cones, Construction signs, Temporary construction barriers, Rolling containers\\ \hline
+
+A2D2\footnote{A2D2 dataset point annotations must be obtained by projecting on image} & Velodyne VLP-16 & O & Audi & 38 & Nature object, Sky, RD normal street, Buildings, Car 1-4, Sidewalk, Egocar, Truck, Grid structure, Road blocks, Drivable cobblestone, Curbstone, Solid line, Non-drivable street, Poles, Dashed line, Irrelevant signs 1-3, Parking area, Obstacles/Trash, RD restricted area, Traffis guide object, Slow drive area, Signal corpus, Pedestrian 1-3, Bicycle 1-4, Painted driving instructions, Utility vehicle 1-2, Traffic signal 1-3, Sidebars, Small vehicles 1-3, Zebra crossing, Electronic traffic, Tractor, Blurred area, Animals, Speed bumps, Rain dirt \\ \hline
+
+SynthCity\footnote{Synthetic dataset} & NA & O & University college London & 9 & Road, Pavement, Ground, Natural ground, Tree, Building, Pole like, Street furniture, Car \\ \hline
+
+Semantic3D\footnote{Static dataset} & Terrestrial Laser Scanner & O & ETH Zurich & 8 & Man made terrain, Natural terrain, High vegetation, Low vegetation, Buildings, Hardscapes, Scanning artifacts, Cars \\ \hline
+
+TUM City Campus$^4$ & Velodyne HDL-64E & O & Technical University Muenchen & 8 & Manmade terrain, Natural terrain, High vegetation, Low vegetations, Buildings, Hardscapes, Vehicles \\ \hline
+
+\rowcolor{LightRed}
+S3DIS$^4$ & Matterport scanner & I & Stanford University & 12 & Ceiling, Floor, Wall, Beam, Column, Window, Door, Table, Chair, Sofa, Bookcase, Board \\ \hline
+
+ScanObject
+NN$^{4,}$\footnote{Dataset is not openly available} & Unknown & I & Univeristy of Hongkong & 15 & Bag, Bed, Bin, Box, Chair, Cabinets, Desk, Display, Door, Pillow, Shelves, Sink Soda, Table, Toiler \\ \hline
+    % \end{tabular}
+    \caption{List of datasets with point annotations available for 3D semantic segmentation. Cyan color represents in dataset, red colour represents hard ood dataset and similarly green represents soft ood dataset}
+    \label{tab:my_label}
+\end{longtable}
+\end{document}
