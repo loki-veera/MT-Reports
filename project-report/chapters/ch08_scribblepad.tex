@@ -3,7 +3,57 @@
 \begin{document}
 \chapter{Notes/Remarks}
 
+\section{Introduction}
+The development of Deep Neural Networks (DNNs) made tasks such as object classification and object detection simple.
+These DNNs has seen their way to various real world scenarios such as autonomous driving \cite{autonomousdriving}, semi-autonomous robotic surgery \cite{roboticsurgery} and also in space rovers \cite{Marsrover_1}, \cite{Marsrover_2}.
+DNNs are majorly deployed in the perception stack in the autonomous pipeline. 
+Figure \ref{fig:Apollopipeline} depicts the pipeline of the modules present in one of the open source autonomous driving platform called Apollo \cite{baiduapollo}.
+From this pipeline, we can infer that the most of the decisions regarding the vehicle control made by autonomous system is dependent on the output of the perception module.
+Since the perception module plays such significance, the developers of the perception stack must make sure that the output is flawless.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.35]{images/Apollopipeline.png}
+    \caption{Module pipeline for Apollo autonomous driving platform. Image taken from \cite{baiduapollo}}
+    \label{fig:Apollopipeline}
+\end{figure}
+
+The DNNs deployed in perception module are needed to be trained on the dataset which should be similar to area of its deployment.
+For example, an autonomous driving agent must be trained on dataset containing roads, vehicles, vegetation and other objects found around road.
+This closedness of the dataset i.e., fixed number of classes, will cause an issue when the DNN encounter an unknown object in real world.
+This unknown object is predicted as one of the class in the dataset, leading to radical decisions when this error is propogated down the pipeline in Figure \ref{fig:Apollopipeline}.
+One such real world problem is encountered by the Tesla autonomous driving platform.
+\begin{figure}[h!]
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.5]{images/tesla_1.png}
+        \caption{}
+        \label{fig:teslafails_1}
+    \end{subfigure}
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.5]{images/tesla_2.png}
+        \caption{}
+        \label{fig:teslafails_2}
+    \end{subfigure}
+    \caption{Tesla fails. Images taken from \cite{tesla_fails}}
+\end{figure}
+
+Figures \ref{fig:teslafails_1} and \ref{fig:teslafails_2} depict the misdetections from the Tesla autonomous driving system.
+The problem with first one, is the moon is detected as the yellow signal light and second one has the problem of misdetection of burger king sign as stop signal.
+These misdetections of unknown objects might lead to consequences beyond imagination.
+This questions the safety of the Deep Neural Networks (DNNs) predictions.
+An effort has been made in this thesis to detect these unknown objects in 3D LiDAR data using uncertainty score.
+The unknown obejcts in the real world which are not present in the training dataset are called as out-of-distribution (OOD) class. 
+More discussion on the OOD is presented in Section \ref{sec:oodvanom}.
+More discussion on misdetections in a DNN trianed on MNIST and tested on USPS is presented in Section \ref{sec:mnistvusps}
+The contributions made in this thesis are
+\begin{enumerate}
+    \item A survey on the available 3D LiDAR datasets and benchmark dataset for the OOD detection.
+    \item A survey on the 3D semantic segmentation models, uncertainty estimation methods and classical OOD methods.
+    \item Use of uncertainty for OOD detection in RandLA-Net
+\end{enumerate}
 \section{Introduction-OOD/Anomaly/Distributional shift}
+\label{sec:oodvanom}
 \begin{figure}[h!]
     \begin{subfigure}{0.333\textwidth}
         \centering
@@ -65,28 +115,46 @@ The input for out of distribution (OOD) is drawn from an unknown distribution of
 Figures \ref{fig:ood_submarine} and \ref{fig:ood_airship} are submarine and ariship which are from unknown distribution and they doesn't adhere to the definition of ship by any means.
 In general, one can argue that OOD can be defined as inputs which doesn't belong to any class in the training data.
 
-\begin{figure}[h!]
-    \begin{subfigure}{0.333\textwidth}
-        \centering
-        \includegraphics[height=0.3\textheight,width=0.98\textwidth]{images/intro_ood_anomaly/normal_train.png}
-        \caption{}
-        \label{fig:normal_train_time}
-    \end{subfigure}
-    \begin{subfigure}{0.333\textwidth}
-        \centering
-        \includegraphics[height=0.3\textheight,width=0.98\textwidth]{images/intro_ood_anomaly/anomaly_train.png}
-        \caption{}
-        \label{fig:anomaly_time}
-    \end{subfigure}
-    \begin{subfigure}{0.333\textwidth}
-        \centering
-        \includegraphics[height=0.3\textheight,width=0.98\textwidth]{images/intro_ood_anomaly/ood_train.png}
-        \caption{}
-        \label{fig:ood_time}
-    \end{subfigure}
-    \caption{Illustration of anomaly and OOD with time series data as example. \ref{fig:normal_train_time} depicts the triaining data as sinusoidal wave.
-    \ref{fig:anomaly_time} represents the anomaly in the sinusoidal wave and \ref{fig:ood_time} represents the square wave as OOD signal}
-\end{figure}
+%\begin{figure}[h!]
+%    \begin{subfigure}{0.333\textwidth}
+%        \centering
+%        \includegraphics[height=0.3\textheight,width=0.98\textwidth]{images/intro_ood_anomaly/normal_train.png}
+%        \caption{}
+%        \label{fig:normal_train_time}
+%    \end{subfigure}
+%    \begin{subfigure}{0.333\textwidth}
+%        \centering
+%        \includegraphics[height=0.3\textheight,width=0.98\textwidth]{images/intro_ood_anomaly/anomaly_train.png}
+%        \caption{}
+%        \label{fig:anomaly_time}
+%    \end{subfigure}
+%    \begin{subfigure}{0.333\textwidth}
+%        \centering
+%        \includegraphics[height=0.3\textheight,width=0.98\textwidth]{images/intro_ood_anomaly/ood_train.png}
+%        \caption{}
+%        \label{fig:ood_time}
+%    \end{subfigure}
+%    \caption{Illustration of anomaly and OOD with time series data as example. \ref{fig:normal_train_time} depicts the triaining data as sinusoidal wave.
+%    \ref{fig:anomaly_time} represents the anomaly in the sinusoidal wave and \ref{fig:ood_time} represents the square wave as OOD signal}
+%\end{figure}
+
+\section{Problem Statement}
+In this thesis, we study the application of out-of-distribution (OOD) detection over the 3D semantic segmentation problem in the context of autonomous driving.
+Notably, we study the 3D semantic segmentation datasets available and create a benchmark for in-distribution and out-distribution for the OOD setting.
+
+The other major issue, we address in this thesis is the OOD detection methods themselves.
+Existing OOD detection methods are developed on 2D classification tasks and applicability of these methods on 3D semantic segmentation tasks is not studied. 
+This is also challenging because the existing OOD methods are not easily adaptable to the 3D segmentation models because segmentation involves multi class classification and moreover high dimensionality of the 3D data.
+\newline
+
+The research questions answered by this thesis are:
+\begin{itemize}
+    \item[\textbf{R1}] How to create a benchmark over 3D segmentation datasets for the OOD setting?, i.e., create the in-distribution and out-distribution datasets.
+    \item[\textbf{R2}] How to extend current OOD detection methods from 2D classification task to 3D semantic segmentation?
+    \item[\textbf{R3}] Is uncertainty quantification an effective approach to classify OOD detection in 3D semantic segmentation models?
+    % \item[\textbf{R4}] What metrics can be applied for the OOD detection task over 3D semantic segmentation models? 
+    \item[\textbf{R4}] How to evaluate the OOD detections over the 3D semantic segmentation task?
+\end{itemize}
 \section{Related work - Datasets}
 %Since the advent of AlexNet \cite{alexnet}, deeplearning has been in the rise. 
 %Deep convolutional neural networks are the desired option for image analysis tasks such as classification, detection and segmentation.
