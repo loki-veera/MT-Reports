@@ -2,10 +2,103 @@
 
 \begin{document}
     \chapter{State of the Art}
+    In this chapter, we will discuss about the 3D LiDAR datasets available and made an attempt to classify them based on type of acquisition.
+    Also we will discuss about the 3D semantic segmentation models, uncertainty estimation methods and OOD methods available.
+    \section{3D LiDAR Datasets}
+    %Since the advent of AlexNet \cite{alexnet}, deeplearning has been in the rise. 
+    %Deep convolutional neural networks are the desired option for image analysis tasks such as classification, detection and segmentation.
+    %These deep convolutional networks are successful especially because of two reasons. 
+    %First is the architectures and their paralellisation, allowing them to train millions of images on a GPU.
+    %Second reason is the development of huge public benchmark datasets such as Imagenet \cite{imagenet}, Pascal VOC \cite{pascalvoc} and COCO \cite{coco} datasets
+    %Although deep convolutional networks are huge success in image analysis tasks, they perform poorly on 3D point cloud data.
+    LiDAR is one of the central component in the sensor suite for SLAM system in robotic applications \cite{thrun2006stanley}, \cite{patz2008practical}, \cite{hess20162dSLAM} and autonomous driving \cite{li2016vehicle}.
+    3D LiDAR data is preferred because, it can provide the exact replica of 3D geometry of the real world represented in the form of 3D point clouds.
+    Because of these rich features and widespread use of LiDAR sensors, tasks such as 3D object detection \cite{zhou2018voxelnet}, \cite{PIXOR} and 3D semantic segmentation \cite{qi2017pointnet++}, \cite{3Dmininet} are becoming more predominant area for research.
+    
+    In this section, we will discuss about the available 3D LiDAR datasets for 3D semantic segmentation task and classify the datasets based on acquisition methods as in \cite{survey3d}.
+    \cite{survey3d} classifies the available public datasets into three classes based on the data acquisition process.
+    They are \textit{Sequential}, \textit{Static} and \textit{Synthetic} datasets.
+    The data for sequential datasets are collected as frame sequences where mechanical LiDAR is mounted on top of a autonomous driivng platform as in Figure \ref{fig:seq_data_lyft}.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[scale=0.25]{images/sequential_lyft.png}
+        \caption{Sequential mounted LiDAR for data collection of Lyft L5 dataset. Image from \cite{Lyftl5}}
+        \label{fig:seq_data_lyft}
+    \end{figure}
+    Most of the popular autonomous driving datasets are of sequential type, but these kind of datasets comes with a drawback of sparse points than other datasets.
+    
+    Static datasets consists of data collected from a stationary view point by a terrestrial laser scanner.
+    These kind of datasets capture the static information of the realworld whereas the sequential datasets capture the dynamic movements of the surrounding objects.
+    Static datasets find their way in applications such as the urban planning, augmented reality and robotics. 
+    Figure \ref{fig:tls} depcits a terrestrial laser scanner used to capture point cloud of an industrial environment.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[scale=0.75]{images/TLS.jpg}
+        \caption{Terrestrial laser scanner in an industrial environment with the laser scanner mounted on a yellow tripod in the left corner of the floor. Image taken from \cite{tls}}
+        \label{fig:tls}
+    \end{figure}
+    An advantage with the static datasets, are they can produce highly dense point clouds leading to rich 3D geometric representations.
+    
+    Last type of 3D LiDAR datasets are synthetic datasets. 
+    As the name suggests these datasets are generated from the computer simulation. 
+    Figure \ref{fig:synthetic} depcits a simulated point cloud in a synthtic dataset called SynthCity.
+    Eventhough synthetic datasets can be generated in large scale with cheap cost, they lack the accuracy in detail when compared to the point clouds generated from real world.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[scale=0.5]{images/synthcity.png}
+        \caption{Illustration of a scene in synthetic dataset called SynthCity. Image taken from \cite{griffiths2019synthcity}}
+        \label{fig:synthetic}
+    \end{figure}
+    
+    The datasets belonging to the each acquisition type are summed up in  Table \ref{table:3d_lidar_datasets_table}.
+    Most of the datasets from the Table \ref{table:3d_lidar_datasets_table} are taken from \cite{survey3d} and also as a part of this study, additional new datasets were added to the list.
+    The newly added datasets include DALES \cite{varney2020dales}, ScanObjectNN \cite{scanobejctnn} in static acquisition mode and AIO Drive \cite{Weng2020_AIODrive}, Toronto3D \cite{tan2020toronto3d} are additions in the sequential mode.
+    \cite{survey3d} also classifies GTAV (\#cite) dataset as synthetic 3D LiDAR but the corresponding paper doesn't report any LiDAR dataset and proposed only 2D dataset for segmentation.
+    The limited number of datasets in 3D LiDAR allowed us to study the characteristics of each individual datasets such as each class, data distribution and features of each point in point cloud. 
+    It is summarized in Table (\#ref) in Appendix (\#chapter number)
+    %%\section{TODO}
+    %%\begin{itemize}
+    %%     \item[$\bullet$] Explain the table
+    %%    \item[$\bullet$] Discuss why SemanticKITTI and Semantic3D are of our interest     
+    %%\end{itemize}
+    
+    \begin{table}[h!]
+        %\centering
+        \begin{tabular}{c|c|c|c|c|c}%|c}
+            \hline
+            % acquisition type, dataset, frames, #points, classes, I/O, year
+            acquisition mode & dataset & frames & points (in million) & classes & scene type \\  % & pub. year \\
+            \hline
+            \multirow{7}{*}{static} & Oakland\cite{oakland} & 17 & 1.6 &  44 & outdoor \\ % & 2009 \\ 
+                                    & Paris-lille-3D\cite{roynard2018paris} & 3 & 143 & 50 & outdoor \\ % & 2018 \\
+                                    & Paris-rue-Madame\cite{paris_rue_madame} & 2 & 20 & 17 & outdoor \\ %& 2014 \\
+                                    & S3DIS\cite{Armeni_2016_CVPR_S3DIS} & 5 & 215 & 12 & indoor \\ %& 2016 \\
+                                    & ScanObjectNN\cite{scanobejctnn} & - & - & 15 & indoor \\ %& 2019 \\
+                                    & Semantic3D\cite{hackel2017semantic3d} & 30 & 4009 & 8 & outdoor \\ %& 2017 \\
+                                    & TerraMobilita/IQmulus\cite{TerraMobilita} & 10 & 12 & 15 & outdoor\\ % & 2015 \\
+                                    & TUM City Campus\cite{gehrung2017approach_tum_campus} & 631 & 41 & 8 & outdoor\\ % & 2016 \\
+                                    & DALES\cite{varney2020dales} & 40 (tiles) & 492 & 8 & outdoor\\ % & 2021\\
+            \hline
+            \multirow{7}{*}{sequential} & A2D2\cite{geyer2020a2d2} & 41277 & 1238 & 38 & outdoor\\ % & 2020\\
+                                        & AIO Drive\cite{Weng2020_AIODrive} & 100& - & 23 & outdoor\\ % & 2020\\
+                                        & KITTI-360\cite{Xie_2016_CVPR_KITTI_360} & 100K & 18000 & 19 & outdoor\\ %& 2020\\
+                                        & nuScenes-lidarseg\cite{caesar2020nuscenes} & 40000 & 1400 & 32& outdoor\\ % & 2020\\
+                                        & PandaSet\cite{PandaSet} & 16000 & 1844 & 37 & outdoor \\ %& 2020\\
+                                        & SemanticKITTI\cite{Behley_2019_ICCV} & 43552 & 4549 & 28 & outdoor \\ %& 2019\\
+                                        & SemanticPOSS\cite{pan2020semanticposs} & 2988 & 216 & 14 & outdoor \\ %& 2020\\
+                                        & Sydney Urban\cite{de2013unsupervised} & 631 & - & 26 & outdoor\\ % & 2013\\
+                                        & Toronto-3D\cite{tan2020toronto3d} & 4 & 78.3& 8& outdoor\\ % & 2020\\
+    
+            \hline
+            \multirow{1}{*}{synthetic}  & SynthCity\cite{griffiths2019synthcity} & 75000 & 367.9 & 9 & outdoor \\ %& 2019\\
+            \hline
+        \end{tabular}
+        \caption{3D LiDAR datasets classified based on the acquisition type. Table updated from \cite{survey3d}}
+        \label{table:3d_lidar_datasets_table}
+    \end{table}
+    
 
-    \section{....}
-    Use as many sections as you need in your related work to group content into logical groups
-
-    Don't forget to correctly cite your sources \cite{art1}.
-    \section{Limitations of previous work}
+    \section{3D semantic segmentation models}
+    \section{Uncertainty estimation methods}
+    \section{Out-of-distribution (OOD) detection methods}
 \end{document}
