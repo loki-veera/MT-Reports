@@ -1,0 +1,191 @@
+\documentclass[12pt]{article}
+\usepackage{lingmacros}
+\usepackage{tree-dvips}
+\usepackage{graphicx}
+\usepackage[textwidth=8in,textheight=10in]{geometry}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{color, colortbl}
+\definecolor{LightCyan}{rgb}{0.88,1,1}
+\usepackage[mode=buildnew]{standalone}
+\usepackage{tikz,tikz-3dplot}
+\usetikzlibrary{patterns}
+\usepackage{pgfplots}
+
+
+\newcolumntype{L}{>{\centering\arraybackslash}m{13cm}}
+\newcolumntype{o}{>{\centering\arraybackslash}m{2.1cm}}
+\newcolumntype{s}{>{\centering\arraybackslash}m{1cm}}
+\title{Models for 3D semantic segmentation}
+\author{Lokesh Veeramacheneni}
+\date{September 20, 2021}
+
+\begin{document}
+\maketitle
+
+
+
+\section{Summary of models}
+\begin{longtable}{|c|L|}%[]
+    % \centering
+    % \begin{tabular}{|c|L|}
+    \hline
+    \textbf{Model}   &  \textbf{Description}\\ \hline
+       PointNet \cite{001}  &  \begin{itemize}
+           \item Process point cloud directly, no projection involved.
+           \item MultiLayerPercepton (MLP) is used to extract features which are permutation invariant
+           \item Then max pool is used to extract global features.
+           \item A transformation network generates transformation matrix to spatially align input PC and features to achieve transformation invariance.
+           \item Cannot account the relation between points and local neighbourhood information, so in large scenes critical information is lost
+       \end{itemize}\\ \hline
+       
+       PointNet++ \cite{001} & \begin{itemize}
+           \item Extension to PointNet by adding sampling layer and grouping layer
+           \item First selects some points from input points as centroids of their local areas using Farthest Point Sampling (FPS) algorithm.
+           \item The applies local region grouping module to construct local regions.
+           \item Recursively PointNet is applied to extract local features
+           \item Independently process the points so the relation such as distance and direction between the points are not taken into consideration
+       \end{itemize} \\ \hline
+       
+       SPGraph \cite{002} & \begin{itemize}
+           \item 3D point cloud is represented as multiple superpoint graphs (SPG) based on linearity, planarity and scattering.
+           \item Each SPG represent a simple primitive shape and these SPGs are downsampled and embedded into fixed size vector using PointNet
+           \item Then graph convolutions are employed to label each superpoint based in neighbours
+           \item High computation cost and moreover same performance as PointNet++ over SemanticKITTI dataset
+       \end{itemize} \\ \hline
+       
+       SPLATNet \cite{003} & \begin{itemize}
+           \item Direct application over points and no preprocessing such as voxel conversion or image projection is necessary
+           \item Projects input points onto high dimensional lattice and then employ Bilateral Convolution Layers (BCL) for feature aggregation
+           \item The BCL operations (splat, conv and slice) are not learned and moreover the repeated application of BCL degrade point cloud features as BCL act as gaussain filters as propsed in \cite{004}
+       \end{itemize} \\ \hline
+       
+       SqueeseSeg V1 \cite{sseg}, and V2 \cite{ssegv2} & \begin{itemize}
+           \item All the three variations of the Squeeseseg are of projection based models
+           \item Projects the point cloud onto the sphere of dense, grid based representation (3D cartesian coordinates to 2D spherical coordinates
+           \item Use an 2D encoder-decoder like SqueeseNet to perform semantic segmentation and the apply Conditional Random Field (CRF) to convert 2D semantic maps to 3D point clouds
+           \item SqueeseSeg V2 improves on V1 by applying Context Aggregation Module (CAM) in between and also employs batch normalization and focal loss to improve the training accuracys
+       \end{itemize} \\ \hline
+       
+       SalsaNet \cite{salsanet} & \begin{itemize}
+           \item This is also a projection based method, projecting as Bird Eye View (BEV)
+           \item A new SalsaNet is proposed to do the 2D semantic segmentation of the BEV projected point cloud and also a process of auto data labelling is proposed to annotate the unannotated point cloud data
+           \item This method also tests and compare the performance among BEV and Spherical Front View (SFV)
+       \end{itemize} \\ \hline
+       
+      
+       RangeNet \cite{Rangenet} & \begin{itemize}
+           \item RangeNet is a novel method which uses spherical projection for 3D to 2D projections
+           \item The architectures for the 2D semantic segmentation used are DarkNet-21, DarkNet-53 leading to various models such as RangeNet21, RangeNet53 and RangeNet53++ where ++ means post processing enabled
+           \item The labelled 3D point clouds will suffer from loss of annotations from shadows, to cover this post processing method such as gpu enabled KNN is employed to annotate the shadowed points
+           \item RangeNet suffers from higher number of parameters leading to higher trianing times
+       \end{itemize} \\ \hline
+       
+       LatticeNet \cite{004} & \begin{itemize}
+           \item LatticeNet is a novel method to apply raw 3D point cloud as input
+           \item This network uses hybrid approach by employing PointNet for low level features and 3D convolutions for extracting global context and architecture resembles 3d U-Net architecture
+           \item 3D data is projected onto a permutohedral lattice by using a projection from hyperplane
+           \item LatticeNet suffers from memory issues because it has to store the lattices for computations and copy from CPU to GPU
+       \end{itemize} \\ \hline
+       
+        \rowcolor{LightCyan}
+       RandLA-Net \cite{Randlanet} & \begin{itemize}
+           \item It is efficient and light weight architecture which feeds on 3D raw point clouds
+           \item The method is similar to PointNet but the sampling algorithm is random sampling instead of farthest point sampling method
+           \item Random sampling might not yield good feature points, so local feature aggregation module to acheive the more receptive field
+           \item The key modules in RandLA-Net are local feature aggregation module, attentive pooling and dilated residual blocks, the network resembles the encoder-decoder architecture
+           \item This network is one of the few 3D semantic segmentation models with low number of parameters gaining higher performance.
+       \end{itemize} \\ \hline
+       
+       \rowcolor{LightCyan}
+       SalsaNext \cite{salsanext} & \begin{itemize}
+           \item Its an upgrade version of the SalsaNet, with an addition of new context module and dilated convlution stack replacing the encoder and decoder module comes with a addition of pixel shuffle layer
+           \item A combination of weighted cross entropy and lovasz softmax loss is used for optimization
+           \item This is byfar one of the two studies involving the uncertainty estimation in 3D models and also acheive highest performance with less number of parameters
+       \end{itemize} \\ \hline
+       
+       3D MiniNet \cite{3dmininet} & \begin{itemize}
+           \item This network combines information from 3D point cloud and 2D projection data.
+           \item The network structure is divided into two modules, Projection learning module and MiniNet backbone
+           \item A post processing module gpu enabled KNN same as in RangeNet is applied to label the shadowed points in output
+       \end{itemize} \\ \hline
+       
+       KPRNet \cite{kprnet}& \begin{itemize}
+           \item This is also a projection based method similar to RangeNet
+           \item To obtain accuracte 3D annotations, novel KPConv is proposed and utilized as post processing module
+           \item It utilizes ResNext-101 module as encoder and decoder similar to Panoptic Deeplab network followed by KPConv, and classifier
+       \end{itemize} \\ \hline
+       
+       PolarNet \cite{polarnet} & \begin{itemize}
+           \item This network takes polar bird eye view projection with learnt polar grid as an input
+           \item IT utilizes polar BEV encoder network for grid learning and then simplified PointNet with only MLP's are applied on this BEV grid to learn the semantic labels
+           \item The downside to this network is that the BEV grid generation is quite complex
+       \end{itemize} \\ \hline
+    % \end{tabular}
+    \caption{Short summary of the 3D semantic segmentation models evaluated on SemanticKITTI dataset. Models highlighted in Cyan are the models that are selected to apply for OOD detection}
+    \label{tab:my_label}
+\end{longtable}
+
+% \newpage
+% \begin{longtable}{|c|c|c|}
+% \hline
+% \textbf{Name} & \textbf{\# Parameters(in millions)} & \textbf{meanIOU(\%)} \\ \hline
+% \rowcolor{LightCyan}
+% PointNet & 3 & 14.6 \\ \hline
+% \rowcolor{LightCyan}
+% SPGraph & 0.25 & 20.0 \\ \hline
+% \rowcolor{LightCyan}
+% PointNet++ & 6 & 20.1 \\ \hline
+% \rowcolor{LightCyan}
+% SPLATNet & 0.8 & 22.8 \\ \hline
+% Squeezeseg & 1 & 29.5 \\ \hline
+% \rowcolor{LightCyan}
+% TangentConv & 0.4 & 35.9 \\ \hline
+% Squeezeseg V2 & 1 & 39.7 \\ \hline
+% SalsaNet & 6.6 & 45.4 \\ \hline
+% RangeNet21 & 25 & 47.4 \\ \hline
+% RangeNet53 & 50 & 49.9 \\ \hline
+% RangeNet53++ & 50 & 52.2 \\ \hline
+% \rowcolor{LightCyan}
+% LatticeNet\footnote{Code in different language} & - & 52.9 \\ \hline
+% \rowcolor{LightCyan}
+% RandLA-Net & 0.95 & 53.9 \\ \hline
+% PolarNet & 14 & 54.3 \\ \hline
+% 3D MiniNet & 4 & 55.8 \\ \hline
+% Squeezeseg V3 & - & 55.9 \\ \hline
+% SalsaNext & 6.7 & 59.5 \\ \hline
+% KPRNet\footnote{Resnet101 backbone} & 243 & 63.1 \\ \hline
+% \rowcolor{LightCyan}
+% Af2S3Net\footnote{No code available} & - & 70.8 \\ \hline
+% \caption{List of models in 3D semantic segmentation, meanIOU is reported on SemanticKITTI dataset. Rows highlighted in cyan are point based methods where as others are projection based methods. }
+%     \label{tab:my_label}
+% \end{longtable}
+\newpage
+\section{Model Vs Parameters}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.65]{theme/images/models_new.png}
+    \caption{Model performance vs number of parameters on semantic KITTI dataset}
+    \label{fig:my_label}
+\end{figure}
+% \begin{figure}
+%     \centering
+%     \includestandalone[width=0.8\linewidth]{models_plot}
+%     \caption{Caption}
+%     \label{fig:my_label}
+% \end{figure}
+
+
+\newpage
+% \section{References}
+% \begin{itemize}
+%     \item[1] https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=\&arnumber=8930503
+%     \item[2] https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=\&arnumber=8687813
+%     \item[3] https://openaccess.thecvf.com/content\_cvpr\_2018/papers/Su\_SPLATNet\_Sparse\_Lattice\_CVPR\_2018\_paper.pdf
+%     \item[4] https://arxiv.org/pdf/1912.05905.pdf
+
+% \end{itemize}
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{biblio}
+\end{document}
