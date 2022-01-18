@@ -7,7 +7,7 @@ How random point sampling along with local feature aggregation module in RandLA-
 We also discuss about the deep ensembles for uncertinty quantification and, we conclude this chapter with the environment and training details for the RandLA-Net with deep ensembles.
 \section{RandLA-Net}
 As stated in \cite{Hu_2020_CVPR_Randla}, it is a light weight, and efficient neural network architecture for sematic segmentation of 3D point clouds.
-From related work section cite here, we can observe that the RandLA-Net architecture is best performing among the point models.
+From related work section \textcolor{red}{\textbf{refer section here}}, we can observe that the RandLA-Net architecture is best performing among the point models.
 Efficient computation, memory usage and a model with direct application o 3D points are the main motivation when developing the RandLA-Net.
 To acheive these goals, RandLA-Net employs random point sampling along with the local feature aggregation module.
 Authors in \cite{Hu_2020_CVPR_Randla} proved that by a successive application of random point sampling along with lcoal feature aggregation module effective reduce and extract the features of the large scale point clouds from a scale of $10^5$ to $10^2$.
@@ -129,8 +129,30 @@ where TP, TN, FP and FN are True Positives, True Negatives, False Positives and 
 This metric alone can be misleading in case of serious class imbalance.
 
 Here, we conclude the study of RandLA-Net, reason for its effective performance, argued the reasons to chose RandLA-Net and briefly discussed evaluation metrics used.
-In following sections we will discuss about the utilized uncertainty estimation methods such as deep ensembles,...... [complete this]
+In following sections we will discuss about the utilized uncertainty estimation methods such as deep ensembles, \textcolor{red}{\textbf{complete this}}
 
 \section{Deep ensembles}
+Deep ensembles employ kind of ensemble learning technique and proposed in \cite{lakshminarayanan2016simple}.
+Similar to bagging, here the idea is to train the same network with same data with random initializations N number of times.
+These N trained models converge similarly with little difference given the same trianing conditions and hyperparameters.
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{images/Ensembles.png}
+    \caption{Deep ensembles}
+    \label{fig:deepensembles}
+\end{figure}
+An example of deep ensemble is depicted in Figure \ref{fig:deepensembles}.
+Here the input point cloud is fed into N number of models, in our case these models are all RandLA-Net.
+The resulting predictions are combined to get the final prediction. 
+The combination is done by averaging over all the predictions of N models to get final predictions in our case.
+the detailed training algorithm is given in appendix \textcolor{red}{\textbf{cite appendix here}}.
+Deep ensembles are proven to improve the overall performance of the model as in \cite{bhandary2020evaluating} and we also expect same behaviour in our case.
 
+Inspite of their performance boosting ability, they are also used to esitamtie uncertainty as in \cite{lakshminarayanan2016simple}.
+With the increase in number of ensembles, the Negative Log-Likelihood (NLL) and Brier score goes down suggesting network produces well calibrated predictions.
+\cite{lakshminarayanan2016simple} also study the effect of entropy with out-of-distribution (OOD) classes.
+They performed the study on MNIST-NotMNIST, and SVHN-CIFAR10 with first dataset in pair being in distribution (ID) and second dataset is OOD dataset.
+Authors verified that the distribution of entropy on ID dataset is peaky and similarly the distribution of entropy on OOD dataset is more spread across all entropy values.
+We hypothesize, that similar performance is observed in 3D semantic segmentation as task of segmentation can be treated as multi class classification in a point cloud.
+Because of proven ability to classify OOD on classification task, boost the performance of the model and ease of implementation makes deep ensembles an ideal candidate for OOD detection in 3D semantic segmentation.
 \end{document}
