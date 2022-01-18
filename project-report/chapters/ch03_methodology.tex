@@ -94,10 +94,10 @@ In the next section we study the architecture of RandLA-Net.
 \subsection{RandLA-Net architecture}
 RandLA-Net is an encoder-decoder architecture with skip connections as used in various segmentation networks such as 3D U-Net\cite{wang2018two_3DUnet}.
 The input point clouds are directly applied to encoder consisting of Fully Connected (FC) and four Local Feature Aggragation (LFA) modules connected sequentially.
-The size of point cloud reduces by a factor of 4 for every encoder layer. 
+The size of point cloud reduces by a factor of four for every encoder layer. 
 Similarly four decoder layers are used and the input features maps to each decoder layer is upsampled and concatenated to respective encoder feature maps via skip connections.
 The MLP is applied and fed into next decoder layer.
-Output of final decoder layer is fed in to 3 FC layers for point classification and a dropout layer is added before last layer with a dropout rate of 0.5.
+Output of final decoder layer is fed in to three FC layers for point classification and a dropout layer is added before last layer with a dropout rate of 0.5.
 The detailed network architecture is illustrated in Figure \ref{fig:networkarchitecture}.
 
 
@@ -110,7 +110,27 @@ We chose RandLA-Net because of the following reasons:
     \item State of the art performance in point based methods, consisting of only Multi Layer Perceptrons (MLP) and without expensive operations such as kernalization or graph construction.
 \end{enumerate}
 
-Here, we conclude the study of RandLA-Net, reason for its effective performance and argued the reasons to chose RandLA-Net.
-In following sections we will discuss about the utilized uncertainty estimation methods such as deep ensembles,......
+\subsection{Evaluation metrics}
+To evaluate the performance of RandLA-Net over the training dataset (Semantic3D in our case) we chose two metrics.
+They are Mean Intersection-over-Union (mIoU) and Accuracy.
+
+\subsubsection{Mean Intersection-over-Union (mIoU)}
+Mean Intersection-over-Union is a widely used metric for performance evaluation in task of semantic segmentation.
+It is calculated as mean of fraction of intersection area between predicted and ground truth masks and union of predicted and ground truth masks.
+mIoU is calculated as
+$$mIoU=\frac{1}{N}\sum_{k=1}^N \frac{p_k\cap g_k}{p_k \cup g_k}$$
+where $N$ is the number of classes, $p_k$ and $g_k$ are predicted mask and ground truth mask of $k^{th}$ class.
+
+\subsubsection{Accuracy}
+Accuracy is another wide used metric, which can be quantified as number of points in the point cloud correctly classified.
+It can be formulated from confusion matrix as
+$$Accuracy = \frac{TP+TN}{TP+TN+FP+FN}$$
+where TP, TN, FP and FN are True Positives, True Negatives, False Positives and False Negatives respectively from the confusion matrix.
+This metric alone can be misleading in case of serious class imbalance.
+
+Here, we conclude the study of RandLA-Net, reason for its effective performance, argued the reasons to chose RandLA-Net and briefly discussed evaluation metrics used.
+In following sections we will discuss about the utilized uncertainty estimation methods such as deep ensembles,...... [complete this]
+
 \section{Deep ensembles}
+
 \end{document}
