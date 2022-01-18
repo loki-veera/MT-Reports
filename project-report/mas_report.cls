@@ -60,6 +60,7 @@
 \usepackage[titletoc]{appendix}
 \usepackage{setspace}
 \usepackage{subfiles}
+\usepackage{rotating}
 \usepackage{geometry}
 % \usepackage{showframe}
 \usepackage{subcaption}	% Required for sub-figures
