@@ -17,7 +17,8 @@ These traditional methods are now outdated as DNNs proved to better at feature e
 
 
 \begin{table}[h!]
-    \begin{tabular}{p{0.25\linewidth}  p{0.5\linewidth} p {0.05\linewidth} p{0.07\linewidth}}
+    \centering
+    \begin{tabular}{|p{0.15\linewidth} | p{0.6\linewidth}| p{0.06\linewidth} |p{0.08\linewidth}|}
         \hline
         Method & Summary & Type & \#Params \\
         \hline 
@@ -37,19 +38,34 @@ These traditional methods are now outdated as DNNs proved to better at feature e
         \hline
         SqueezesegV2\cite{SqueezeSegv2} & & Project & 1M \\
         \hline
-        RangeNet-21\cite{Milioto2019} & & Project & 25M \\
+        RangeNet-21\cite{Milioto2019} & 
+        Spherical projection based model with encoder-decoder style architecture with encoder being DarkNet21.
+        Introduced a better evaluation metric called borderIoU for occlusions.
+        & Project & 25M \\
         \hline
-        RangeNet-53\cite{Milioto2019}  & & Project & 50M \\
+        RangeNet-53\cite{Milioto2019}  & 
+        Architecturally similar to RangeNet-21, the only change is encoder which is DarkNet53.
+        No postprocessing is applied for occlusions or nonprojected points.
+        & Project & 50M \\
         \hline
-        RangeNet-53++\cite{Milioto2019} & & Project & 50M \\
+        RangeNet-53++\cite{Milioto2019} &
+        RangeNet-53++ architecture is same as RangeNet-53 but a post processing method of kNN is applied on output to label the occluded points or nonprojected points after reprojection from segmented 2D Spherical image to 3D points.
+        
+        & Project & 50M \\
         \hline
         SqueezesegV3\cite{xu2020squeezesegv3} & & Project & 0.92M \\
         \hline
-        RandLA-Net\cite{Hu_2020_CVPR_Randla} & & Point & 0.95M \\
+        RandLA-Net\cite{Hu_2020_CVPR_Randla} & 
+        Random points from input point cloud are sampled and fed into local feature aggregation (LFA) module for feature extraction.
+        These fetures are weighted and selected based on the attention score. 
+        Encoder-decoder style architecture with stacks of LFA as encoder and decoder is transponse convolutions for upsampling with MLP followed by fully connected layers for segmentation.
+        & Point & 0.95M \\
         \hline 
         3DMiniNet\cite{3Dmininet} & & Project & 4M \\
         \hline
-        SalsaNet\cite{salsanet2020} & & Project & 6.6M \\
+        SalsaNet\cite{salsanet2020} & Encoder-decoder style architecture with Bird-Eye-View projection as input and encoder consisting of ResNet blocks and decoder with transpose convolutions.
+        Unlabelled points in LiDAR are auto labelled from corresponding images. Claims SalsaNet is projection agnostic.
+        & Project & 6.6M \\
         \hline
         SalsaNext\cite{SalsaNext_2020} & & Project & 6.7M \\
         \hline
@@ -75,50 +91,5 @@ These traditional methods are now outdated as DNNs proved to better at feature e
 
 
 \newpage
-\section{Semantic3D}
-Semantic3D is a huge 3D benchmark point cloud classification dataset and classified as static dataset.
-The dataset consists of nearly 4 billion points which contain variety of scenes in urban and rural setting.
-These scenes are taken in places such as markets, dom, stations and fields collected in European streets with terrestrial lasers.
-Each point in the point cloud consists of geometric positions (x, y, and z), color (R, G, and B) and intensity values as features.
-Example point cloud scenes are provided in \textcolor{red}{\textbf{cite figure}}. 
 
-The dataset consits of 8 classes and they include
-\begin{enumerate}
-    \item man-made terrain - pavement
-    \item natural terrain - grass
-    \item high vegetation - large bushes and trees
-    \item low vegetation - flowers and bushes less than 2cm in height
-    \item buildings - stations, churches, cityhalls
-    \item hardscapes - garden walls, banks, fountains
-    \item scanning artificats - dynmically moving objects
-    \item cars
-\end{enumerate}
-The distribution of these calsses are given in Figure \ref{fig:sem3ddist}.
-From this graph, we can observe that the manmade terrain made most of the dataset because the lidar is placed on street during collection.
-As they are near to lidar and it is common with outdoor lidar datasets.
-The classes low vegetation, hardscapes, scanning artificats and cars have less number of training points and lower performance from the model on these classes are to be expected.
-Also according to \cite{hackel2017semantic3d}, scanning artifacts, cars and hardscapes are toughest classes becuase of variation in obejct shapes.
-\cite{survey3d} also proves that the Semantic3D is most diverse dataset in 3D LiDAR data compared to other datasets such as SemanticKITTI and SemanticPOSS.
-Becuase of these reasons, we considered using Semantic3D dataset as in distribution training data.
-The dataset is available to download on http://www.semantic3d.net/. 
-As this is an ongoing benchmark challenge, the labels for the testing data is not available.
-We made use of validation set for evaluation purpose which is a subset of trianing set.
-\begin{figure}[h!]
-    \centering
-    \includestandalone[width=0.6\linewidth]{images/Sem3d_points}
-    \caption{Distribution of training points in million per class in Semantic3D dataset.}
-    \label{fig:sem3ddist}
-\end{figure}
-
-\newpage
-\section{S3DIS}
-S3DIS is an indoor dataset making it an ideal OOD dataset candidatae becuase of the no class overlap with the Semantic3D dataset.
-It is only one of two datasets available in indoor LiDAR dataset candidataes. 
-The other is ScanObjectNN whose dataset is not available online.
-Dataset comprises of scans of three different buildings covering an 6020 square meters.
-These scans include areas such as personal offices, restrooms, open spaces, lobbies and hallways.
-The scans are generated using Matterport 3D scanner and can be seen in \textcolor{red}{\textbf{cite figure}}.
-S3DIS dataset is divided into 12 classes which are further divided into two subclasses.
-First subclass include structural elements which consist of \textit{ceiling, floor, window, wall, beam, columns and door}
-and latter subclass has common items such as \textit{table, sofa, chair, board and blackboard}.
 \end{document}

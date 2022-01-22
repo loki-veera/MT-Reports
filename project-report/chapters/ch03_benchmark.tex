@@ -1,0 +1,74 @@
+%!TEX root = ../report.tex
+
+\begin{document}
+    \chapter{Benchmarking}
+    \section{Semantic3D}
+Semantic3D is a huge 3D benchmark point cloud classification dataset and classified as static dataset.
+The dataset consists of nearly 4 billion points which contain variety of scenes in urban and rural setting.
+These scenes are taken in places such as markets, dom, stations and fields collected in European streets with terrestrial lasers.
+Each point in the point cloud consists of geometric positions (x, y, and z), color (R, G, and B) and intensity values as features.
+Example point cloud scenes are provided in Figure \ref{fig:sem3d_gt_vis}. 
+
+The dataset consits of 8 classes and they include
+\begin{enumerate}
+    \item man-made terrain - pavement
+    \item natural terrain - grass
+    \item high vegetation - large bushes and trees
+    \item low vegetation - flowers and bushes less than 2cm in height
+    \item buildings - stations, churches, cityhalls
+    \item hardscapes - garden walls, banks, fountains
+    \item scanning artificats - dynmically moving objects
+    \item cars
+\end{enumerate}
+The distribution of these calsses are given in Figure \ref{fig:sem3ddist}.
+From this graph, we can observe that the manmade terrain made most of the dataset because the lidar is placed on street during collection.
+As they are near to lidar and it is common with outdoor lidar datasets.
+The classes low vegetation, hardscapes, scanning artificats and cars have less number of training points and lower performance from the model on these classes are to be expected.
+Also according to \cite{hackel2017semantic3d}, scanning artifacts, cars and hardscapes are toughest classes becuase of variation in obejct shapes.
+\cite{survey3d} also proves that the Semantic3D is most diverse dataset in 3D LiDAR data compared to other datasets such as SemanticKITTI and SemanticPOSS.
+Becuase of these reasons, we considered using Semantic3D dataset as in distribution training data.
+The dataset is available to download on http://www.semantic3d.net/. 
+As this is an ongoing benchmark challenge, the labels for the testing data is not available.
+We made use of validation set for evaluation purpose which is a subset of trianing set.
+\begin{figure}[h!]
+    \centering
+    \includestandalone[width=0.6\linewidth]{images/Sem3d_points}
+    \caption{Distribution of training points in million per class in Semantic3D dataset.}
+    \label{fig:sem3ddist}
+\end{figure}
+
+\begin{figure}[h!]
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[scale=0.55]{images/legend.png}    
+    \end{subfigure}
+    \begin{subfigure}{0.9\textwidth}
+        \centering
+        \includegraphics[scale=0.3]{images/bildstein_1.png}
+        \caption{}    
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.28]{images/domfountain_3.png}
+        \caption{}
+    \end{subfigure} 
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.28, angle=90]{images/Untermaederbrunnen3.png}
+        \caption{}
+    \end{subfigure}
+    \caption{Illustration of various scenes in Semantic3D dataset}
+    \label{fig:sem3d_gt_vis}
+\end{figure}
+\newpage
+\section{S3DIS}
+S3DIS is an indoor dataset making it an ideal OOD dataset candidatae becuase of the no class overlap with the Semantic3D dataset.
+It is only one of two datasets available in indoor LiDAR dataset candidataes. 
+The other is ScanObjectNN whose dataset is not available online.
+Dataset comprises of scans of three different buildings covering an 6020 square meters.
+These scans include areas such as personal offices, restrooms, open spaces, lobbies and hallways.
+The scans are generated using Matterport 3D scanner and can be seen in \textcolor{red}{\textbf{cite figure}}.
+S3DIS dataset is divided into 12 classes which are further divided into two subclasses.
+First subclass include structural elements which consist of \textit{ceiling, floor, window, wall, beam, columns and door}
+and latter subclass has common items such as \textit{table, sofa, chair, board and blackboard}.
+\end{document}
