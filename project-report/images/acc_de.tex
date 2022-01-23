@@ -1,0 +1,70 @@
+% This file was created with tikzplotlib v0.9.17.
+\begin{tikzpicture}
+
+\begin{axis}[
+tick align=outside,
+tick pos=left,
+x grid style={white!69.0196078431373!black},
+xlabel={Ensemble size},
+xmajorgrids,
+xmin=0.0499999999999999, xmax=20.95,
+xtick style={color=black},
+xticklabel style={rotate=90},
+xtick={1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20},
+y grid style={white!69.0196078431373!black},
+ylabel={Accuracy},
+ymajorgrids,
+ymin=88.6885, ymax=90.7515,
+ytick={88.75, 89, 89.25, 89.5, 89.75, 90, 90.25, 90.5, 90.75},
+ytick style={color=black}
+]
+\addplot [draw=green!50!black, fill=green!50!black, mark=*, only marks]
+table{%
+x  y
+1 88.78
+2 90.16
+3 89.99
+4 89.92
+5 90.04
+6 90.06
+7 89.72
+8 90.26
+9 90.26
+10 89.94
+11 90.08
+12 90.39
+13 90.36
+14 89.94
+15 90.57
+16 90.61
+17 90.3
+18 90.47
+19 90.5
+20 90.56
+};
+\addplot [semithick, green!50!black]
+table {%
+1 88.78
+2 90.16
+3 89.99
+4 89.92
+5 90.04
+6 90.06
+7 89.72
+8 90.26
+9 90.26
+10 89.94
+11 90.08
+12 90.39
+13 90.36
+14 89.94
+15 90.57
+16 90.61
+17 90.3
+18 90.47
+19 90.5
+20 90.56
+};
+\end{axis}
+
+\end{tikzpicture}
