@@ -37,29 +37,21 @@ We made use of validation set for evaluation purpose which is a subset of triani
     \label{fig:sem3ddist}
 \end{figure}
 
-\begin{figure}[h!]
-    \begin{subfigure}{0.9\textwidth}
-        \centering
-        \includegraphics[scale=0.55]{images/legend.png}    
-    \end{subfigure}
-    \begin{subfigure}{0.9\textwidth}
-        \centering
-        \includegraphics[scale=0.3]{images/bildstein_1.png}
-        \caption{}    
-    \end{subfigure}
-    \begin{subfigure}{0.45\textwidth}
-        \centering
-        \includegraphics[scale=0.28]{images/domfountain_3.png}
-        \caption{}
-    \end{subfigure} 
-    \begin{subfigure}{0.45\textwidth}
-        \centering
-        \includegraphics[scale=0.28, angle=90]{images/Untermaederbrunnen3.png}
-        \caption{}
-    \end{subfigure}
-    \caption{Illustration of various scenes in Semantic3D dataset}
-    \label{fig:sem3d_gt_vis}
-\end{figure}
+
+%        \includegraphics[scale=0.55]{images/legend.png}    
+\begin{figure*}
+    \centering
+    \begin{tabular}{cc}
+        RGB & Ground truth \\
+        \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/sem3d_data/1.png} & \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/sem3d_data/1_gt.png}\\
+        \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/sem3d_data/2.png} & \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/sem3d_data/2_gt.png}\\
+        \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/sem3d_data/3.png} & \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/sem3d_data/3_gt.png}\\
+        \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/sem3d_data/4.png} & \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/sem3d_data/4_gt.png}\\
+        \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/sem3d_data/5.png} & \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/sem3d_data/5_gt.png}\\
+    \end{tabular}
+    \includegraphics[scale=0.65]{images/legend.png}
+    \caption{Illustration of point clouds in training and validation set with first column representing RGB colors of point cloud and second columns their ground truth colors with legend given in last image.}
+\end{figure*}
 \newpage
 \section{S3DIS}
 S3DIS is an indoor dataset making it an ideal OOD dataset candidatae becuase of the no class overlap with the Semantic3D dataset.

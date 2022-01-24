@@ -61,6 +61,7 @@
 \usepackage{setspace}
 \usepackage{subfiles}
 \usepackage{rotating}
+\usepackage{longtable}
 \usepackage{geometry}
 % \usepackage{showframe}
 \usepackage{subcaption}	% Required for sub-figures
