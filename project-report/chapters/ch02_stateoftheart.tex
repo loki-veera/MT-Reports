@@ -269,5 +269,18 @@ Finally, graph neural networks are out of the scope for this project and will no
     Finally, all the above discussed ensmeble models can be group under sampling based methods, because each image is passed to mulitple model instances.    
 
     \subsection{Bayesian methods}
+    Existing neural networks are trained in maximum likelihood manner resulting in a point estimates for the weights.
+    The main idea behind bayesian neural networks are to use a distribution over the network parameters.
+    That is instead of single fixed weight tesnor for a layer in neural network, a weight tensor is drawn from the distribution for each forward pass.
+    The parameters are estimated for input during training by using bayes rule and expressed in Equation \textcolor{red}{cite eq here}.
+    $$p(\theta|x, y) = \frac{p(y|x, \theta)p(\theta)}{p(y|x)} = \frac{p(y|x, \theta)p(\theta)}{\int p(y|x, \theta) p(\theta) d\theta}$$
+    Here $\theta$ represents network parameters (weights), $p(\theta)$ represents prior distribution over $\theta$, and x and y represents the input data, in our case point cloud and its corresponding semantic point labels
+    During inference, the labels are calculated by bayesian model averaging as given in below equation.
+    $$p(y_t|x_t, x, y) = \int p(y_t|x_t, \theta)p(\theta|x, y)d\theta$$
+    Here $\theta$ represents trained network parameters, x and y represents training set, and $x_t$ and $y_t$ represents the test set.
+    The integral in the Equation \textcolor{red}{cite eq here} cannont be computed because $\theta$ is the continous space and so iterating over all possible values of $\theta$ are not feasible.
+    So to disretize this continous space of $\theta$, there exists various sampling methods such as Variational Inference (VI), Monte Carlo approximation, and Laplace approxoimation.
+
+    \textcolor{red}{Read and write about Variational Inference, Monte Carlo approximation and laplace approximation here}
     \section{Out-of-distribution (OOD) detection methods}
 \end{document}
