@@ -241,6 +241,33 @@ Finally, graph neural networks are out of the scope for this project and will no
     Detailed reasons and explanation about RandLA-Net is discussed in Section \textcolor{red}{cite here}.
 
     \section{Uncertainty estimation methods}
-    In this section, we will discuss about the existing uncertainty methods such as
+    In this section we will discuss about existing methods to estimate uncertainty in deep neural networks.
+    Here we divide the existing methods into ensemble methods, bayesian method and others.
+    The methods discussed here mostly estimate epistemic uncertainty only test time augmentation and gaussian density models estimate aleatoric unceratinty.
+    \subsection{Ensemble methods}
+    Deep ensembles first proposed in  \cite{lakshminarayanan2016simple} are the most prominently used methods for the uncertainty estimation.
+    They exploit the combinatory power of multiple models. Each input is fed into a model with multiple instances and the each instance of the model is initalized randomly.
+    This leads to slightly different optimization for each of the instance of the model. The final output scores from each model are combined by simple averaging.
+    Deep ensembles are known to improve overall performance of the model but comes with a cost of computational complexity and resource intensiveness.
+    Another advantage of using deep ensembled are the lowest correaltion between the model instances as the training of the instances are done differently.
+    This lower correlation figures lead to diverse prediction from each model instance.
+    In detailed explantion about deep ensembles can be found in Chapter \textcolor{red}{cite} Section \textcolor{red}{cite}.
+
+    Because of the higher computational complexity and resource intensiveness, multiple flavours of the deep ensembles are proposed such as deep sub-ensembles \textcolor{red}{cite} and masksembles \textcolor{red}{cite}.
+    In deep sub-ensembles, the network is divided into two parts called trunk and head.
+    The main idea here is to train multiple instances of the head with the same trunk. For example, a trunk can be feature extraction layers in a deep classification network and the head can be the classification layers.
+    Since the major motivation of the subensembles is to improve the training speed the performance lacks minutely when compared to deep ensembles as it is a tradeoff between the computational time and quality of uncertainty.
+    Masksembles proposed in \textcolor{red}{cite} are realtively new and are a combination of deep ensembles with MC-Dropout.
+    Dropout proposed in \textcolor{red}{cite} includes dropping of random neurons where as here a predefined mask is stated for each layer and only those certain neurons are to be dropped everytime.
+
+    Other methods include snapshot ensembles \textcolor{red}{cite} which iterates over the multiple local optima in the optimization landscape using cyclic learning rate. 
+    The model parameters are saved at each of the local optima. 
+    All of the other flavors of deep ensembles are proposed in order to reduce the effect on time but the memory requirements remain mostly the same except the subensembles.
+    The other problem with snapshot ensembles are the optimization landscape in deep neural networks are poorly studied, so there one cannot say with certainty that model saved at two local minima are uncorrelated.
+    There also exists neural ensemble search \textcolor{red}{cite} where the nerual archiecture search is applied over the ensembles.
+    Instead of using various instances of the same model, authors in \textcolor{red}{cite above paper} use vaiours instances of various models in the archiecture search space.
+    Finally, all the above discussed ensmeble models can be group under sampling based methods, because each image is passed to mulitple model instances.    
+
+    \subsection{Bayesian methods}
     \section{Out-of-distribution (OOD) detection methods}
 \end{document}

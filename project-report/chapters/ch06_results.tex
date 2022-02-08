@@ -10,9 +10,10 @@
         \item Train and evaluate the deep ensembles of RandLA-Net on Semantic3D dataset and discussed in Section \ref{sec:deepensemble_train}.
     \end{enumerate}
 
+    %%%%%% Deep ensmebles performance gains experiment %%%%%%
     \section{Deep ensembles}
     \label{sec:deepensemble_train}
-    \textbf{Procedure:} Train multiple models of RandLA-Net with random initializations on Semantic3D dataset and combine the results from the get combined prediction. 
+    \textbf{Aim:} Train multiple models of RandLA-Net with random initializations on Semantic3D dataset and combine the results from the get combined prediction. 
     These models are evlauated using mean Intersection-over-Union (mIOU) and Accuracy.
 
     \begin{table}[h!]
@@ -50,12 +51,38 @@
         \caption{Evaluation results of the deep ensemble of RandLA-Het on Semantic3D dataset with (a) representing the meanIoU over ensemble size and (b) representing accuracy over ensemble size.}
     \end{figure}
 
+ 
+
+    %%%%%% Segmentation output here %%%%%%
+    $$
+    \text{\centering \Large\textbf{\textcolor{red}{Place the segmentation output here}}}
+    $$
+    %%%%%% Segmentation output here %%%%%%
+    
     \textbf{Conclusions:}
     From this experiment, we draw the following conclusions 
     \begin{itemize}
         \item Deep ensembles improved the overall performance of the model significantly in terms of mIoU and Accuracy.
         \item Figure \ref{fig:sem3ddist} depicts low training points size for classes low vegetation, hardscapes, scanning artifacts and cars. Because of this classes low vegetation and hardscapes show less mIoU but use of deep ensembles improved their performance significantly.
         \item Eventhough cars are underrepresented in number of training points, efficient feature extraction of RandLA-Net helps in better segmentation of cars. As this is the same case in SemanticKITTI evaluation proposed in \cite{Hu_2020_CVPR_Randla}.
-        \item From Figure \ref{fig:meaniou_de}, the performance gains after the ensemble size of 10 is minimal.
+        \item From Figure \ref{fig:meaniou_de}, the performance gains in terms of mIOU after the ensemble size of 10 is minimal.
     \end{itemize}
+
+    %%%%%% Maximum probability (Semantic3D vs S3DIS) %%%%%%
+    \section{Probability-Semantic3D vs S3DIS}
+    \label{sec:prob_sem3dvs3dis}
+    \textbf{Aim: } In this experiment, we study how the probability scores are distributed in Semantic3D and S3DIS datasets which are ID and OOD datasets respectively.
+    \begin{figure}[htbp]
+        \begin{subfigure}{0.54\textwidth}
+            \includestandalone[scale=0.9]{images/mean_prob_sem3dvs3dis}
+            \caption{}
+            \label{fig:prob_sem3dvs3dis}    
+        \end{subfigure}
+        \begin{subfigure}{0.45\textwidth}
+            \includegraphics[scale=0.33]{images/violin_in_Max_predicted_probability.png}
+            \caption{}
+            \label{fig:13_sem3dvs3dis}
+        \end{subfigure}
+    \end{figure}
+
 \end{document}
