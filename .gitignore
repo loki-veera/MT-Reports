@@ -5,3 +5,10 @@
 /project-proposal/*.blg
 /project-proposal/*.log
 /project-proposal/*.gz
+/project-report/images/*.tex
+/project-report/images/Entropy_sem3dVs3dis_AUROC.tex
+/project-report/*.aux
+/project-report/*.bbl
+/project-report/*.blg
+/project-report/*.log
+/project-report/*.gz

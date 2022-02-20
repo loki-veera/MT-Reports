@@ -54,11 +54,64 @@
  
 
     %%%%%% Segmentation output here %%%%%%
-    $$
-    \text{\centering \Large\textbf{\textcolor{red}{Place the segmentation output here}}}
-    $$
+    %$$
+    %\text{\centering \Large\textbf{\textcolor{red}{Place the segmentation output here}}}
+    %$$
+    \begin{figure*}[h!]
+        \begin{tabular}{ccc}
+            RGB & Ground Truth & Prediction \\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_RGB.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_GT.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_Pred.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/2_RGB.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/2_GT.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/2_Pred.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/3_RGB.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/3_GT.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/3_Pred.png}\\
+        \end{tabular}
+        \includegraphics[scale=0.65]{images/legend.png}
+        \caption{Output predictions of the RandLA-Net over the Semantic3D dataset.}
+    \end{figure*}
+    \begin{figure*}
+        \centering
+        \begin{tabular}{cc}
+            RGB & Prediction \\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_1_RGB.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_1_Pred.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_2_RGB.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_2_Pred.png}\\
+            
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_3_RGB.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_3_Pred.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_4_RGB.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_4_Pred.png}\\
+        \end{tabular}
+        \includegraphics[scale=0.65]{images/legend.png}
+        \caption{Output predictions of the RandLA-Net over the S3DIS dataset.}
+    \end{figure*}
     %%%%%% Segmentation output here %%%%%%
     
+    %%%%%% Ensembles output here %%%%%%
+    \begin{figure*}[h!]
+        \begin{tabular}{cccc}
+            1 & 5 & 10 \\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/deep_ensembles/1_1.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/deep_ensembles/1_5.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/deep_ensembles/1_10.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/deep_ensembles/2_1.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/deep_ensembles/2_5.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/deep_ensembles/2_10.png}\\
+        \end{tabular}
+        \includegraphics[scale=0.65]{images/legend.png}
+        \caption{Deep ensembles performance on RandLA-Net over the Semantic3D dataset.}
+    \end{figure*}
+    %%%%%% Ensembles output here %%%%%%
     \textbf{Conclusions:}
     From this experiment, we draw the following conclusions 
     \begin{itemize}
@@ -72,7 +125,7 @@
     \section{Probability-Semantic3D vs S3DIS}
     \label{sec:prob_sem3dvs3dis}
     \textbf{Aim: } In this experiment, we study how the probability scores are distributed in Semantic3D and S3DIS datasets which are ID and OOD datasets respectively.
-    \begin{figure}[htbp]
+    \begin{figure}[h!]
         \begin{subfigure}{0.54\textwidth}
             \includestandalone[scale=0.9]{images/mean_prob_sem3dvs3dis}
             \caption{}
@@ -83,6 +136,110 @@
             \caption{}
             \label{fig:13_sem3dvs3dis}
         \end{subfigure}
+        \caption{Plots depicting how probability score with ensemble size \ref{fig:prob_sem3dvs3dis} representing average probability score and how does it change with ensemble size, \ref{fig:13_sem3dvs3dis} depicting the distribution of the probability scores.}
     \end{figure}
 
+    \begin{figure*}[h!]
+        \centering
+        \begin{tabular}{ccc}
+            Ground Truth & Prediction & Probaility score \\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_GT.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_max_prob.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/2_GT.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/2_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/2_max_prob.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/3_GT.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/3_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/3_max_prob.png}\\
+        \end{tabular}
+        \includegraphics[scale=0.213]{images/color_legend.pdf}
+        \includegraphics[scale=0.65]{images/legend.png}
+        \caption{Perpoint probability visualization of the semantic3D dataset.}
+    \end{figure*}
+
+    \begin{figure*}[h!]
+        \centering
+        \begin{tabular}{cc}
+            Prediction & Probaility score \\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_1_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_1_prob.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_2_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_2_prob.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_3_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_3_prob.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_4_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_4_prob.png}\\
+        \end{tabular}
+        \includegraphics[scale=0.213]{images/color_legend.pdf}
+        \includegraphics[scale=0.65]{images/legend.png}
+        \caption{Perpoint probability visualization of the S3DIS dataset.}
+    \end{figure*}
+
+    \begin{figure}[h!]
+        \centering
+        \includestandalone[scale=1.2]{images/Max_probs_sem3dVs3dis_AUROC}
+        \caption{ROC plots and AUROC scores for maximum probability in semantic3D vs S3DIS}
+        \label{fig:AUROC_Prob_Sem3dvs3dis}
+    \end{figure}
+    %%%%%% Entropy (Semantic3D vs S3DIS) %%%%%%
+    \section{Entropy-Semantic3D vs S3DIS}
+    \label{sec:ent_sem3dvs3dis}
+    \begin{figure}[h!]
+        \centering
+        \includestandalone[scale=1.2]{images/entropy_sem3dvs3dis}
+        \caption{Plots depicting how entropy changes with ensemble size}
+        \label{fig:entropy_sem3dvs3dis}
+    \end{figure}
+    \begin{figure*}[h!]
+        \begin{tabular}{ccc}
+            Ground Truth & Prediction & Entropy score \\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_GT.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_Entropy.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/2_GT.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/2_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/2_Entropy.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/3_GT.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/3_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/3_Entropy.png}\\
+        \end{tabular}
+        \includegraphics[scale=0.213]{images/color_legend.pdf}
+        \includegraphics[scale=0.65]{images/legend.png}
+        \caption{Perpoint entropy visualization of the semantic3D dataset.}
+    \end{figure*}
+
+    \begin{figure*}[h!]
+        \centering
+        \begin{tabular}{cc}
+            Prediction & Entropy score \\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_1_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_1_Entropy.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_2_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_2_Entropy.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_3_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_3_Entropy.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_4_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_4_Entropy.png}\\
+        \end{tabular}
+        \includegraphics[scale=0.213]{images/color_legend.pdf}
+        \includegraphics[scale=0.65]{images/legend.png}
+        \caption{Perpoint entropy visualization of the S3DIS dataset.}
+    \end{figure*}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[scale=0.65]{images/entropy_sem3dvs3dis_AUROC.pdf}
+        \caption{ROC plots and AUROC scores for entropy in semantic3D vs S3DIS}
+        \label{fig:AUROC_Ent_Sem3dvs3dis}
+    \end{figure}
 \end{document}

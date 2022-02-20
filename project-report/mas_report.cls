@@ -50,7 +50,7 @@
 \usetikzlibrary{patterns}
 \usepackage{pgfplots}
 \usepackage[mode=buildnew]{standalone}
-
+\usepackage[section]{placeins}
 \usepackage[numbers,sort&compress]{natbib}\citeindextrue % Round brackets around citations, change to square for square brackets
 \usepackage{graphicx} % Required to include images
 \usepackage{amsmath,amssymb,theorem} % Math packages

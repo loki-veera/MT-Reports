@@ -279,8 +279,60 @@ Finally, graph neural networks are out of the scope for this project and will no
     $$p(y_t|x_t, x, y) = \int p(y_t|x_t, \theta)p(\theta|x, y)d\theta$$
     Here $\theta$ represents trained network parameters, x and y represents training set, and $x_t$ and $y_t$ represents the test set.
     The integral in the Equation \textcolor{red}{cite eq here} cannont be computed because $\theta$ is the continous space and so iterating over all possible values of $\theta$ are not feasible.
-    So to disretize this continous space of $\theta$, there exists various sampling methods such as Variational Inference (VI), Monte Carlo approximation, and Laplace approxoimation.
+    So to acheive tractable $\theta$, there exists various  approximation methods such as Variational Inference (VI), Laplace approxoimation and sampling methods such as Monte Carlo sampling.
 
-    \textcolor{red}{Read and write about Variational Inference, Monte Carlo approximation and laplace approximation here}
+    VI is a approximation method where the posterior probability $p(\theta|x, y)$ is approximated by specific distribtions represented by $q(\theta)$.
+    Kullback-Liebler Divergence (KLD) is used as a measure to calculate the difference between the two distributions. 
+    Since KLD cannot be optimized directly becuase of posterior distribution, a function called Evidence Lower BOund (ELBO) similar to KLD is proposed.
+    \textcolor{red}{cite} representes the $q(\theta)$ as a gaussian approximation and \textcolor{red}{cite} proposed bayes by backprop to extend stochastic VI for non gaussian priors.
+    \textcolor{red}{cite} provides stochastic variational inference that is ELBO loss over mini-batch of data and also assumed the network parameter priors are to be gaussian.
+    \textcolor{red}{cite} makes use of reparameterization trick for reduction in variance in gradients. This lead to reformulation of ELBO loss which made it compatible to standard backpropogation.
+    \textcolor{red}{Talk about normalizing flows.}
+
+    Another widely known example for VI is Monte Carlo Dropout (MC-Dropout), in which the dropout layers are reformanulated as random variables with Bernoulli distribtion.
+    and as in \textcolor{red}{cite here and swaroop work} that training with dropout layers can be formulated as VI and predictive uncertainty can be calculated during inference by applying MC-Dropout during inference.
+    The other flavour of MC-Dropout is the random incoming activations to the node are dropped instead of nodes themselves and this methods is called Monte Carlo Dropconnect (MC-Dropconnect) as proposed in \textcolor{red}{cite}.
+    An example of MC-Dropout and MC-Dropconnect is depecited in Figure \textcolor{red}{cite}.
+    \begin{figure}[htbp]
+        \begin{subfigure}{0.33\textwidth}
+            \centering
+            \includegraphics[scale=0.33]{images/BaseNW_SOTA.png}
+            \caption{}
+        \end{subfigure}
+        \begin{subfigure}{0.33\textwidth}
+            \centering
+            \includegraphics[scale=0.33]{images/Dropout_SOTA.png}
+            \caption{}
+            \label{fig:SOTA_Dropout}
+        \end{subfigure}
+        \begin{subfigure}{0.33\textwidth}
+            \centering
+            \includegraphics[scale=0.33]{images/DConnect_SOTA.png}
+            \caption{}
+            \label{fig:SOTA_Dconnect}
+        \end{subfigure}
+        \caption{Images taken from \textcolor{red}{cite}}
+    \end{figure}
+
+    Another method for estimating uncertinty is flipout as proposed in \textcolor{red}{cite}.
+    Although flipout was proposed to decorrelate gradients in a minibatch by sampling independent weight perturbations for each example, it is used for variational inference as in \textcolor{red}{cite}.
+    Sampling methods also called as Monte Carlo methods (not to be confused to Monte Carlo Dropout or Monte Carlo Dropconnect) estimate uncertainty without any approximation of parametric model.
+    The most popular method in the category of sampling methods is Markov Chain Monte Carlo (MCMC) sampling proposed in \textcolor{red}{cite}.
+    Hamiltonian Monte Carlo (HMC) is an another variant of MCMC method and is considered as gold standard algorithm for Bayesian inference as stated in \textcolor{red}{cite}.
+    Laplace approximaiton methods make use of second order Tayler series approximation to estimate $p(\theta|x, y)$.
+    Uncertianty in the laplace approximation methods is calculated by taking Hessian matrix of $log(p(\theta|x, y))$ and can be applied to existing trained neural networks as in \textcolor{red}{cite}.
+    Sampling methods and laplace approimation methods arenot studied because the former is computationally expensive and later suffers from infeasibility to compute Hessian matrix for deep neural networks.
+    
+    
+    
     \section{Out-of-distribution (OOD) detection methods}
+    In this section, we will discuss about the existing OOD detection methods for 2D classification and 2D semantic segmentation.
+    To the best of our knowledge, ours is the first work to study OOD detection for the task of 3D semantic segmentation.
+    \subsection{OOD detection methods in 2D classification:}
+    
+    \textcolor{red}{TODO:}
+    \begin{enumerate}
+        \item \textcolor{red}{Form the Story}
+        \item \textcolor{red}{Write it out}
+    \end{enumerate}
 \end{document}
