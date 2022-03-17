@@ -1,7 +1,7 @@
 %!TEX root = ../report.tex
 
 \begin{document}
-    \chapter{Benchmarking}
+    \chapter{Datasets and Benchmarking}
     \section{Semantic3D}
 Semantic3D is a huge 3D benchmark point cloud classification dataset and classified as static dataset.
 The dataset consists of nearly 4 billion points which contain variety of scenes in urban and rural setting.
@@ -57,10 +57,11 @@ We made use of validation set for evaluation purpose which is a subset of triani
 S3DIS is an indoor dataset making it an ideal OOD dataset candidatae becuase of the no class overlap with the Semantic3D dataset.
 It is only one of two datasets available in indoor LiDAR dataset candidataes. 
 The other is ScanObjectNN whose dataset is not available online.
-Dataset comprises of scans of three different buildings covering an 6020 square meters.
+S3DIS dataset comprises of scans of three different buildings covering an 6020 square meters.
 These scans include areas such as personal offices, restrooms, open spaces, lobbies and hallways.
 The scans are generated using Matterport 3D scanner and can be seen in \textcolor{red}{\textbf{cite figure}}.
 S3DIS dataset is divided into 12 classes which are further divided into two subclasses.
 First subclass include structural elements which consist of \textit{ceiling, floor, window, wall, beam, columns and door}
 and latter subclass has common items such as \textit{table, sofa, chair, board and blackboard}.
+Along with ShapeNet dataset, S3DIS is also one of the most evaluated dataset in indoor setting for semantic segmentation  using in \textcolor{red}{cite S3DIS papers here} whereas ShapeNet is used for part segmentation.
 \end{document}

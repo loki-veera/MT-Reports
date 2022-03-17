@@ -242,4 +242,38 @@
         \caption{ROC plots and AUROC scores for entropy in semantic3D vs S3DIS}
         \label{fig:AUROC_Ent_Sem3dvs3dis}
     \end{figure}
+
+
+
+
+    \section{Flipout Vs Ensembles comparison}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[scale=0.65]{images/EnsembleVsFlipout_Probs.pdf}
+    \end{figure}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[scale=0.65]{images/EnsembleVsFlipout_Entropy.pdf}
+    \end{figure}
+    
+    \begin{figure}[h!]
+        \begin{subfigure}{0.495\textwidth}
+            \includegraphics[scale=0.35]{images/ensemble_probability_sem3dvs3dis_AUROC.pdf}
+        \end{subfigure}
+        \begin{subfigure}{0.495\textwidth}
+            \includegraphics[scale=0.35]{images/flipout_probability_sem3dvs3dis_AUROC.pdf}
+        \end{subfigure}
+        \caption{Ensmeble Vs Flipout - Probability scores}
+    \end{figure}
+
+    \begin{figure}[h!]
+        \begin{subfigure}{0.495\textwidth}
+            \includegraphics[scale=0.35]{images/ensemble_entropy_sem3dvs3dis_AUROC.pdf}
+        \end{subfigure}
+        \begin{subfigure}{0.495\textwidth}
+            \includegraphics[scale=0.35]{images/flipout_entropy_sem3dvs3dis_AUROC.pdf}
+        \end{subfigure}
+        \caption{Ensemble Vs Flipout - Entropy scores}
+    \end{figure}
+
 \end{document}
