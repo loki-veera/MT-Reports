@@ -326,10 +326,25 @@ Finally, graph neural networks are out of the scope for this project and will no
     
     
     \section{Out-of-distribution (OOD) detection methods}
-    In this section, we will discuss about the existing OOD detection methods for 2D classification and 2D semantic segmentation.
+    In this section, we will discuss about the existing OOD detection methods for 2D classification task and 2D semantic segmentation task.
     To the best of our knowledge, ours is the first work to study OOD detection for the task of 3D semantic segmentation.
-    \subsection{OOD detection methods in 2D classification:}
-    
+
+    The most widely used benchmarked datasets used for 2D classficiation dataset are CIFAR-10 vs SVHN \textcolor{red}{cite}, CIFAR-10 vs LSUN \textcolor{red}{cite}, abd MNIST vs Fashion-MNIST \textcolor{red}{cite}. 
+    Most of the proposed methods for OOD detection in classification tasks are threshold based methods.
+    These methods employ a threshold based detector and does not see the OOD data during the training.
+    The baseline method for threshold based methods is proposed in \textcolor{red}{cite}.
+    \textcolor{red}{cite} uses Maximum Softmax Probability (MSP) and argues that in distribtion dataset have higher softmax score and out of distribtion dataset have lower softmax score and computed as in Equation~\ref{eq:SMSP} where $f_i(x)$ is the output of neural network.
+    Since the softmax scores can be overconfident \textcolor{red}{cite} proposed Out of DIstribution detector for Neural networks (ODIN) which makes use of calibrated softmax score by addition of temperature constant to softmax scores and computed as in Equation~\ref{eq:SODIN} where $f_i(x)$ is the output of neural network and $T$ is the temperature constant for calibrated softmax scores.
+    In addition to calibrated softmax scores, ODIN also adds noise perturbations to the input making the training adversarial.
+    ODIN needs access to the OOD samples because the finetuning of perturbation magnitude is made based on these samples.
+    \begin{equation}
+        S_{MSP}(x) = max_i \frac{exp(f_i(x))}{\sum^{C}_{j=1}exp(f_j(x))}  \label{eq:SMSP}
+    \end{equation}
+    \begin{equation}
+        S_{ODIN}(x) = max_i \frac{exp(f_i(x)/T)}{\sum^{C}_{j=1}exp(f_j(x)/T)}  \label{eq:SODIN}
+    \end{equation}
+    \textcolor{red}{cite} has proposed a threshold based OOD detection method using the Mahalanobis distance as confidence score.
+    The mahalanonis distance is calculated for every layer of the network and these individual Mahalanobis scores are combined to get confidence score.
     \textcolor{red}{TODO:}
     \begin{enumerate}
         \item \textcolor{red}{Form the Story}
