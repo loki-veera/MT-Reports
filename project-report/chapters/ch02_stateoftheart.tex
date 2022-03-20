@@ -241,58 +241,64 @@ Finally, graph neural networks are out of the scope for this project and will no
     Detailed reasons and explanation about RandLA-Net is discussed in Section \textcolor{red}{cite here}.
 
     \section{Uncertainty estimation methods}
-    In this section we will discuss about existing methods to estimate uncertainty in deep neural networks.
-    Here we divide the existing methods into ensemble methods, bayesian method and others.
-    The methods discussed here mostly estimate epistemic uncertainty only test time augmentation and gaussian density models estimate aleatoric unceratinty.
+    This section will discuss existing methods to estimate uncertainty in deep neural networks.
+    Here we divide the existing methods into ensemble methods, Bayesian method and others.
+    The methods discussed here primarily estimate epistemic uncertainty. Only test time augmentation and gaussian density models estimate aleatoric uncertainty.
     \subsection{Ensemble methods}
-    Deep ensembles first proposed in  \cite{lakshminarayanan2016simple} are the most prominently used methods for the uncertainty estimation.
-    They exploit the combinatory power of multiple models. Each input is fed into a model with multiple instances and the each instance of the model is initalized randomly.
-    This leads to slightly different optimization for each of the instance of the model. The final output scores from each model are combined by simple averaging.
-    Deep ensembles are known to improve overall performance of the model but comes with a cost of computational complexity and resource intensiveness.
-    Another advantage of using deep ensembled are the lowest correaltion between the model instances as the training of the instances are done differently.
-    This lower correlation figures lead to diverse prediction from each model instance.
+    Deep ensembles first proposed in  \cite{lakshminarayanan2016simple} is the most prominently used method for uncertainty estimation.
+    They exploit the combinatory power of multiple models.
+    Multiple instances of the model are initialized randomly, and the same input is fed into all the instances.
+    The random initialization leads to slightly different optimization for each model instance. The final output scores from each model are combined by simple averaging.
+    Deep ensembles are known to improve the model's overall performance but come with a cost of computational complexity and resource intensiveness.
+    Another advantage of using deep ensembled are the lowest correlation between the model instances as the training of the instances are done differently.
+    These lower correlation figures lead to the diverse predictions from each model instance.
     In detailed explantion about deep ensembles can be found in Chapter \textcolor{red}{cite} Section \textcolor{red}{cite}.
+\textcolor{red}{Grammarly checkpoint}
 
-    Because of the higher computational complexity and resource intensiveness, multiple flavours of the deep ensembles are proposed such as deep sub-ensembles \textcolor{red}{cite} and masksembles \textcolor{red}{cite}.
+    Because of the higher computational complexity and resource intensiveness, multiple flavours of the deep ensembles are proposed such as deep sub-ensembles \cite{deep_subensembles} and masksembles \cite{masksembles}.
     In deep sub-ensembles, the network is divided into two parts called trunk and head.
     The main idea here is to train multiple instances of the head with the same trunk. For example, a trunk can be feature extraction layers in a deep classification network and the head can be the classification layers.
     Since the major motivation of the subensembles is to improve the training speed the performance lacks minutely when compared to deep ensembles as it is a tradeoff between the computational time and quality of uncertainty.
-    Masksembles proposed in \textcolor{red}{cite} are realtively new and are a combination of deep ensembles with MC-Dropout.
-    Dropout proposed in \textcolor{red}{cite} includes dropping of random neurons where as here a predefined mask is stated for each layer and only those certain neurons are to be dropped everytime.
+    Masksembles proposed in \cite{masksembles} are realtively new and are a combination of deep ensembles with MC-Dropout.
+    Dropout proposed in \cite{Dropout} includes dropping of random neurons where as here a predefined mask is stated for each layer and only those certain neurons are to be dropped everytime.
 
-    Other methods include snapshot ensembles \textcolor{red}{cite} which iterates over the multiple local optima in the optimization landscape using cyclic learning rate. 
+    Other methods include snapshot ensembles \cite{snapshot_ensembles} which iterates over the multiple local optima in the optimization landscape using cyclic learning rate. 
     The model parameters are saved at each of the local optima. 
     All of the other flavors of deep ensembles are proposed in order to reduce the effect on time but the memory requirements remain mostly the same except the subensembles.
     The other problem with snapshot ensembles are the optimization landscape in deep neural networks are poorly studied, so there one cannot say with certainty that model saved at two local minima are uncorrelated.
-    There also exists neural ensemble search \textcolor{red}{cite} where the nerual archiecture search is applied over the ensembles.
-    Instead of using various instances of the same model, authors in \textcolor{red}{cite above paper} use vaiours instances of various models in the archiecture search space.
+    There also exists neural ensemble search \cite{NAS_Ensembles} where the nerual archiecture search is applied over the ensembles.
+    Instead of using various instances of the same model, authors in \cite{NAS_Ensembles} use vaiours instances of various models in the archiecture search space.
+    \textcolor{red}{Need refactoring a bit}
     Finally, all the above discussed ensmeble models can be group under sampling based methods, because each image is passed to mulitple model instances.    
 
     \subsection{Bayesian methods}
     Existing neural networks are trained in maximum likelihood manner resulting in a point estimates for the weights.
     The main idea behind bayesian neural networks are to use a distribution over the network parameters.
     That is instead of single fixed weight tesnor for a layer in neural network, a weight tensor is drawn from the distribution for each forward pass.
-    The parameters are estimated for input during training by using bayes rule and expressed in Equation \textcolor{red}{cite eq here}.
-    $$p(\theta|x, y) = \frac{p(y|x, \theta)p(\theta)}{p(y|x)} = \frac{p(y|x, \theta)p(\theta)}{\int p(y|x, \theta) p(\theta) d\theta}$$
+    The parameters are estimated for input during training by using bayes rule and expressed in Equation~\ref{eq:bayes_1}.
+    \begin{equation}
+        p(\theta|x, y) = \frac{p(y|x, \theta)p(\theta)}{p(y|x)} = \frac{p(y|x, \theta)p(\theta)}{\int p(y|x, \theta) p(\theta) d\theta} \label{eq:bayes_1}
+    \end{equation}
     Here $\theta$ represents network parameters (weights), $p(\theta)$ represents prior distribution over $\theta$, and x and y represents the input data, in our case point cloud and its corresponding semantic point labels
-    During inference, the labels are calculated by bayesian model averaging as given in below equation.
-    $$p(y_t|x_t, x, y) = \int p(y_t|x_t, \theta)p(\theta|x, y)d\theta$$
+    During inference, the labels are calculated by bayesian model averaging as given in below Equation~\ref{eq:bayes_2}.
+    \begin{equation}
+        p(y_t|x_t, x, y) = \int p(y_t|x_t, \theta)p(\theta|x, y)d\theta \label{eq:bayes_2}  
+    \end{equation}
     Here $\theta$ represents trained network parameters, x and y represents training set, and $x_t$ and $y_t$ represents the test set.
-    The integral in the Equation \textcolor{red}{cite eq here} cannont be computed because $\theta$ is the continous space and so iterating over all possible values of $\theta$ are not feasible.
+    The integrals in the Equations~\ref{eq:bayes_1} and \ref{eq:bayes_2} cannont be computed because $\theta$ is the continous space and so iterating over all possible values of $\theta$ are not feasible.
     So to acheive tractable $\theta$, there exists various  approximation methods such as Variational Inference (VI), Laplace approxoimation and sampling methods such as Monte Carlo sampling.
 
     VI is a approximation method where the posterior probability $p(\theta|x, y)$ is approximated by specific distribtions represented by $q(\theta)$.
     Kullback-Liebler Divergence (KLD) is used as a measure to calculate the difference between the two distributions. 
     Since KLD cannot be optimized directly becuase of posterior distribution, a function called Evidence Lower BOund (ELBO) similar to KLD is proposed.
-    \textcolor{red}{cite} representes the $q(\theta)$ as a gaussian approximation and \textcolor{red}{cite} proposed bayes by backprop to extend stochastic VI for non gaussian priors.
-    \textcolor{red}{cite} provides stochastic variational inference that is ELBO loss over mini-batch of data and also assumed the network parameter priors are to be gaussian.
-    \textcolor{red}{cite} makes use of reparameterization trick for reduction in variance in gradients. This lead to reformulation of ELBO loss which made it compatible to standard backpropogation.
-    \textcolor{red}{Talk about normalizing flows.}
+    \cite{Gaussian_Priors} representes the $q(\theta)$ as a gaussian approximation and \cite{weight_uncertainty} proposed bayes by backprop to extend stochastic VI for non gaussian priors.
+    \cite{Non_Gaussian_Priors} provides stochastic variational inference that is ELBO loss over mini-batch of data and also assumed the network parameter priors are to be gaussian.
+    \cite{Flipout} makes use of reparameterization trick for reduction in variance in gradients. This lead to reformulation of ELBO loss which made it compatible to standard backpropogation.
 
     Another widely known example for VI is Monte Carlo Dropout (MC-Dropout), in which the dropout layers are reformanulated as random variables with Bernoulli distribtion.
-    and as in \textcolor{red}{cite here and swaroop work} that training with dropout layers can be formulated as VI and predictive uncertainty can be calculated during inference by applying MC-Dropout during inference.
-    The other flavour of MC-Dropout is the random incoming activations to the node are dropped instead of nodes themselves and this methods is called Monte Carlo Dropconnect (MC-Dropconnect) as proposed in \textcolor{red}{cite}.
-    An example of MC-Dropout and MC-Dropconnect is depecited in Figure \textcolor{red}{cite}.
+    and as in \cite{bhandary2020evaluating}, and \cite{gawlikowski2021survey} that training with dropout layers can be formulated as VI and predictive uncertainty can be calculated during inference by applying MC-Dropout during inference.
+    The other flavour of MC-Dropout is the random incoming activations to the node are dropped instead of nodes themselves and this methods is called Monte Carlo Dropconnect (MC-Dropconnect) as proposed in \cite{gawlikowski2021survey}.
+    An example of MC-Dropout and MC-Dropconnect is depecited in Figure~\ref{fig:Dropout_Connect}.
     \begin{figure}[htbp]
         \begin{subfigure}{0.33\textwidth}
             \centering
@@ -312,15 +318,17 @@ Finally, graph neural networks are out of the scope for this project and will no
             \label{fig:SOTA_Dconnect}
         \end{subfigure}
         \caption{Images taken from \textcolor{red}{cite}}
+        \label{fig:Dropout_Connect}
     \end{figure}
-
-    Another method for estimating uncertinty is flipout as proposed in \textcolor{red}{cite}.
-    Although flipout was proposed to decorrelate gradients in a minibatch by sampling independent weight perturbations for each example, it is used for variational inference as in \textcolor{red}{cite}.
+    Another method for estimating uncertinty is flipout as proposed in \cite{Flipout}.
+    Although flipout was proposed to decorrelate gradients in a minibatch by sampling independent weight perturbations for each example, it is used for variational inference.
+    
+    \textcolor{red}{Need refactoring a bit}
     Sampling methods also called as Monte Carlo methods (not to be confused to Monte Carlo Dropout or Monte Carlo Dropconnect) estimate uncertainty without any approximation of parametric model.
-    The most popular method in the category of sampling methods is Markov Chain Monte Carlo (MCMC) sampling proposed in \textcolor{red}{cite}.
-    Hamiltonian Monte Carlo (HMC) is an another variant of MCMC method and is considered as gold standard algorithm for Bayesian inference as stated in \textcolor{red}{cite}.
+    The most popular method in the category of sampling methods is Markov Chain Monte Carlo (MCMC) sampling stated in \cite{Bishop_Book}.
+    Hamiltonian Monte Carlo (HMC) is an another variant of MCMC method and is considered as gold standard algorithm for Bayesian inference as stated in \cite{HMC}.
     Laplace approximaiton methods make use of second order Tayler series approximation to estimate $p(\theta|x, y)$.
-    Uncertianty in the laplace approximation methods is calculated by taking Hessian matrix of $log(p(\theta|x, y))$ and can be applied to existing trained neural networks as in \textcolor{red}{cite}.
+    Uncertianty in the laplace approximation methods is calculated by taking Hessian matrix of $log(p(\theta|x, y))$ and can be applied to existing trained neural networks as in \cite{Laplace_approx}.
     Sampling methods and laplace approimation methods arenot studied because the former is computationally expensive and later suffers from infeasibility to compute Hessian matrix for deep neural networks.
     
     
@@ -329,12 +337,12 @@ Finally, graph neural networks are out of the scope for this project and will no
     In this section, we will discuss about the existing OOD detection methods for 2D classification task and 2D semantic segmentation task.
     To the best of our knowledge, ours is the first work to study OOD detection for the task of 3D semantic segmentation.
 
-    The most widely used benchmarked datasets used for 2D classficiation dataset are CIFAR-10 vs SVHN \textcolor{red}{cite}, CIFAR-10 vs LSUN \textcolor{red}{cite}, abd MNIST vs Fashion-MNIST \textcolor{red}{cite}. 
-    Most of the proposed methods for OOD detection in classification tasks are threshold based methods.
+    The most widely used benchmarked datasets used for 2D classficiation dataset are CIFAR-10 vs SVHN \cite{liang2017enhancing_ODIN}, CIFAR-10 vs LSUN \cite{hendrycks2016baseline_MSP}, and MNIST vs not-MNIST \cite{hendrycks2016baseline_MSP}. 
+    Most of the proposed methods for OOD detection in classification tasks are threshold based methods which are posthoc methods.
     These methods employ a threshold based detector and does not see the OOD data during the training.
-    The baseline method for threshold based methods is proposed in \textcolor{red}{cite}.
-    \textcolor{red}{cite} uses Maximum Softmax Probability (MSP) and argues that in distribtion dataset have higher softmax score and out of distribtion dataset have lower softmax score and computed as in Equation~\ref{eq:SMSP} where $f_i(x)$ is the output of neural network.
-    Since the softmax scores can be overconfident \textcolor{red}{cite} proposed Out of DIstribution detector for Neural networks (ODIN) which makes use of calibrated softmax score by addition of temperature constant to softmax scores and computed as in Equation~\ref{eq:SODIN} where $f_i(x)$ is the output of neural network and $T$ is the temperature constant for calibrated softmax scores.
+    The baseline method for threshold based methods is proposed in \cite{hendrycks2016baseline_MSP}.
+    \cite{hendrycks2016baseline_MSP} uses Maximum Softmax Probability (MSP) and argues that in distribtion dataset have higher softmax score and out of distribtion dataset have lower softmax score and computed as in Equation~\ref{eq:SMSP} where $f_i(x)$ is the output of neural network.
+    Since the softmax scores can be overconfident \cite{liang2017enhancing_ODIN} proposed Out of DIstribution detector for Neural networks (ODIN) which makes use of calibrated softmax score by addition of temperature constant to softmax scores and computed as in Equation~\ref{eq:SODIN} where $f_i(x)$ is the output of neural network and $T$ is the temperature constant for calibrated softmax scores.
     In addition to calibrated softmax scores, ODIN also adds noise perturbations to the input making the training adversarial.
     ODIN needs access to the OOD samples because the finetuning of perturbation magnitude is made based on these samples.
     \begin{equation}
@@ -343,11 +351,43 @@ Finally, graph neural networks are out of the scope for this project and will no
     \begin{equation}
         S_{ODIN}(x) = max_i \frac{exp(f_i(x)/T)}{\sum^{C}_{j=1}exp(f_j(x)/T)}  \label{eq:SODIN}
     \end{equation}
-    \textcolor{red}{cite} has proposed a threshold based OOD detection method using the Mahalanobis distance as confidence score.
-    The mahalanonis distance is calculated for every layer of the network and these individual Mahalanobis scores are combined to get confidence score.
-    \textcolor{red}{TODO:}
-    \begin{enumerate}
-        \item \textcolor{red}{Form the Story}
-        \item \textcolor{red}{Write it out}
-    \end{enumerate}
+    %\begin{equation}
+    %    \begin{cases}
+    %        ID if S(x) > \delta_t \\
+    %        OOD otherwise
+    %    \end{cases}
+    %\end{equation}
+    \cite{lee2018simple_mahalanobis} has proposed a threshold based OOD detection method using the Mahalanobis distance as confidence score.
+    The mahalanonis distance is calculated for every activation map of each layer of the network and these individual Mahalanobis scores are combined to get confidence score.
+    The Mahalanobis distance is calculated between activation map and each class distrbution represented as multivariate guassian.
+    \cite{Maha_plus_ODIN} proposed the use of Mahalanobis distance and ODIN combined for OOD detection and argues that this combination yields better detection of OOD data.
+    \cite{ReAct} proposed Rectified Activations (ReAct) for OOD detection where in applied to final layer of neural network before softmax application, it supresses the higher activations to a constant thereby limiting the effect of noise. 
+    ReAct operation is defined in Equation~\ref{eq:react} as
+    \begin{equation}
+        h^{-}(x) = ReAct(h(x); c) \text{ and } ReAct(x, c) = min(x, c) \label{eq:react}
+    \end{equation} 
+    where $h(x)$ is final layer activations, $c$ is the constant and $h^{-}(x)$ is ReAct output of $h(x)$.
+    The score from this ReAct function is thresholded to detect the OOD data. 
+    Recent developments in threshold based models as proposed in \cite{Energy_OOD_1}, and \cite{Energy_OOD_2} is calculation of energy value based on scalar value from logsumexponential operation over softmax scores.
+    These energy scores are expected to be low for the In-Distribution (ID) dataset and vice versa for OOD datasets.
+
+    As the OOD data samples have higher uncertainty over ID samples, this allows us to use the uncertainty estimation methods for OOD detection.
+    \cite{lakshminarayanan2016simple} proposes the deep ensembles to estimate epistemic uncertainty and utilizes predictive entropy from deep ensembles to classify ID vs OOD datasets.
+    Similarly \cite{JAmersfoot_RBF} proposed an use of radial basis function to calculate the epistemic uncertainty and applied threshold over the epistemic uncertainty to classify OOD data.
+    \cite{UOOD_BNN} proposes the use of uncertainty estimated from Bayesian Neural Networks (BNNs) to detect OOD.
+    It also argues that the choice of prior weights has a major effect on the OOD performance.
+    Also argues that the OOD detection performance using BNNs are only marginally superior compared to other methods.
+    \cite{Grad_UOOD} proposes the calculation of gradients during the inference and compute uncertainty using the calculated gradients and argues that this apporach is also comparably effective for OOD detection.
+    \cite{UOOD_RL1}, and \cite{UOOD_RL2} applies uncertainty to detect OOD data samples for the task of Deep Reinforcement Learning.
+    
+    In recent years, OOD detection for task of 2D semantic segmentation is getting in to limelight.
+    \cite{pixel_OOD} proposes the adaption of few above discussed OOD detection methods to the task of 2D semantic segmentation with few or no modifications.
+    \cite{pixel_OOD} also proposed benchmarked datasets for OOD detection at pixel level and introduced a novel OOD detection evaluation metric called MaxIoU.
+    \cite{SemSeg_Entropy1}, and \cite{SemSeg_Entropy2} proposed the use of entropy values for OOD detection in 2D semantic segmentation task.
+    \cite{MetaSeg} proposed a small fully connected neural network called \textit{MetaSeg} with inputs being the metrics such as entropy, probability margin, meanIoU and variation ratio to classify ID and OOD samples.
+    \cite{uncertianty_distillation} proposed uncertainty distillation to compute uncertainty estimates similar to knowledge distillation and argues these uncertainty esitmates can be efficiently used for OOD detection.
+
+    \section{Summary}
+    
+
 \end{document}
