@@ -11,7 +11,7 @@
     \end{enumerate}
 
     %%%%%% Deep ensmebles performance gains experiment %%%%%%
-    \section{Deep ensembles}
+    \section{Deep ensembles-Semantic3D}
     \label{sec:deepensemble_train}
     \textbf{Aim:} Train multiple models of RandLA-Net with random initializations on Semantic3D dataset and combine the results from the get combined prediction. 
     These models are evlauated using mean Intersection-over-Union (mIOU) and Accuracy.
@@ -48,7 +48,7 @@
             \caption{}
             \label{fig:acc_de}
         \end{subfigure}
-        \caption{Evaluation results of the deep ensemble of RandLA-Het on Semantic3D dataset with (a) representing the meanIoU over ensemble size and (b) representing accuracy over ensemble size.}
+        \caption{Evaluation results of the deep ensemble of RandLA-Net on Semantic3D dataset with (a) representing the meanIoU over ensemble size and (b) representing accuracy over ensemble size.}
     \end{figure}
 
  
@@ -73,7 +73,7 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/3_Pred.png}\\
         \end{tabular}
         \includegraphics[scale=0.65]{images/legend.png}
-        \caption{Output predictions of the RandLA-Net over the Semantic3D dataset.}
+        \caption{Output predictions of the RandLA-Net over the Semantic3D dataset (13 ensemble size) \textcolor{red}{Legend spelling mistake}.}
     \end{figure*}
     \begin{figure*}
         \centering
@@ -121,22 +121,60 @@
         \item From Figure \ref{fig:meaniou_de}, the performance gains in terms of mIOU after the ensemble size of 10 is minimal.
     \end{itemize}
 
+    \section{Flipout-Semantic3D}
+    \begin{table}[h!]
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{c|c|cccccccc|c}
+        %\textbf{\#Ensembles} & \textbf{MeanIOU} & \textbf{Accuracy} & \textbf{Manmadeterrain} & \textbf{Naturalterrain} & \textbf{Highvegetation} & \textbf{Lowvegetation} & \textbf{Buildings} & \textbf{Hardscapes} & \textbf{Scanningartifacts} & \textbf{Cars} \\ \hline
+        & & \multicolumn{7}{c}{\textbf{IoU per class}} & \\ \hline
+        \textbf{\#Passes} & \textbf{MeanIOU} & \textbf{C1} & \textbf{C2} & \textbf{C3} & \textbf{C4} & \textbf{C5} & \textbf{C6} & \textbf{C7} & \textbf{C8} & \textbf{Accuracy} \\ \hline
+        1& 69.95  & 94.24&80.09&86.16&22.48&88.70&39.41&57.42&91.12&90.71 \\
+        5& 69.83  & 94.38&80.21&84.10&23.32&87.80&39.68&57.75&91.43&90.43  \\
+        10& 69.84 & 94.38&80.16&83.90&23.46&87.73&39.75&57.83&91.47&90.40 \\
+        15& 69.86 & 94.38&80.17&83.80&23.48&87.73&39.82&57.96&91.57&90.40        \\
+        20& 69.87 & 94.38&80.18&83.80&23.57&87.72&39.84&57.92&91.57&90.40        \\
+        \end{tabular}%
+        }
+        \caption{Illustration of performance of RandLA-Net on Semantic3D over flipout initalized with variance 1. meanIOU and IOU per class and overall accuracy are represented here.
+        C1 to C8 are the classes of Semantic3D which are Manmadeterrain, Naturalterrain, Highvegetation, Lowvegetation, Buildings, Hardscapes, Scanningartifacts, and Cars.}
+        \label{tab:flipout_eval}
+    \end{table}
+    \begin{figure}[h!]
+        \begin{subfigure}{0.495\textwidth}
+            \includegraphics[scale=0.35]{images/flipout_meanIOU.pdf}
+            \caption{}
+            \label{fig:meaniou_flipout}
+        \end{subfigure}
+        \begin{subfigure}{0.495\textwidth}
+            \includegraphics[scale=0.35]{images/flipout_accuracy.pdf}
+            \caption{}
+            \label{fig:accuracy_flipout}
+        \end{subfigure}
+        \caption{Flipout meanIOU and accuracy}
+    \end{figure}
+    
+    \textcolor{red}{Add the images of flipout performance here same as figures in deep ensembles}
     %%%%%% Maximum probability (Semantic3D vs S3DIS) %%%%%%
-    \section{Probability-Semantic3D vs S3DIS}
+    \section{Maximum Softmax Probability(MSP)-Semantic3D vs S3DIS}
     \label{sec:prob_sem3dvs3dis}
     \textbf{Aim: } In this experiment, we study how the probability scores are distributed in Semantic3D and S3DIS datasets which are ID and OOD datasets respectively.
     \begin{figure}[h!]
-        \begin{subfigure}{0.54\textwidth}
-            \includestandalone[scale=0.9]{images/mean_prob_sem3dvs3dis}
-            \caption{}
-            \label{fig:prob_sem3dvs3dis}    
-        \end{subfigure}
-        \begin{subfigure}{0.45\textwidth}
-            \includegraphics[scale=0.33]{images/violin_in_Max_predicted_probability.png}
-            \caption{}
-            \label{fig:13_sem3dvs3dis}
-        \end{subfigure}
-        \caption{Plots depicting how probability score with ensemble size \ref{fig:prob_sem3dvs3dis} representing average probability score and how does it change with ensemble size, \ref{fig:13_sem3dvs3dis} depicting the distribution of the probability scores.}
+        \centering
+    %\begin{subfigure}{0.54\textwidth}
+    %        \includestandalone[scale=0.9]{images/mean_prob_sem3dvs3dis}
+        \includegraphics[scale=0.55]{images/Ensemble_MSP.pdf}
+        \caption{}
+        \label{fig:prob_sem3dvs3dis_de}    
+    %\end{subfigure}
+    \end{figure}
+    \begin{figure}[h!]
+        \centering
+    %\begin{subfigure}{0.45\textwidth}
+    %       \includegraphics[scale=0.33]{images/violin_in_Max_predicted_probability.png}
+        \includegraphics[scale=0.55]{images/Flipout_MSP.pdf}
+        \caption{}
+        \label{fig:13_sem3dvs3dis}
+    %\end{subfigure}
     \end{figure}
 
     \begin{figure*}[h!]
@@ -192,9 +230,21 @@
     \label{sec:ent_sem3dvs3dis}
     \begin{figure}[h!]
         \centering
-        \includestandalone[scale=1.2]{images/entropy_sem3dvs3dis}
-        \caption{Plots depicting how entropy changes with ensemble size}
-        \label{fig:entropy_sem3dvs3dis}
+    %\begin{subfigure}{0.54\textwidth}
+    %        \includestandalone[scale=0.9]{images/mean_prob_sem3dvs3dis}
+        \includegraphics[scale=0.55]{images/Ensemble_Entropy.pdf}
+        \caption{}
+        \label{fig:ent_sem3dvs3dis_de}    
+    %\end{subfigure}
+    \end{figure}
+    \begin{figure}[h!]
+        \centering
+    %\begin{subfigure}{0.45\textwidth}
+    %       \includegraphics[scale=0.33]{images/violin_in_Max_predicted_probability.png}
+        \includegraphics[scale=0.55]{images/Flipout_Entropy.pdf}
+        \caption{}
+        \label{fig:ent_sem3dvs3dis_fout}
+    %\end{subfigure}
     \end{figure}
     \begin{figure*}[h!]
         \begin{tabular}{ccc}
