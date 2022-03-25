@@ -229,10 +229,17 @@
     \end{figure*}
 
     \begin{figure}[h!]
-        \centering
-        \includestandalone[scale=1.2]{images/Max_probs_sem3dVs3dis_AUROC}
-        \caption{ROC plots and AUROC scores for maximum probability in semantic3D vs S3DIS}
-        \label{fig:AUROC_Prob_Sem3dvs3dis}
+        \begin{subfigure}{0.495\textwidth}
+            \includegraphics[scale=0.35]{images/ensemble_probability_sem3dvs3dis_AUROC.pdf}
+        \end{subfigure}
+        \begin{subfigure}{0.495\textwidth}
+            \includegraphics[scale=0.35]{images/flipout_probability_sem3dvs3dis_AUROC.pdf}
+        \end{subfigure}
+        \begin{subfigure}{0.98\textwidth}
+            \centering
+            \includegraphics[scale=0.35]{images/dropout_probability_sem3dvs3dis_AUROC.pdf}
+        \end{subfigure}
+        \caption{Ensmeble Vs Flipout Vs Dropout- Probability scores}
     \end{figure}
     %%%%%% Entropy (Semantic3D vs S3DIS) %%%%%%
     \section{Entropy-Semantic3D vs S3DIS}
@@ -305,32 +312,6 @@
         \caption{Perpoint entropy visualization of the S3DIS dataset.}
     \end{figure*}
     \begin{figure}[h!]
-        \centering
-        \includegraphics[scale=0.65]{images/entropy_sem3dvs3dis_AUROC.pdf}
-        \caption{ROC plots and AUROC scores for entropy in semantic3D vs S3DIS}
-        \label{fig:AUROC_Ent_Sem3dvs3dis}
-    \end{figure}
-
-
-
-
-    \section{Flipout Vs Ensembles comparison}
-    
-    \begin{figure}[h!]
-        \begin{subfigure}{0.495\textwidth}
-            \includegraphics[scale=0.35]{images/ensemble_probability_sem3dvs3dis_AUROC.pdf}
-        \end{subfigure}
-        \begin{subfigure}{0.495\textwidth}
-            \includegraphics[scale=0.35]{images/flipout_probability_sem3dvs3dis_AUROC.pdf}
-        \end{subfigure}
-        \begin{subfigure}{0.98\textwidth}
-            \centering
-            \includegraphics[scale=0.35]{images/dropout_probability_sem3dvs3dis_AUROC.pdf}
-        \end{subfigure}
-        \caption{Ensmeble Vs Flipout Vs Dropout- Probability scores}
-    \end{figure}
-
-    \begin{figure}[h!]
         \begin{subfigure}{0.495\textwidth}
             \includegraphics[scale=0.35]{images/ensemble_entropy_sem3dvs3dis_AUROC.pdf}
         \end{subfigure}
@@ -343,6 +324,7 @@
         \end{subfigure}
         \caption{Ensemble Vs Flipout Vs Dropout- Entropy scores}
     \end{figure}
+
 
 
     \section{Semantic3D vs Semantic3D without color}
@@ -395,5 +377,9 @@
     \begin{figure}[h!]
         \centering\includegraphics[scale=0.55]{images/Ensemble_Entropy_color_no_color.pdf}
         \caption{Ensemble Semantic3D vs Semantic3D no color - Entropy}
+    \end{figure}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.55]{images/Ensemble_entropy_sem3dvsnocolorAUROC.pdf}
     \end{figure}
 \end{document}
