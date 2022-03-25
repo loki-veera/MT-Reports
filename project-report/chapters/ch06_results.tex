@@ -315,14 +315,6 @@
 
 
     \section{Flipout Vs Ensembles comparison}
-    \begin{figure}[h!]
-        \centering
-        \includegraphics[scale=0.65]{images/EnsembleVsFlipout_Probs.pdf}
-    \end{figure}
-    \begin{figure}[h!]
-        \centering
-        \includegraphics[scale=0.65]{images/EnsembleVsFlipout_Entropy.pdf}
-    \end{figure}
     
     \begin{figure}[h!]
         \begin{subfigure}{0.495\textwidth}
@@ -331,7 +323,11 @@
         \begin{subfigure}{0.495\textwidth}
             \includegraphics[scale=0.35]{images/flipout_probability_sem3dvs3dis_AUROC.pdf}
         \end{subfigure}
-        \caption{Ensmeble Vs Flipout - Probability scores}
+        \begin{subfigure}{0.98\textwidth}
+            \centering
+            \includegraphics[scale=0.35]{images/dropout_probability_sem3dvs3dis_AUROC.pdf}
+        \end{subfigure}
+        \caption{Ensmeble Vs Flipout Vs Dropout- Probability scores}
     \end{figure}
 
     \begin{figure}[h!]
@@ -341,7 +337,59 @@
         \begin{subfigure}{0.495\textwidth}
             \includegraphics[scale=0.35]{images/flipout_entropy_sem3dvs3dis_AUROC.pdf}
         \end{subfigure}
-        \caption{Ensemble Vs Flipout - Entropy scores}
+        \begin{subfigure}{0.98\textwidth}
+            \centering
+            \includegraphics[scale=0.35]{images/dropout_probability_sem3dvs3dis_AUROC.pdf}
+        \end{subfigure}
+        \caption{Ensemble Vs Flipout Vs Dropout- Entropy scores}
     \end{figure}
 
+
+    \section{Semantic3D vs Semantic3D without color}
+    \subsection{Deep Ensembles}
+    \begin{table}[h!]
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{c|c|cccccccc|c}
+        %\textbf{\#Ensembles} & \textbf{MeanIOU} & \textbf{Accuracy} & \textbf{Manmadeterrain} & \textbf{Naturalterrain} & \textbf{Highvegetation} & \textbf{Lowvegetation} & \textbf{Buildings} & \textbf{Hardscapes} & \textbf{Scanningartifacts} & \textbf{Cars} \\ \hline
+        & & \multicolumn{7}{c}{\textbf{IoU per class}} & \\ \hline
+        \textbf{\#Ensembles} & \textbf{MeanIOU} & \textbf{C1} & \textbf{C2} & \textbf{C3} & \textbf{C4} & \textbf{C5} & \textbf{C6} & \textbf{C7} & \textbf{C8} & \textbf{Accuracy} \\ \hline
+        1& 68.19& 94.55& 81.19& 84.67& 29.43& 81.37& 18.85& 64.74& 90.74& 88.78 \\
+        5& 69.51& 94.73& 81.92& 84.42& 28.05& \textbf{86.41}& 28.50& 61.03& 91.03& 90.04 \\
+        10& 69.97& 95.25& 83.73& 86.63& 30.36& 84.13& 18.60& \textbf{66.01}& 92.61& 89.94 \\
+        15& 70.32& 95.27& 83.54& \textbf{88.22}& \textbf{32.19}& 84.82& 26.17& 61.67& 90.75& \textbf{90.57} \\
+        20& \textbf{70.80}& \textbf{95.55}& \textbf{84.11}& 86.65& 29.60& 85.41& \textbf{29.58}& 62.47& \textbf{93.06}& 90.56 \\
+        \end{tabular}%
+        }
+        \caption{Illustration of performance of RandLA-Net on Semantic3D over number of ensembles. meanIOU and IOU per class and overall accuracy are represented here.
+        C1 to C8 are the classes of Semantic3D which are Manmadeterrain, Naturalterrain, Highvegetation, Lowvegetation, Buildings, Hardscapes, Scanningartifacts, and Cars.}
+    \end{table}
+
+    \begin{table}[h!]
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{c|c|cccccccc|c}
+        %\textbf{\#Ensembles} & \textbf{MeanIOU} & \textbf{Accuracy} & \textbf{Manmadeterrain} & \textbf{Naturalterrain} & \textbf{Highvegetation} & \textbf{Lowvegetation} & \textbf{Buildings} & \textbf{Hardscapes} & \textbf{Scanningartifacts} & \textbf{Cars} \\ \hline
+        & & \multicolumn{7}{c}{\textbf{IoU per class}} & \\ \hline
+        \textbf{\#Ensembles} & \textbf{MeanIOU} & \textbf{C1} & \textbf{C2} & \textbf{C3} & \textbf{C4} & \textbf{C5} & \textbf{C6} & \textbf{C7} & \textbf{C8} & \textbf{Accuracy} \\ \hline
+        1& 47.96&78.67&7.21&78.63&23.54&85.37&15.48&45.96&48.83&80.26\\
+        5& 49.66&80.68&4.49&79.06&26.87&84.87&16.64&48.79&55.85&81.62\\
+        10& 50.39&80.86&5.17&78.97&27.25&84.52&16.75&48.02&61.54&81.65\\
+        15& 50.33&81.02&5.04&77.25&27.52&83.18&16.53&47.81&64.25&81.25\\
+        20& 50.24&81.01&5.15&77.20&27.3&83.60&17.07&47.74&62.83&81.29\\
+        \end{tabular}%
+        }
+        \caption{Illustration of performance of RandLA-Net on Semantic3D wihtout color over number of ensembles. meanIOU and IOU per class and overall accuracy are represented here.
+        C1 to C8 are the classes of Semantic3D which are Manmadeterrain, Naturalterrain, Highvegetation, Lowvegetation, Buildings, Hardscapes, Scanningartifacts, and Cars.}
+    \end{table}
+
+    \subsection{Maximum Softmax probability}
+    \begin{figure}[h!]
+        \centering\includegraphics[scale=0.55]{images/Ensemble_MSP_color_no_color.pdf}
+        \caption{Ensemble Semantic3D vs Semantic3D no color - MSP}
+    \end{figure}
+
+    \subsection{Entropy}
+    \begin{figure}[h!]
+        \centering\includegraphics[scale=0.55]{images/Ensemble_Entropy_color_no_color.pdf}
+        \caption{Ensemble Semantic3D vs Semantic3D no color - Entropy}
+    \end{figure}
 \end{document}
