@@ -70,7 +70,7 @@
 \usepackage[hyphens]{url}
 \usepackage{hyperref} % Enable hyperlinks
 \usepackage{titling}
-
+\usepackage[section]{placeins}
 \usepackage{lipsum} % Used to test
 \usepackage{lmodern}%
 

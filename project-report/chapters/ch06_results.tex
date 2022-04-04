@@ -175,18 +175,18 @@
     Figure~\ref{fig:msp_ensembles} represents the change in mean probability value to ensemble size.
     Figure~\ref{fig:msp_flipout} represents the change in mean probability value to the number of passes in Flipout.
     Here, we represent the mean probability values across the odd number of ensembles size and the odd number of passes in case of flipout.
-    \begin{figure}[h!]
+    \begin{figure}[!ht]
         \centering
+        \begin{subfigure}{0.98\textwidth}
         \includegraphics[scale=0.6]{images/MSP/Ensembles_MSP_cnc.pdf}
         \caption{MSP deep ensembles}
         \label{fig:msp_ensembles}
-    \end{figure}
-
-    \begin{figure}[h!]
-        \centering
+        \end{subfigure}
+        \begin{subfigure}{0.98\textwidth}
         \includegraphics[scale=0.6]{images/MSP/Flipout_MSP_cnc.pdf}
         \caption{MSP flipout}
         \label{fig:msp_flipout}
+        \end{subfigure}
     \end{figure}
 
     From Figure~\ref{fig:msp_ensembles}, we can infer that as the increase in ensemble size, the mean probability of the ID (Semantic3D) dataset remains stable.
@@ -198,6 +198,13 @@
     With the OOD dataset, we observed a reduction in the mean probability value in the case of multiple passes.
     The variance from the Flipout is higher than the Deep Ensembles for the ID dataset.
     This phenomenon is to be expected because the Deep Ensembles combine predictions from various radomly initializated models and in the case of Flipout same model is used for multiple forward passes.
+
+    Figure~\ref{fig:de_sem3d_probmap} and Figure~\ref{fig:fout_sem3d_probmap} represent the ground truth, prediction and probability map of the ID (Semantic3D) dataset using Deep Ensembles and Flipout respectively.
+    Similarly Figure~\ref{fig:de_s3dis_probmap} and Figure~\ref{fig:fout_s3dis_probmap} depict the prediction and probability map for OOD (S3DIS) dataset using Deep Ensembles and Flipout respectively.
+    On visual inspection of Figure~\ref{fig:de_sem3d_probmap} and Figure~\ref{fig:fout_sem3d_probmap}, we observed that the probability scores are low for points which are misclassified.
+    The points which lie on the edge of the structures are low scored.
+    This effect is profound near the edges of church, and also edges of walls.
+    In case of OOD dataset presented in Figure~\ref{fig:de_s3dis_probmap} and Figure~\ref{fig:fout_s3dis_probmap}, the overall probability scores are low, as the whole point cloud has greener shade than the ID dataset probability map represented in yellow shade.
     % \textbf{Aim: } In this experiment, we study how the probability scores are distributed in Semantic3D and S3DIS datasets which are ID and OOD datasets respectively.
     % \begin{figure}[h!]
     %     \centering
@@ -227,47 +234,93 @@
     %         \includegraphics[width=0.98\textwidth, height=0.48\textheight]{images/violin_in_Probability_FOUT_plot.pdf}
     %     \end{subfigure}
     % \end{figure}
-    % \begin{figure*}[h!]
-    %     \centering
-    %     \begin{tabular}{ccc}
-    %         Ground Truth & Prediction & Probaility score \\
-    %         \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_GT.png} &
-    %         \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_Pred.png}& 
-    %         \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_max_prob.png}\\
+    \begin{figure*}[h!]
+        \centering
+        \begin{tabular}{ccc}
+            Ground Truth & Prediction & Probability map-Deep Ensembles \\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_GT.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_max_prob.png}\\
 
-    %         \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/2_GT.png} &
-    %         \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/2_Pred.png}& 
-    %         \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/2_max_prob.png}\\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/2_GT.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/2_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/2_max_prob.png}\\
 
-    %         \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/3_GT.png} &
-    %         \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/3_Pred.png}& 
-    %         \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/3_max_prob.png}\\
-    %     \end{tabular}
-    %     \includegraphics[scale=0.213]{images/color_legend.pdf}
-    %     \includegraphics[scale=0.65]{images/legend.png}
-    %     \caption{Perpoint probability visualization of the semantic3D dataset.}
-    % \end{figure*}
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/3_GT.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/3_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/3_max_prob.png}\\
+        \end{tabular}
+        \includegraphics[scale=0.45]{images/prob_legend.pdf}
+        \includegraphics[scale=0.65]{images/legend.png}
+        \caption{Perpoint probability visualization of the semantic3D dataset.}
+        \label{fig:de_sem3d_probmap}
+    \end{figure*}
 
-    % \begin{figure*}[h!]
-    %     \centering
-    %     \begin{tabular}{cc}
-    %         Prediction & Probaility score \\
-    %         \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_1_Pred.png}& 
-    %         \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_1_prob.png}\\
+    \begin{figure*}[h!]
+        \centering
+        \begin{tabular}{ccc}
+            Ground Truth & Prediction & Probability map-Flipout \\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_GT.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/flipout/sem3d_1.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/flipout/1_fout_prob.png}\\
 
-    %         \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_2_Pred.png}& 
-    %         \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_2_prob.png}\\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/2_GT.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/flipout/sem3d_2.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/flipout/2_fout_prob.png}\\
 
-    %         \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_3_Pred.png}& 
-    %         \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_3_prob.png}\\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/3_GT.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/flipout/sem3d_3.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/flipout/3_fout_prob.png}\\
+        \end{tabular}
+        \includegraphics[scale=0.45]{images/prob_legend.pdf}
+        \includegraphics[scale=0.65]{images/legend.png}
+        \caption{Perpoint probability visualization of the semantic3D dataset.}
+        \label{fig:fout_sem3d_probmap}
+    \end{figure*}
 
-    %         \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_4_Pred.png}& 
-    %         \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_4_prob.png}\\
-    %     \end{tabular}
-    %     \includegraphics[scale=0.213]{images/color_legend.pdf}
-    %     \includegraphics[scale=0.65]{images/legend.png}
-    %     \caption{Perpoint probability visualization of the S3DIS dataset.}
-    % \end{figure*}
+    \begin{figure*}[h!]
+        \centering
+        \begin{tabular}{cc}
+            Prediction & Probability map-Deep Ensembles \\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_1_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_1_prob.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_2_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_2_prob.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_3_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_3_prob.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_4_Pred.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_4_prob.png}\\
+        \end{tabular}
+        \includegraphics[scale=0.45]{images/prob_legend.pdf}
+        \includegraphics[scale=0.65]{images/legend.png}
+        \caption{Perpoint probability visualization of the S3DIS dataset.}
+        \label{fig:de_s3dis_probmap}
+    \end{figure*}
+
+    \begin{figure*}[h!]
+        \centering
+        \begin{tabular}{cc}
+            Prediction & Probability map-Flipout \\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/office_3.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/fout_1.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/ocroom_1.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/fout_2.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/opantry_1.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/fout_3.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/office_42.png}& 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/fout_4.png}\\
+        \end{tabular}
+        \includegraphics[scale=0.45]{images/prob_legend.pdf}
+        \includegraphics[scale=0.65]{images/legend.png}
+        \caption{Perpoint probability visualization of the S3DIS dataset flipout.}
+        \label{fig:fout_s3dis_probmap}
+    \end{figure*}
 
     % \begin{figure}[h!]
     %     \begin{subfigure}{0.495\textwidth}
@@ -283,8 +336,10 @@
     %     \caption{Ensmeble Vs Flipout Vs Dropout- Probability scores}
     % \end{figure}
     %%%%%% Entropy (Semantic3D vs S3DIS) %%%%%%
+    \FloatBarrier
     \subsection{Entropy}
     \label{sec:ent_sem3dvs3dis}
+   
     % \begin{figure}[h!]
     %     \centering
     % %\begin{subfigure}{0.54\textwidth}
@@ -365,7 +420,8 @@
     %     \end{subfigure}
     %     \caption{Ensemble Vs Flipout Vs Dropout- Entropy scores}
     % \end{figure}
-
+    
+    \section{OOD detection evaluation - Semantic3D vs S3DIS}
 
 
     \section{OOD Benchmark - Semantic3D vs Semantic3D without color}
@@ -426,5 +482,5 @@
     %     \includegraphics[scale=0.55]{images/Ensemble_entropy_sem3dvsnocolorAUROC.pdf}
     % \end{figure}
 
-    \section{OOD detection evaluation}
+    \section{OOD detection evaluation -  Semantic3D vs Semantic3D without color}
 \end{document}
