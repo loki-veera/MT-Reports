@@ -63,13 +63,13 @@
     \begin{figure*}[h!]
         \begin{tabular}{cccc}
             1 & 5 & 10 \\
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/deep_ensembles/1_1.png} &
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/deep_ensembles/1_5.png}& 
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/deep_ensembles/1_10.png}\\
+            \includegraphics[width=0.30\textwidth, height=0.15\textheight]{images/seg_output/deep_ensembles/1_1.png} &
+            \includegraphics[width=0.30\textwidth, height=0.15\textheight]{images/seg_output/deep_ensembles/1_5.png}& 
+            \includegraphics[width=0.30\textwidth, height=0.15\textheight]{images/seg_output/deep_ensembles/1_10.png}\\
 
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/deep_ensembles/2_1.png} &
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/deep_ensembles/2_5.png}& 
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/deep_ensembles/2_10.png}\\
+            \includegraphics[width=0.30\textwidth, height=0.15\textheight]{images/seg_output/deep_ensembles/2_1.png} &
+            \includegraphics[width=0.30\textwidth, height=0.15\textheight]{images/seg_output/deep_ensembles/2_5.png}& 
+            \includegraphics[width=0.30\textwidth, height=0.15\textheight]{images/seg_output/deep_ensembles/2_10.png}\\
         \end{tabular}
         \includegraphics[scale=0.65]{images/legend.png}
         \caption{Deep ensembles performance on RandLA-Net over the Semantic3D dataset.}
@@ -135,27 +135,32 @@
     In the previous section, we studied the performance of the Deep Ensembles and Flipout over the Semantic3D (In-Distribution) dataset.
     In this section, we study the predictions of the RandLA-Net model on the S3DIS (Out-Of-Distribution) dataset using Deep Ensembles and Flipout.
     We also compare the distribution of Maximum Softmax Probability (MSP) and entropy scores for Semantic3D and S3DIS datasets.
-    
+
     Figure~\ref{fig:de_s3dis_vis} depicts the predictions of the RandLA-Net model and Flipout versioned RandLA-Net.
-    We observe that most objects, such as ceiling and bookshelves, are labelled as building.
-    The other classifications are in triangles because of the property of the scanner.
+    We observe that most objects, such as ceilings and bookshelves, are labelled as buildings when using Deep Ensembles.
+    We also observe that most point clouds are labelled as hardscapes class when using Flipout versioned RandLA-Net.
+    The classifications on S3DIS datasets are in triangles because of the property of the scanner.
     As discussed in Section~[\$], data collected from the Matterport scanner is represented as triangular mesh, and then a point cloud is extracted from this mesh.
 
-    \begin{figure*}
+    \begin{figure*}[h!]
         \centering
-        \begin{tabular}{cc}
-            RGB & Prediction \\
+        \begin{tabular}{ccc}
+            RGB & Deep Ensembles & Flipout \\
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_1_RGB.png} &
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_1_Pred.png}\\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_1_Pred.png} &
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/office_3.png} \\
 
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_2_RGB.png} &
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_2_Pred.png}\\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_2_Pred.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/ocroom_1.png} \\
             
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_3_RGB.png} &
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_3_Pred.png}\\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_3_Pred.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/opantry_1.png} \\
 
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_4_RGB.png} &
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_4_Pred.png}\\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_4_Pred.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/office_42.png} \\
         \end{tabular}
         \includegraphics[scale=0.65]{images/legend.png}
         \caption{Output predictions of the RandLA-Net over the S3DIS dataset.}
@@ -163,7 +168,36 @@
     \end{figure*}
     %%%%%% Maximum probability (Semantic3D vs S3DIS) %%%%%%
     \subsection{Maximum Softmax Probability (MSP)}
-    % \label{sec:prob_sem3dvs3dis}
+    \label{sec:prob_sem3dvs3dis}
+    In this experiment, we study the probability values of the ID dataset (Semantic3D), and OOD dataset (S3DIS) computed using Deep Ensembles and Flipout methods of RandLA-Net.
+    We compute the average of the maximum softmax probability of all the points in the dataset, and this averaged value is called here the mean probability value.
+    Figure~\ref{fig:msp_ensembles} and Figure~\ref{fig:msp_flipout} depicts the mean probability values across the ID (green) and OOD (red) datasets and their variance represented as error bars.
+    Figure~\ref{fig:msp_ensembles} represents the change in mean probability value to ensemble size.
+    Figure~\ref{fig:msp_flipout} represents the change in mean probability value to the number of passes in Flipout.
+    Here, we represent the mean probability values across the odd number of ensembles size and the odd number of passes in case of flipout.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[scale=0.6]{images/MSP/Ensembles_MSP_cnc.pdf}
+        \caption{MSP deep ensembles}
+        \label{fig:msp_ensembles}
+    \end{figure}
+
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[scale=0.6]{images/MSP/Flipout_MSP_cnc.pdf}
+        \caption{MSP flipout}
+        \label{fig:msp_flipout}
+    \end{figure}
+
+    From Figure~\ref{fig:msp_ensembles}, we can infer that as the increase in ensemble size, the mean probability of the ID (Semantic3D) dataset remains stable.
+    The variance is reduced until the ensemble size of 9 and then stabilizes.
+    In the case of the OOD (S3DIS) dataset, we observe a decrement in mean probability value and then remain the same after an ensemble size of 3 with a larger variance.
+    With the increase in ensemble size, we also observe that the overlap in the variance of ID and OOD is getting lower.
+    This smaller overlap in higher ensemble size should result in higher OOD detection performance.
+    In the case of Flipout, as in Figure~\ref{fig:msp_flipout} the mean probability and variance remain mostly the same for the ID dataset.
+    With the OOD dataset, we observed a reduction in the mean probability value in the case of multiple passes.
+    The variance from the Flipout is higher than the Deep Ensembles for the ID dataset.
+    This phenomenon is to be expected because the Deep Ensembles combine predictions from various radomly initializated models and in the case of Flipout same model is used for multiple forward passes.
     % \textbf{Aim: } In this experiment, we study how the probability scores are distributed in Semantic3D and S3DIS datasets which are ID and OOD datasets respectively.
     % \begin{figure}[h!]
     %     \centering
