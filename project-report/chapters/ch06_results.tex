@@ -479,92 +479,185 @@
                                 & Flipout              & 0.77331          & 0.77237          \\
                                 & Deep Ensembles       & \textbf{0.89338} & \textbf{0.89052} \\ \hline
         \end{tabular}
-        \end{table}
+        \caption{AUROC scores}
+    \end{table}
     
         \begin{figure*}[h!]
             \centering
-            \begin{tabular}{ccc}
-                Prediction-Deep Ensembles & Probability map-Deep Ensembles & OOD map-Deep Ensembles \\
-                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_1.png} &
+            \begin{tabular}{cc}
+                % Prediction-Deep Ensembles & 
+                Probability map-Deep Ensembles & OOD map-Deep Ensembles \\
+                % \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_1.png} &
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_prob_10_1.png}& 
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_ood_auroc_1.png}\\
     
-                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_2.png} &
+                % \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_2.png} &
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_prob_10_2.png}& 
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_ood_auroc_2.png}\\
     
-                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_3.png} &
+                % \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_3.png} &
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_prob_10_3.png}& 
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_ood_auroc_3.png}\\
             \end{tabular}
             \includegraphics[scale=0.45]{images/prob_legend.pdf}
-            \includegraphics[scale=0.65]{images/legend.png}
+            % \includegraphics[scale=0.65]{images/legend.png}
             \caption{OOD point visualization of the semantic3D dataset Deep Ensembles-size 10.}
             \label{fig:de_ood_auroc_sem3d_prob}
         \end{figure*}
         \begin{figure*}[h!]
             \centering
-            \begin{tabular}{ccc}
-                Prediction-Flipout & Probability map-Flipout & OOD map-Flipout \\
-                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_1.png} &
+            \begin{tabular}{cc}
+                % Prediction-Flipout & 
+                Probability map-Flipout & OOD map-Flipout \\
+                % \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_1.png} &
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_prob_1.png}& 
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_ood_auroc_1.png}\\
 
-                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_2.png} &
+                % \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_2.png} &
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_prob_2.png}& 
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_ood_auroc_2.png}\\
     
-                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_3.png} &
+                % \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_3.png} &
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_prob_3.png}& 
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_ood_auroc_3.png}\\
             \end{tabular}
             \includegraphics[scale=0.45]{images/prob_legend.pdf}
-            \includegraphics[scale=0.65]{images/legend.png}
+            % \includegraphics[scale=0.65]{images/legend.png}
             \caption{OOD point visualization of the semantic3D dataset Deep Ensembles-size 10.}
             \label{fig:fout_ood_auroc_sem3d_prob}
         \end{figure*}
         \begin{figure*}[h!]
             \centering
-            \begin{tabular}{ccc}
-                Prediction-Deep Ensembles & Entropy map-Deep Ensembles & OOD map-Deep Ensembles \\
-                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_1.png} &
+            \begin{tabular}{cc}
+                Entropy map-Deep Ensembles & OOD map-Deep Ensembles \\
+                % \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_1.png} &
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_ent_10_1.png}& 
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_ent_ood_auroc_1.png}\\
     
-                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_2.png} &
+                % \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_2.png} &
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_ent_10_2.png}& 
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_ent_ood_auroc_2.png}\\
     
-                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_3.png} &
+                % \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_3.png} &
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_ent_10_3.png}& 
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_ent_ood_auroc_3.png}\\
             \end{tabular}
             \includegraphics[scale=0.45]{images/prob_legend.pdf}
-            \includegraphics[scale=0.65]{images/legend.png}
+            % \includegraphics[scale=0.65]{images/legend.png}
             \caption{OOD point visualization of the semantic3D dataset Deep Ensembles-size 10.}
             \label{fig:de_ood_auroc_sem3d_ent}
         \end{figure*}
         \begin{figure*}[h!]
             \centering
-            \begin{tabular}{ccc}
-                Prediction-Flipout & Entropy map-Flipout & OOD map-Flipout \\
-                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_1.png} &
+            % \begin{tabular}{ccc}
+            \begin{tabular}{cc}
+                % Prediction-Flipout & Entropy map-Flipout & OOD map-Flipout \\
+                Entropy map-Flipout & OOD map-Flipout \\
+                % \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_1.png} &
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_ent_1.png}& 
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_ent_ood_auroc_1.png}\\
 
-                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_2.png} &
+                % \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_2.png} &
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_ent_2.png}& 
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_ent_ood_auroc_2.png}\\
     
-                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_3.png} &
+                % \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_3.png} &
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_ent_3.png}& 
                 \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_ent_ood_auroc_3.png}\\
             \end{tabular}
             \includegraphics[scale=0.45]{images/prob_legend.pdf}
-            \includegraphics[scale=0.65]{images/legend.png}
+            % \includegraphics[scale=0.65]{images/legend.png}
             \caption{OOD point visualization of the semantic3D dataset Deep Ensembles-size 10.}
             \label{fig:fout_ood_auroc_sem3d_ent}
         \end{figure*}
+
+        \begin{figure*}[h!]
+            \centering
+            \begin{tabular}{cc}
+                Probability map-Deep Ensembles & OOD map-Deep Ensembles \\
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/ofc_3_de_prob.png}& 
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/de_prob_2.png}\\
+    
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/cf1_de_prob.png}& 
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/de_prob_4.png}\\
+    
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/pnt_1_de_prob.png}& 
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/de_prob_3.png}\\
+    
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/ofc_42_de_prob.png}& 
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/de_prob_1.png}\\
+            \end{tabular}
+            \includegraphics[scale=0.45]{images/prob_legend.pdf}
+            % \includegraphics[scale=0.65]{images/legend.png}
+            \caption{OOD visualization of the S3DIS dataset Deep Ensembles.}
+            \label{fig:de_s3dis_oodmap_prob}
+        \end{figure*}
+        \begin{figure*}[h!]
+            \centering
+            \begin{tabular}{cc}
+                Probability map-Flipout & OOD map-Flipout \\
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/ofc_3_fout_prob.png}& 
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/fout_prob_2.png}\\
+    
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/cf1_fout_prob.png}& 
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/fout_prob_4.png}\\
+    
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/pnt_1_fout_prob.png}& 
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/fout_prob_3.png}\\
+    
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/ofc_42_fout_prob.png}& 
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/fout_prob_1.png}\\
+            \end{tabular}
+            \includegraphics[scale=0.45]{images/prob_legend.pdf}
+            % \includegraphics[scale=0.65]{images/legend.png}
+            \caption{OOD visualization of the S3DIS dataset Flipout.}
+            \label{fig:fout_s3dis_oodmap_prob}
+        \end{figure*}
+
+
+        \begin{figure*}[h!]
+            \centering
+            \begin{tabular}{cc}
+                Entropy map-Deep Ensembles & OOD map-Deep Ensembles \\
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/ofc_3_de_ent.png}& 
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/de_ent_2.png}\\
+    
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/cf1_de_ent.png}& 
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/de_ent_4.png}\\
+    
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/pnt_1_de_ent.png}& 
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/de_ent_3.png}\\
+    
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/ofc_42_de_ent.png}& 
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/de_ent_1.png}\\
+            \end{tabular}
+            \includegraphics[scale=0.45]{images/prob_legend.pdf}
+            % \includegraphics[scale=0.65]{images/legend.png}
+            \caption{OOD visualization of the S3DIS dataset Deep Ensembles.}
+            \label{fig:de_s3dis_oodmap_ent}
+        \end{figure*}
+        \begin{figure*}[h!]
+            \centering
+            \begin{tabular}{cc}
+                Entropy map-Flipout & OOD map-Flipout \\
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/ofc_3_fout_ent.png}& 
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/fout_ent_2.png}\\
+    
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/cf1_fout_ent.png}& 
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/fout_ent_4.png}\\
+    
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/pnt_1_fout_ent.png}& 
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/fout_ent_3.png}\\
+    
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/ofc_42_fout_ent.png}& 
+                \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/fout_ent_1.png}\\
+            \end{tabular}
+            \includegraphics[scale=0.45]{images/prob_legend.pdf}
+            % \includegraphics[scale=0.65]{images/legend.png}
+            \caption{OOD visualization of the S3DIS dataset Deep Ensembles.}
+            \label{fig:fout_s3dis_oodmap_ent}
+        \end{figure*}
+        \FloatBarrier
     \section{OOD Benchmark - Semantic3D vs Semantic3D without color}
     \subsection{Deep ensembles}
     % \begin{table}[h!]
