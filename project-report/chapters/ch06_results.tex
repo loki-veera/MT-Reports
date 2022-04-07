@@ -717,7 +717,22 @@
     \FloatBarrier
     
     \subsection{Flipout}
-
+    \begin{table}[h!]
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{c|c|cccccccc|c}
+        %\textbf{\#Ensembles} & \textbf{MeanIOU} & \textbf{Accuracy} & \textbf{Manmadeterrain} & \textbf{Naturalterrain} & \textbf{Highvegetation} & \textbf{Lowvegetation} & \textbf{Buildings} & \textbf{Hardscapes} & \textbf{Scanningartifacts} & \textbf{Cars} \\ \hline
+        & & \multicolumn{7}{c}{\textbf{IoU per class}} & \\ \hline
+        \textbf{Ensemble size} & \textbf{MeanIOU} & \textbf{C1} & \textbf{C2} & \textbf{C3} & \textbf{C4} & \textbf{C5} & \textbf{C6} & \textbf{C7} & \textbf{C8} & \textbf{Accuracy} \\ \hline
+        1& 49.53& 79.6 &6.88 &68.51	&23.58 &86.3 &16.4 &47.24 &67.7	&79.85\\
+        5& 49.1& 79.65& 6.722& 65.46& 23.42& 85.74& 16.1& 47.05&68.64& 79.11\\
+        10& 49.08& 79.67& 6.66& 65.11& 23.57& 85.64& 16.11& 47.16& 68.73& 79.05\\
+        15& 49.03&79.67&6.64&64.88&23.56&85.64&16.06&47.20&68.58&79.00\\
+        20& 49.02&79.69&6.65&64.87&23.57&85.62&16.06&47.14&68.56&79.00\\
+        \end{tabular}%
+        }
+        \caption{Illustration of performance of RandLA-Net on Semantic3D wihtout color over number of ensembles. meanIOU and IOU per class and overall accuracy are represented here.
+        C1 to C8 are the classes of Semantic3D which are Manmadeterrain, Naturalterrain, Highvegetation, Lowvegetation, Buildings, Hardscapes, Scanningartifacts, and Cars.}
+    \end{table}
     \begin{figure*}[h!]
         \centering
         \begin{tabular}{cc}
