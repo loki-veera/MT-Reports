@@ -658,6 +658,8 @@
             \label{fig:fout_s3dis_oodmap_ent}
         \end{figure*}
         \FloatBarrier
+
+
     \section{OOD Benchmark - Semantic3D vs Semantic3D without color}
     \subsection{Deep ensembles}
     % \begin{table}[h!]
@@ -677,44 +679,163 @@
     %     C1 to C8 are the classes of Semantic3D which are Manmadeterrain, Naturalterrain, Highvegetation, Lowvegetation, Buildings, Hardscapes, Scanningartifacts, and Cars.}
     % \end{table}
 
-    % \begin{table}[h!]
-    %     \resizebox{\textwidth}{!}{%
-    %     \begin{tabular}{c|c|cccccccc|c}
-    %     %\textbf{\#Ensembles} & \textbf{MeanIOU} & \textbf{Accuracy} & \textbf{Manmadeterrain} & \textbf{Naturalterrain} & \textbf{Highvegetation} & \textbf{Lowvegetation} & \textbf{Buildings} & \textbf{Hardscapes} & \textbf{Scanningartifacts} & \textbf{Cars} \\ \hline
-    %     & & \multicolumn{7}{c}{\textbf{IoU per class}} & \\ \hline
-    %     \textbf{\#Ensembles} & \textbf{MeanIOU} & \textbf{C1} & \textbf{C2} & \textbf{C3} & \textbf{C4} & \textbf{C5} & \textbf{C6} & \textbf{C7} & \textbf{C8} & \textbf{Accuracy} \\ \hline
-    %     1& 47.96&78.67&7.21&78.63&23.54&85.37&15.48&45.96&48.83&80.26\\
-    %     5& 49.66&80.68&4.49&79.06&26.87&84.87&16.64&48.79&55.85&81.62\\
-    %     10& 50.39&80.86&5.17&78.97&27.25&84.52&16.75&48.02&61.54&81.65\\
-    %     15& 50.33&81.02&5.04&77.25&27.52&83.18&16.53&47.81&64.25&81.25\\
-    %     20& 50.24&81.01&5.15&77.20&27.3&83.60&17.07&47.74&62.83&81.29\\
-    %     \end{tabular}%
-    %     }
-    %     \caption{Illustration of performance of RandLA-Net on Semantic3D wihtout color over number of ensembles. meanIOU and IOU per class and overall accuracy are represented here.
-    %     C1 to C8 are the classes of Semantic3D which are Manmadeterrain, Naturalterrain, Highvegetation, Lowvegetation, Buildings, Hardscapes, Scanningartifacts, and Cars.}
-    % \end{table}
+    \begin{table}[h!]
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{c|c|cccccccc|c}
+        %\textbf{\#Ensembles} & \textbf{MeanIOU} & \textbf{Accuracy} & \textbf{Manmadeterrain} & \textbf{Naturalterrain} & \textbf{Highvegetation} & \textbf{Lowvegetation} & \textbf{Buildings} & \textbf{Hardscapes} & \textbf{Scanningartifacts} & \textbf{Cars} \\ \hline
+        & & \multicolumn{7}{c}{\textbf{IoU per class}} & \\ \hline
+        \textbf{Ensemble size} & \textbf{MeanIOU} & \textbf{C1} & \textbf{C2} & \textbf{C3} & \textbf{C4} & \textbf{C5} & \textbf{C6} & \textbf{C7} & \textbf{C8} & \textbf{Accuracy} \\ \hline
+        1& 47.96&78.67&7.21&78.63&23.54&85.37&15.48&45.96&48.83&80.26\\
+        5& 49.66&80.68&4.49&79.06&26.87&84.87&16.64&48.79&55.85&81.62\\
+        10& 50.39&80.86&5.17&78.97&27.25&84.52&16.75&48.02&61.54&81.65\\
+        15& 50.33&81.02&5.04&77.25&27.52&83.18&16.53&47.81&64.25&81.25\\
+        20& 50.24&81.01&5.15&77.20&27.3&83.60&17.07&47.74&62.83&81.29\\
+        \end{tabular}%
+        }
+        \caption{Illustration of performance of RandLA-Net on Semantic3D wihtout color over number of ensembles. meanIOU and IOU per class and overall accuracy are represented here.
+        C1 to C8 are the classes of Semantic3D which are Manmadeterrain, Naturalterrain, Highvegetation, Lowvegetation, Buildings, Hardscapes, Scanningartifacts, and Cars.}
+    \end{table}
+    \begin{figure*}[h!]
+        \centering
+        \begin{tabular}{cc}
+            Prediction(Semantic3D) & Prediction(Semantic3D without color)\\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_1.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/de_sem3d_of_1.png}\\
 
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_2.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/de_sem3d_of_2.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_3.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/de_sem3d_of_3.png}\\
+        \end{tabular}
+        \includegraphics[scale=0.65]{images/legend.png}
+        \caption{Output predictions of the RandLA-Net over the Semantic3D dataset and Semantic3D without color
+         dataset  (10 number of passes) \textcolor{red}{Legend spelling mistake}.}
+        \label{fig:deepensemble_vis_sem3d_OF}
+    \end{figure*}
+    
+    \FloatBarrier
+    
     \subsection{Flipout}
 
+    \begin{figure*}[h!]
+        \centering
+        \begin{tabular}{cc}
+            Prediction(Semantic3D) & Prediction(Semantic3D without color) \\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_1.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/fout_sem3d_of_1.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_2.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/fout_sem3d_of_2.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_3.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/fout_sem3d_of_3.png}\\
+        \end{tabular}
+        \includegraphics[scale=0.65]{images/legend.png}
+        \caption{Output predictions of the RandLA-Net over the Semantic3D dataset (10 forward passes) \textcolor{red}{Legend spelling mistake}.}
+        \label{fig:flipout_vis_sem3d_OF}
+    \end{figure*}   
+    \FloatBarrier
+
+
     \subsection{Maximum Softmax probability (MSP)}
-    % \begin{figure}[h!]
-    %     \centering
-    %     \includegraphics[scale=0.55]{images/Ensemble_MSP_color_no_color.pdf}
-    %     \caption{Ensemble Semantic3D vs Semantic3D no color - MSP}
-    % \end{figure}
-    % \begin{figure}
-    %     \centering
-    %     \includegraphics[scale=0.55]{images/Ensemble_probability_sem3dvsnocolorAUROC.pdf}
-    % \end{figure}
+    \begin{figure*}[h!]
+        \centering
+        \begin{tabular}{cc}
+            Probability map-Semantic3D & Probability map-Semantic3D without color \\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_prob_10_1.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/de_prob_sem3d_of_1.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_prob_10_2.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/de_prob_sem3d_of_2.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_prob_10_3.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/de_prob_sem3d_of_3.png}\\
+        \end{tabular}
+        \includegraphics[scale=0.45]{images/prob_legend.pdf}
+        \caption{Probability map of the RandLA-Net over the Semantic3D dataset (10 ensemble) \textcolor{red}{Legend spelling mistake}.}
+        \label{fig:de_probmap_vis_sem3d_OF}
+    \end{figure*}
+    \begin{figure*}[h!]
+        \centering
+        \begin{tabular}{cc}
+            Probability map-Semantic3D & Probability map-Semantic3D without color \\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_prob_1.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/fout_prob_sem3d_of_1.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_prob_2.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/fout_prob_sem3d_of_2.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_prob_3.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/fout_prob_sem3d_of_3.png}\\
+        \end{tabular}
+        \includegraphics[scale=0.45]{images/prob_legend.pdf}
+        \caption{Probability map of the RandLA-Net over the Semantic3D dataset (10 number of passes) \textcolor{red}{Legend spelling mistake}.}
+        \label{fig:fout_probmap_vis_sem3d_OF}
+    \end{figure*} 
+    \FloatBarrier
     \subsection{Entropy}
-    % \begin{figure}[h!]
-    %     \centering\includegraphics[scale=0.55]{images/Ensemble_Entropy_color_no_color.pdf}
-    %     \caption{Ensemble Semantic3D vs Semantic3D no color - Entropy}
-    % \end{figure}
-    % \begin{figure}
-    %     \centering
-    %     \includegraphics[scale=0.55]{images/Ensemble_entropy_sem3dvsnocolorAUROC.pdf}
-    % \end{figure}
+    \begin{figure*}[h!]
+        \centering
+        \begin{tabular}{cc}
+            Entropy map-Semantic3D & Entropy map-Semantic3D without color \\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_ent_10_1.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/de_ent_sem3d_of_1.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_ent_10_2.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/de_ent_sem3d_of_2.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_ent_10_3.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/de_ent_sem3d_of_3.png}\\
+        \end{tabular}
+        \includegraphics[scale=0.45]{images/prob_legend.pdf}
+        \caption{Probability map of the RandLA-Net over the Semantic3D dataset (10 ensemble) \textcolor{red}{Legend spelling mistake}.}
+        \label{fig:de_entmap_vis_sem3d_OF}
+    \end{figure*}
+    \begin{figure*}[h!]
+        \centering
+        \begin{tabular}{cc}
+            Entropy map-Semantic3D & Entropy map-Semantic3D without color \\
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_ent_1.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/fout_ent_sem3d_of_1.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_ent_2.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/fout_ent_sem3d_of_2.png}\\
+
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_ent_3.png}&
+            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/fout_ent_sem3d_of_3.png}\\
+        \end{tabular}
+        \includegraphics[scale=0.45]{images/prob_legend.pdf}
+        \caption{Probability map of the RandLA-Net over the Semantic3D dataset (10 number of passes) \textcolor{red}{Legend spelling mistake}.}
+        \label{fig:fout_entmap_vis_sem3d_OF}
+    \end{figure*} 
+    \FloatBarrier
+
 
     \section{OOD detection evaluation -  Semantic3D vs Semantic3D without color}
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{cccc}
+        \hline
+        Ensemble size/ \#passes & Method               &  \multicolumn{2}{c}{AUROC}          \\ \hline
+                                &                      &  MSP             & Entropy          \\ \hline
+        \multirow{3}{*}{1}      & Dropout              & 0.66349          & 0.65908          \\
+                                & Flipout              & 0.64221          & 0.66157          \\
+                                & Deep Ensembles       & \textbf{0.67855} & \textbf{0.67866} \\ \hline
+        \multirow{3}{*}{5}      & Dropout              & 0.69448          & 0.68507          \\
+                                & Flipout              & 0.63743          & 0.66536          \\
+                                & Deep Ensembles       & \textbf{0.76769} & \textbf{0.77120} \\ \hline
+        \multirow{3}{*}{10}     & Dropout              & 0.68568          & 0.68004          \\
+                                & Flipout              & 0.63712          & 0.66535          \\
+                                & Deep Ensembles       & \textbf{0.77837} & \textbf{0.78142} \\ \hline
+        \multirow{3}{*}{15}     & Dropout              & 0.68975          & 0.68347          \\
+                                & Flipout              & 0.63022           & 0.65976          \\
+                                & Deep Ensembles       & \textbf{0.77302} & \textbf{0.77881} \\ \hline
+        \multirow{3}{*}{20}     & Dropout              & 0.68447          & 0.68199          \\
+                                & Flipout              & 0.63017          & 0.65934          \\
+                                & Deep Ensembles       & \textbf{0.77031} & \textbf{0.77584} \\ \hline
+        \end{tabular}
+        \caption{AUROC scores}
+    \end{table}
+    \FloatBarrier
 \end{document}
