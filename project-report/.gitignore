@@ -224,4 +224,4 @@ TSWLatexianTemp*
 
 # standalone packages
 *.sta
-report.pdf
+# report.pdf
