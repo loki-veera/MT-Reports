@@ -1,10 +1,9 @@
 %!TEX root = ../report.tex
 \begin{document}
 \chapter{Methodology}
-In this chapter, we will discuss about RandLA-Net used for 3D semantic segmentation, 
-especially about how the RandLA-Net architecture helps in efficient segmentation.
-How random point sampling along with local feature aggregation module in RandLA-Net is better than other sampling methods.
-We also discuss about the deep ensembles for uncertinty quantification and, we conclude this chapter with the environment and training details for the RandLA-Net with deep ensembles.
+In this chapter, we will discuss about the RandlLA-Net used for 3D semantic segmentation, especially about network architecture and also how it helps in better segmentation.
+We also discuss about the details of the Deep Ensembles and the Flipout methods for uncertainty quantification.
+We also study the evaluation metrics for 3D semantic segmentation and OOD detection along with the methods to generate OOD score such as Maxmimum Softmax Probability (MSP) as a baseline method and Entropy.
 \section{RandLA-Net}
 As stated in \cite{Hu_2020_CVPR_Randla}, it is a light weight, and efficient neural network architecture for sematic segmentation of 3D point clouds.
 From related work section \textcolor{red}{\textbf{refer section here}}, we can observe that the RandLA-Net architecture is best performing among the point models.
@@ -110,7 +109,7 @@ We chose RandLA-Net because of the following reasons:
     \item State of the art performance in point based methods, consisting of only Multi Layer Perceptrons (MLP) and without expensive operations such as kernalization or graph construction.
 \end{enumerate}
 
-\subsection{Evaluation metrics}
+\subsection{Evaluation metrics-Semantic Segmentation}
 To evaluate the performance of RandLA-Net over the training dataset (Semantic3D in our case) we chose two metrics.
 They are Mean Intersection-over-Union (mIoU) and Accuracy.
 
@@ -148,8 +147,8 @@ The combination is done by averaging over all the predictions of N models to get
 the detailed training algorithm is given in appendix \textcolor{red}{\textbf{cite appendix here}}.
 Deep ensembles are proven to improve the overall performance of the model as in \cite{bhandary2020evaluating} and we also expect same behaviour in our case.
 
-Inspite of their performance boosting ability, they are also used to esitamtie uncertainty as in \cite{lakshminarayanan2016simple}.
-With the increase in number of ensembles, the Negative Log-Likelihood (NLL) and Brier score goes down suggesting network produces well calibrated predictions.
+Inspite of their performance boosting ability, they are also used to estimate uncertainty as in \cite{lakshminarayanan2016simple}.
+\cite{lakshminarayanan2016simple} proposes that with the increase in number of ensembles, the Negative Log-Likelihood (NLL) and Brier score goes down suggesting network produces well calibrated predictions.
 \cite{lakshminarayanan2016simple} also study the effect of entropy with out-of-distribution (OOD) classes.
 They performed the study on MNIST-NotMNIST, and SVHN-CIFAR10 with first dataset in pair being in distribution (ID) and second dataset is OOD dataset.
 Authors verified that the distribution of entropy on ID dataset is peaky and similarly the distribution of entropy on OOD dataset is more spread across all entropy values.
@@ -157,6 +156,102 @@ We hypothesize, that similar performance is observed in 3D semantic segmentation
 Because of proven ability to classify OOD on classification task, boost the performance of the model and ease of implementation makes deep ensembles an ideal candidate for OOD detection in 3D semantic segmentation.
 
 \section{Flipout}
+In this thesis, we also employed Flipout version of RandLA-Net model for uncertainty estimates and in this section we discuss more details about Flipout and its application.
+Flipout was originally introduced in \cite{Flipout} as an efficient method of gradient decorrelation in mini-batch of examples.
+This effect is implemented by addition of independent weight perturbations sampled from a distribution for each example.
+Authors in \cite{Flipout}, describes weight perturbations as methods whose weights of neural network are sampled from a distribution during training.
+In general neural network weights are point estimates where the weight is a single scalar value, in the case of weight perturbations they are modelled as a distribution where each weight $W=\overline{W}+\Delta W$ in which $\overline{W}$ is the mean weight and $\Delta W$ is the perturbation.
+If this $\Delta W$ is sampled from a Gaussian distribution then it called as Gaussian perturbation.
+Since the sampled weight perturbation is same for all the examples over the mini batch, authors argue that there is a correlation between the gradients.
+So authors of Flipout makes two critical assumptions to deal with this problem. 
+They are perturbation of different weights should be different and the distribution of perturbation should be symmetric around zero.
+So under these assumptions, authors observed that the perturbation distribution is invariant to element wise multiplication of random sign matrix.
+Here random sign matrix is defined as matrix whose elements are randomly sampled uniformly from $\pm 1$. 
+So the weight perturbation is modelled as Equation~\ref{eq:flipout_main} where $\widehat{\Delta W}$ is the base perturbation which is same for all weights, $\times$ represents element wise multiplication, $r_n, s_n$ represent the randomly signed vectors of ($\pm 1$) and $\Delta W_n$ is the perturbation of $n^{th}$ weight.
+\begin{equation}
+    \Delta W_n = \widehat{\Delta W} \times r_n s_{n}^T
+    \label{eq:flipout_main}
+\end{equation}
+So the node output of the neural network is modified as 
+$$y_n = \phi(W^T x_n) $$
+$$y_n = \phi((\overline{W}+\widehat{\Delta W} \times r_n s_{n}^T)^Tx_n)$$
+$$y_n = \phi(\overline{W} x_n+(\widehat{\Delta W}^T (x_n\times s_{n}))\times r_n)$$
+Here $\phi$ is the activation function, and $x_n$ is the $n^{th}$ input example in the mini batch.
+This whole operation is vectorized and is stated as a matrix multiplication in Equation~\ref{eq:fowpass_flipout} where $R$ and $S$ consist of rows of $r_n$ and $s_n$.
+Here $R$ and $S$ are independent of $\overline{W}$ and $\widehat{\Delta W}$ which doesn't add any extra terms in backpropagation.
+\begin{equation}
+    Y = \phi(X\overline{W}+((X\times S)\widehat{\Delta W})\times R)
+    \label{eq:fowpass_flipout}
+\end{equation}
+Authors also argue that the Flipout reduces the variance in gradients when compared to shared perturbation but has a slightly higher variance than independent perturbations along with the mathematical proof produced in \cite{Flipout}.
 
 
+In a glance, these random weight perturbations gives us slightly different output estiamates for every forward pass.
+In our case we changed the few classification layers of the network to Flipout compatible  more about the setup in Chapter~[\$].
+We then compute the forward pass multiple times and these mutiple output estimates from multiple forward passes are then averaged to get the final prediction estimate.
+A representation of this operation is presented in Figure~\ref{fig:flipout_ex} and here $F_1$ represents the single feature extraction network and these features are fed into multiple classification heads represented from $C_1$ to $C_N$.
+These classification are averaged to get final classification score.
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{images/Ensembles.png}
+    \caption{Deep ensembles[Change to Flipout image]}
+    \label{fig:flipout_ex}
+\end{figure}
+\FloatBarrier
+
+\section{OOD estimates}
+In this section, we discuss about the two methods used to generate the OOD score for classifing the OOD objects and how these scores are calculated.
+The two metrics are Maximum Softmax Probability (MSP) and Entropy.
+\subsection{Maximum Softmax Probability}
+First proposed in \cite{hendrycks2016baseline_MSP}, uses the probablity of the classification from the Softmax for OOD detection. 
+MSP still serves a most evaluated baseline method for OOD detection.
+Since we are the first study to perform OOD detection 3D semantic segmentation to best of our knowledge, we wanted to incorporate this score as a baseline. 
+Here the main idea is that if a point in a point cloud is known, then it will have higher MSP score and vice versa.
+It is calculated as a given in Equation~[\$], where $y_n$ is the list of softmax probablity score for each class given as $p_1, p_2, .., p_n$.
+$$y_n = [p_1, p_2,..,p_n]$$
+\begin{equation}
+    MSP = max(y_n)
+\end{equation}
+
+\subsection{Entropy}
+Entropy is defined by \cite{entropy_robinson} as an "ill defined notion of chaos or uncertainty".
+Entropy has its roots in thermodynamics and in computer science it can be used as measure of information content.
+In deep learning, Entropy is used as a measure for uncertainty and calculated as given in Equation~\ref{eq:ent_calc}, where $P(x_i)$ is softmax probablity for $i^{th}$ of point x.
+\begin{equation}
+    Entropy = -\sum_i P(x_i) log P(x_i)
+    \label{eq:ent_calc}
+\end{equation}
+In theory, following this formula if the point in the point cloud is from In Distribution (ID) then the softmax output is higher for one class and other classes will be near to zero.
+This leads to lower entropy score for the ID point and for the Out Of Distribution (OOD) point in the point cloud the softmax output is spread across all the classes.
+This means that the OOD point will have the higher entropy score.
+
+\section{Evaluation metric-OOD detection}
+In this section, we will discuss the metrics used for evaluating the OOD detection, one is Receiver Operating Characteristic (ROC) curve to extract thresholds of the score and Area Under the ROC curve (AUROC) for evaluation and comparison of the OOD detection performance.
+\subsection{Receiver Operating Characteristic Curve}
+ROC curves are typically used for selecting the best classifiers based on the performance.
+ROC curves were historically used in signal detection but later found their way into machine learning community.
+According to \cite{}-[\$] this is because accuracy itself is a poor metric to realise the model's performance.
+Also ROC curves are insucceptible to change in class distribution that is proportion of negative to positive examples.
+ROC curves are drawn based on True Positive Rate (TPR) and False Positive Rate (FPR).
+TPR is calculated as number of positively classified samples to total positive samples and FPR is calculated as number of negatively classified samples to total number of negative samples.
+
+An ROC curve is generated as follows, given a set of probabilities/scores and their true labels either positive or negative.
+We then generate a range of threshold values from these probabilities and then compute TPR and FPR for each threhold value.
+These TPR and FPR are plotted to generate a ROC curve as displayed in Figure~\ref{fig:ROC_curve_example}. 
+Figure~\ref{fig:ROC_curve_example} represents ROC curves for various classfiers, here red line represents roc curve for the random classifier and green line represents roc curve for a perfect classifier.
+Since we want out classifier to be better performing than a random classifier, we expect our ROC curve to be in the blue region.
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[scale=0.35]{images/ROC_curve_example.pdf}
+    \caption{Example ROC curve}
+    \label{fig:ROC_curve_example}
+\end{figure}
+
+\subsection{Area Under an ROC curve}
+Since the ROC curves are a tow dimensional depiction and we need a single scalar value to compare the performance of the classifiers we use Area Under an ROC curve (AUROC) value.
+AUROC is the area enclosed below the ROC curve and the AUROC value ranges between 0 and 1 as the curve is plotted in a unit square.
+AUROC for a random classifer's ROC curve as depicted in red color in Figure~\ref{fig:ROC_curve_example} is 0.5 and perfect classifier depicted as green line is 1 as it's area encompasses the while square.
+In this thesis, we use this score to evaluate and  compare the performance of OOD detection between Deep Ensembles and Flipout.
+
+\section{Summary}
 \end{document}
