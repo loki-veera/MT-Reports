@@ -20,9 +20,18 @@
     They are \textit{Sequential}, \textit{Static} and \textit{Synthetic} datasets.
     The data for sequential datasets are collected as frame sequences where mechanical LiDAR is mounted on top of a autonomous driivng platform as in Figure \ref{fig:seq_data_lyft}.
     \begin{figure}[h!]
-        \centering
-        \includegraphics[scale=0.25]{images/sequential_lyft.png}
-        \caption{Sequential mounted LiDAR for data collection of Lyft L5 dataset. Image from \cite{Lyftl5}}
+        \begin{subfigure}{0.45\textwidth}
+            \centering
+            \includegraphics[scale=0.25]{images/sequential_lyft.png}
+            \caption{}
+        \end{subfigure}
+        \begin{subfigure}{0.45\textwidth}
+            \centering
+            \includegraphics[scale=0.45]{images/SemanticKitti.pdf}
+            \caption{}
+        \end{subfigure}
+        \caption{Image (a) depicting the LiDAR mounted on a vehicle to collect sequential data for Lyft L5 dataset and 
+        (b) depicts an example of sequential data from SemanticKITTI dataset. Images are from \cite{Lyftl5} and \cite{Hu_2020_CVPR_Randla} respectively.}
         \label{fig:seq_data_lyft}
     \end{figure}
     Most of the popular autonomous driving datasets are of sequential type, but these kind of datasets comes with a drawback of sparse points than other datasets.
@@ -33,8 +42,18 @@
     Figure \ref{fig:tls} depcits a terrestrial laser scanner used to capture point cloud of an industrial environment.
     \begin{figure}[h!]
         \centering
-        \includegraphics[scale=0.75]{images/TLS.jpg}
-        \caption{Terrestrial laser scanner in an industrial environment with the laser scanner mounted on a yellow tripod in the left corner of the floor. Image taken from \cite{tls}}
+        \begin{subfigure}{0.45\textwidth}
+            \includegraphics[scale=0.45]{images/TLS.jpg}
+            \caption{}
+        \end{subfigure}
+        \begin{subfigure}{0.45\textwidth}
+            \centering
+            \includegraphics[scale=0.2]{images/sem3d_data/1.pdf}
+            \caption{}
+        \end{subfigure}
+
+        \caption{Image (a) depicting the terrestrial laser scanner in an industrial environment to collect static data with the laser scanner mounted on a yellow tripod in the left corner of the floor and 
+        (b) represents the scene of a static data from Semantic3D dataset. First image is taken from \cite{tls}.}
         \label{fig:tls}
     \end{figure}
     An advantage with the static datasets, are they can produce highly dense point clouds leading to rich 3D geometric representations.
@@ -55,7 +74,7 @@
     The newly added datasets include DALES \cite{varney2020dales}, ScanObjectNN \cite{scanobejctnn} in static acquisition mode and AIO Drive \cite{Weng2020_AIODrive}, Toronto3D \cite{tan2020toronto3d} are additions in the sequential mode.
     \cite{survey3d} also classifies GTAV \textcolor{red}{\textbf{cite}} dataset as synthetic 3D LiDAR but the corresponding paper doesn't report any LiDAR dataset and proposed only 2D dataset for segmentation.
     The limited number of datasets in 3D LiDAR allowed us to study the characteristics of each individual datasets such as each class, data distribution and features of each point in point cloud. 
-    It is summarized in Table \textcolor{red}{\textbf{ref}} in Appendix \textcolor{red}{\textbf{chapter number}}
+    %%%%% It is summarized in Table \textcolor{red}{\textbf{ref}} in Appendix \textcolor{red}{\textbf{chapter number}}
     %%\section{TODO}
     %%\begin{itemize}
     %%     \item[$\bullet$] Explain the table
@@ -235,7 +254,9 @@ Finally, graph neural networks \cite{dyn_graph_cnn} are also able to produce bet
             \caption{}
             \label{fig:SOTA_Dconnect}
         \end{subfigure}
-        \caption{Images taken from \textcolor{red}{cite}}
+        \caption{Figure (a) depicting the connections of the normal fully connected layers with nodes and connections between them,
+        (b) representing the MC-Dropout where few nodes are dropped randomly and 
+        (c) representing the MC-Dropconnect where the weight connections are dropped randomly. All the images are taken from \cite{UQ_Survey}.}
         \label{fig:Dropout_Connect}
     \end{figure}
     Another method for estimating uncertinty is flipout as proposed in \cite{Flipout}.

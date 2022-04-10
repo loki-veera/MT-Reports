@@ -1,10 +1,10 @@
 % This file was created with tikzplotlib v0.9.17.
 \begin{tikzpicture}
 
-%\definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
-\definecolor{color0}{rgb}{0, 0, 0}
+\definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
 
 \begin{axis}[
+log basis y={10},
 tick align=outside,
 tick pos=left,
 x grid style={white!69.0196078431373!black},
@@ -28,8 +28,9 @@ xticklabels={
 y grid style={white!69.0196078431373!black},
 ylabel={\textbf{Number of points (millions)}},
 ymajorgrids,
-ymin=0, ymax=836.3157978,
-ytick={0, 100, 200, 300, 400, 500, 600, 700, 800},
+ymin=10, ymax=1000,
+ytick={10, 100, 1000},
+ymode=log,
 ytick style={color=black}
 ]
 \draw[draw=none,fill=color0] (axis cs:-0.25,0) rectangle (axis cs:0.25,796.491236);

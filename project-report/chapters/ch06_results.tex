@@ -32,14 +32,14 @@
         20& \textbf{70.80}& \textbf{95.55}& \textbf{84.11}& 86.65& 29.60& 85.41& \textbf{29.58}& 62.47& \textbf{93.06}& 90.56 \\
         \end{tabular}%
         }
-        \caption{Illustration of performance of RandLA-Net on Semantic3D over number of ensembles. meanIOU and IOU per-class and overall accuracy are represented here.
+        \caption{Illustration of performance of RandLA-Net on Semantic3D over ensemble size. meanIOU, IOU per-class and overall accuracy are represented here.
         C1 to C8 are the classes of Semantic3D which are Manmadeterrain, Naturalterrain, Highvegetation, Lowvegetation, Buildings, Hardscapes, Scanningartifacts, and Cars.}
         \label{tab:ensemble_eval}
     \end{table} 
 
     \begin{figure*}[h!]
         \begin{tabular}{ccc}
-            RGB & Ground Truth & Prediction-Deep Ensembles \\
+            Point Cloud & Ground Truth & Prediction-Deep Ensembles \\
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_RGB.pdf} &
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_GT.pdf}& 
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_Pred.pdf}\\
@@ -53,7 +53,8 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/3_Pred.pdf}\\
         \end{tabular}
         \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Output predictions of the RandLA-Net over the Semantic3D dataset (13 ensemble size) \textcolor{red}{Legend spelling mistake}.}
+        \caption{Image representing the predictions (last column) from Deep Ensemble with an ensemble size of 15 on Semantic3D dataset.
+         The first column depict input point cloud and second column represent the ground truth.}
         \label{fig:deepensemble_vis_sem3d}
     \end{figure*}
 
@@ -72,7 +73,7 @@
             \includegraphics[width=0.30\textwidth, height=0.15\textheight]{images/seg_output/deep_ensembles/2_10.pdf}\\
         \end{tabular}
         \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Deep ensembles performance on RandLA-Net over the Semantic3D dataset.}
+        \caption{Performance improvements of Deep Ensembles on Semantic3D dataset with each column representing the ensemble size of 1, 5 and 10 respectively.}
         \label{fig:deepensemble_improv}
     \end{figure*}
 
@@ -102,13 +103,13 @@
         20& 69.87 & 94.38&80.18&83.80&23.57&87.72&39.84&57.92&91.57&90.40\\
         \end{tabular}%
         }
-        \caption{Illustration of performance of Flipout versioned RandLA-Net on Semantic3D. meanIOU and IOU per-class and overall accuracy are represented here.
+        \caption{Illustration of performance of Flipout versioned RandLA-Net on Semantic3D dataset. meanIOU, IOU per-class and overall accuracy are represented here.
         C1 to C8 are the classes of Semantic3D which are Manmadeterrain, Naturalterrain, Highvegetation, Lowvegetation, Buildings, Hardscapes, Scanningartifacts, and Cars.}
         \label{tab:flipout_eval}
     \end{table}
     \begin{figure*}[h!]
         \begin{tabular}{ccc}
-            RGB & Ground Truth & Prediction-Flipout \\
+            Point Cloud & Ground Truth & Prediction-Flipout \\
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_RGB.pdf} &
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/sem3d_seg_output/1_GT.pdf}& 
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/flipout/sem3d_1.pdf}\\
@@ -122,7 +123,8 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/flipout/sem3d_3.pdf}\\
         \end{tabular}
         \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Output predictions of the RandLA-Net over the Semantic3D dataset (10 forward passes) \textcolor{red}{Legend spelling mistake}.}
+        \caption{Image representing the predictions (last column) from Flipout with 15 forward passes on Semantic3D dataset.
+        The first column depict input point cloud and second column represent the ground truth.}
         \label{fig:flipout_vis_sem3d}
     \end{figure*}   
 
@@ -146,7 +148,7 @@
     \begin{figure*}[h!]
         \centering
         \begin{tabular}{ccc}
-            RGB & Deep Ensembles & Flipout \\
+            Point Cloud & Deep Ensembles & Flipout \\
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_1_RGB.pdf} &
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_1_Pred.pdf} &
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/office_3.pdf} \\
@@ -164,7 +166,8 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/office_42.pdf} \\
         \end{tabular}
         \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Output predictions of the RandLA-Net over the S3DIS dataset.}
+        \caption{Predictions of RandLA-Net on S3DIS (OOD) dataset. First column representing the point cloud, second column presenting the predictions of Deep Ensembles and final column represents the results from Flipout model.
+        We represented the results with ensemble size of 15 and 15 forward passes for Flipout.}
         \label{fig:de_s3dis_vis}
     \end{figure*}
     %%%%%% Maximum probability (Semantic3D vs S3DIS) %%%%%%
@@ -177,17 +180,19 @@
     Figure~\ref{fig:msp_flipout} represents the change in mean probability value to the number of passes in Flipout.
     Here, we represent the mean probability values across the odd number of ensembles size and the odd number of passes in case of flipout.
     \begin{figure}[!ht]
-        \centering
         \begin{subfigure}{0.98\textwidth}
-        \includegraphics[scale=0.6]{images/MSP/Ensembles_MSP_semvs3d.pdf}
-        \caption{MSP deep ensembles}
+            \centering
+        \includegraphics[scale=0.5]{images/MSP/Ensembles_MSP_semvs3d.pdf}
+        \caption{}
         \label{fig:msp_ensembles}
         \end{subfigure}
         \begin{subfigure}{0.98\textwidth}
-        \includegraphics[scale=0.6]{images/MSP/Flipout_MSP_semvs3d.pdf}
-        \caption{MSP flipout}
+            \centering
+        \includegraphics[scale=0.5]{images/MSP/Flipout_MSP_semvs3d.pdf}
+        \caption{}
         \label{fig:msp_flipout}
         \end{subfigure}
+        \caption{Graph representing the mean probability value as a dot for Semantc3D in green and S3DIS (OOD) in red. The variance is represented as the error bars.  (a) represents the mean probability value for various ensemble sizes and (b) represents the mean probability value for multiple forward passes on Flipout model.}
     \end{figure}
 
     From Figure~\ref{fig:msp_ensembles}, we can infer that as the increase in ensemble size, the mean probability of the ID (Semantic3D) dataset remains stable.
@@ -253,7 +258,7 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/prob_legend.pdf}
         \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Perpoint probability visualization of the semantic3D dataset.}
+        \caption{Image depicts the ground truth, corresponding prediction and per point probability estimated using Deep Ensembles (ensemble size of 15) of various scenes in Semantic3D dataset.}
         \label{fig:de_sem3d_probmap}
     \end{figure*}
 
@@ -275,7 +280,7 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/prob_legend.pdf}
         \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Perpoint probability visualization of the semantic3D dataset.}
+        \caption{Image depicts the ground truth, corresponding prediction and per point probability estimated using Flipout (forward passes of 15) of various scenes in Semantic3D dataset.}
         \label{fig:fout_sem3d_probmap}
     \end{figure*}
 
@@ -297,7 +302,7 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/prob_legend.pdf}
         \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Perpoint probability visualization of the S3DIS dataset.}
+        \caption{Image depicts the prediction and per point probability estimated using Deep Ensembles (ensemble size of 15) of various scenes in S3DIS (OOD) dataset.}
         \label{fig:de_s3dis_probmap}
     \end{figure*}
 
@@ -319,7 +324,7 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/prob_legend.pdf}
         \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Perpoint probability visualization of the S3DIS dataset flipout.}
+        \caption{Image depicts the prediction and per point probability estimated using Flipout (forward passes of 15) of various scenes in S3DIS (OOD) dataset.}
         \label{fig:fout_s3dis_probmap}
     \end{figure*}
 
@@ -359,17 +364,19 @@
     Visually observation of entropy maps for the OOD dataset in Figure~\ref{fig:de_s3dis_entmap} and Figure~\ref{fig:fout_s3dis_entmap} reveals the colours to be at the higher end of the entropy scale resulting in a more yellowish shade in the case of both Flipout and Deep Ensembles.
 
     \begin{figure}[!ht]
-        \centering
         \begin{subfigure}{0.98\textwidth}
-        \includegraphics[scale=0.6]{images/MSP/Ensembles_ENT_semvs3d.pdf}
-        \caption{Entropy deep ensembles, (mistake in x axis)}
+            \centering
+        \includegraphics[scale=0.5]{images/MSP/Ensembles_ENT_semvs3d.pdf}
+        \caption{}
         \label{fig:ent_ensembles}
         \end{subfigure}
         \begin{subfigure}{0.98\textwidth}
-        \includegraphics[scale=0.6]{images/MSP/Flipout_ENT_semvs3d.pdf}
-        \caption{Entropy flipout}
+            \centering
+        \includegraphics[scale=0.5]{images/MSP/Flipout_ENT_semvs3d.pdf}
+        \caption{}
         \label{fig:ent_flipout}
         \end{subfigure}
+        \caption{Graph representing the mean entropy value as a dot for Semantc3D in green and S3DIS (OOD) in red. The variance is represented as the error bars.  (a) represents the mean entropy value for various ensemble sizes and (b) represents the mean entropy value for multiple forward passes on Flipout model.}
     \end{figure}
     \begin{figure*}[h!]
         \begin{tabular}{ccc}
@@ -388,7 +395,7 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/ent_legend.pdf}
         \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Perpoint entropy visualization of the semantic3D dataset-Ensembles. (Chnage the scale)}
+        \caption{Illustration of the ground truth, prediction and corresponding per point entropy score estimated using Deep Ensembles (ensemble size of 15) of various scenes in Semantic3D dataset.}
         \label{fig:de_sem3d_entmap}
     \end{figure*}
 
@@ -410,7 +417,7 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/ent_legend.pdf}
         \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Perpoint entropy visualization of the semantic3D dataset.\textcolor{red}{Legend spell mistake and wrong max entropy value}}
+        \caption{Illustration of the ground truth, prediction and corresponding per point entropy score estimated using Flipout (forward passes of 15) of various scenes in Semantic3D dataset.}
         \label{fig:fout_sem3d_entmap}
     \end{figure*}
     \begin{figure*}[h!]
@@ -431,7 +438,7 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/ent_legend.pdf}
         \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Perpoint entropy visualization of the S3DIS dataset.}
+        \caption{Illustration of the prediction and corresponding per point entropy score estimated using Deep Ensembles (ensemble size of 15) of various scenes in S3DIS dataset.}
         \label{fig:de_s3dis_entmap}
     \end{figure*}
     \begin{figure*}[h!]
@@ -452,7 +459,7 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/ent_legend.pdf}
         \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Perpoint entropy visualization of the S3DIS dataset flipout.}
+        \caption{Illustration of the prediction and corresponding per point entropy score estimated using Flipout (forward passes of 15) of various scenes in S3DIS dataset.}
         \label{fig:fout_s3dis_entmap}
     \end{figure*}
     \FloatBarrier

@@ -32,7 +32,7 @@ To overcome this, authors of RandLA-Net proposed local feature aggragation modul
             \caption{}
             \label{fig:networkarchitecture}
     \end{subfigure}
-    \caption{Illustration of (a) local feature aggregation module in RandLa-Net and (b) architecture of RandLA-Net. Both the images are taken from \cite{Hu_2020_CVPR_Randla}}
+    \caption{Illustration of (a) local feature aggregation module in RandLa-Net and (b) architecture of RandLA-Net. Both the images are taken from \cite{Hu_2020_CVPR_Randla}.}
 \end{figure}
 
 Figure \ref{fig:randlanetlfa} represents the local features aggregation module for the RandLA-Net.
@@ -78,7 +78,7 @@ This module is a combination of multiple LocSE, Attentive Polling, and a skip co
 \begin{figure}
     \centering
     \includegraphics[scale=0.5]{images/dilatedresidualblock.png}
-    \caption{Dilated residual block. Image taken from \cite{Hu_2020_CVPR_Randla}.}
+    \caption{Image depicting the working of Dilated residual block with each circle representing the receptive field of the block for feature extraction. Image taken from \cite{Hu_2020_CVPR_Randla}.}
     \label{fig:dilatedresidualblock}
 \end{figure}
 Let us consider a red point in Figure \ref{fig:dilatedresidualblock} and after application of first LocSE and Attentive Pooling module it observes K neighbours represented in red circle.
@@ -138,8 +138,9 @@ Similar to bagging, here the idea is to train the same network with same data wi
 These N trained models converge similarly with little difference given the same trianing conditions and hyperparameters.
 \begin{figure}
     \centering
-    \includegraphics[scale=0.5]{images/Ensembles.png}
-    \caption{Deep ensembles}
+    \includegraphics[scale=0.55]{images/DE.jpg}
+    \caption{Illustration of test dataflow in Deep Ensembles, where input point cloud is fed into multiple randomly initialized models ($M_1-M_n$). 
+    These individual predictions from each model are averaged to compute final prediction.}
     \label{fig:deepensembles}
 \end{figure}
 An example of deep ensemble is depicted in Figure \ref{fig:deepensembles}.
@@ -196,8 +197,9 @@ A representation of this operation is presented in Figure~\ref{fig:flipout_ex} a
 These classification are averaged to get final classification score.
 \begin{figure}
     \centering
-    \includegraphics[scale=0.5]{images/Ensembles.png}
-    \caption{Deep ensembles[Change to Flipout image]}
+    \includegraphics[scale=0.5]{images/flipout.jpg}
+    \caption{Illustration of test dataflow in Flipout. Here $F_1$ represents the flipout trained model and we compute n forward passes of the same point cloud on $F_1$.
+    These individual predictions are averaged to compute the final predictions.}
     \label{fig:flipout_ex}
 \end{figure}
 \FloatBarrier
@@ -246,7 +248,8 @@ Since we want out classifier to be better performing than a random classifier, w
 \begin{figure}[!ht]
     \centering
     \includegraphics[scale=0.35]{images/ROC_curve_example.pdf}
-    \caption{Example ROC curve}
+    \caption{Illustration of example ROC curves with red curve for random classifier and green curve representing the perfect classifier.
+    Our classifier ROC curve is expected to be placed in this blue shaded region.}
     \label{fig:ROC_curve_example}
 \end{figure}
 

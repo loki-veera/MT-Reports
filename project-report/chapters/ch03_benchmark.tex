@@ -33,7 +33,7 @@ We made use of validation set for evaluation purpose which is a subset of triani
 \begin{figure}[h!]
     \centering
     \includestandalone[width=0.6\linewidth]{images/Sem3d_points}
-    \caption{Distribution of training points in million per class in Semantic3D dataset. \textcolor{red}{Make it log scale}}
+    \caption{Graph depicting the number of points per class (in millions) in the Semantic3D dataset.}
     \label{fig:sem3ddist}
 \end{figure}
 
@@ -42,7 +42,7 @@ We made use of validation set for evaluation purpose which is a subset of triani
 \begin{figure*}
     \centering
     \begin{tabular}{cc}
-        RGB & Ground truth \\
+        Point cloud & Ground truth \\
         \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/sem3d_data/1.pdf} &
         \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/sem3d_data/1_gt.pdf}\\
         
@@ -58,8 +58,9 @@ We made use of validation set for evaluation purpose which is a subset of triani
         \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/sem3d_data/5.pdf} & 
         \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/sem3d_data/5_gt.pdf}\\
     \end{tabular}
-    \includegraphics[scale=0.65]{images/legend.png}
-    \caption{Illustration of point clouds in training and validation set with first column representing RGB colors of point cloud and second columns their ground truth colors with legend given in last image.}
+    \includegraphics[scale=0.45]{images/legend.png}
+    \caption{Illustration of the Semantic3D point clouds in training and validation set with first column representing the point cloud 
+    and second column their repective ground truth with legend for ground truth given in last image.}
     \label{fig:sem3d_gt_vis}
 \end{figure*}
 
@@ -91,14 +92,14 @@ Along with ShapeNet dataset \textcolor{red}{cite ShapeNet here}, S3DIS is also o
         \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/seg_output/s3dis_DE/S3DIS_4_RGB.pdf} &
         \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/seg_output/s3dis_DE/S3DIS_8_RGB.pdf} \\
     \end{tabular}
-    \caption{S3DIS dataset visualization}
+    \caption{Illustration of the point cloud with various rooms in a building from the S3DIS dataset.}
     \label{fig:s3dis_get_vis}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[scale=0.35]{images/seg_output/s3dis_DE/matterport_scan.pdf}
-    \caption{How matter port scan works. Image taken from \cite{}-[\$]}
+    \caption{Image (a) representing the triangular meshes generated from the Matterport camera and (b) depicts extracted point cloud from these traingular meshes. Image taken from \cite{matterport_scan_generation}.}
     \label{fig:how_matterport_works}
 \end{figure}
 \section{OOD Benchmarking}
