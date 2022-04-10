@@ -106,26 +106,50 @@
 In this section, we will discuss about the methods available for 3D semantic segmentation.
 The discussion include a breif peek into traditional 3D semantic segmentation methods and study of deep learning based 3D point cloud segmentation.
 
+\subsection{Traditional approach}
 Traditional methods involve a complex features extraction and pass these features to a classficiation algorithm such as Support Vector Machines or Random Forests to classify each point the point cloud.
 Various authors developed variety of methods to extract the features from the input point cloud.
 Some of these methods include segmentation from edge information \cite{bhanu1986range}, construction of complex graph pyramids \cite{koster}.
 3D Hough transforms as in \cite{vosselman20013d} and application of RANSAC \cite{schnabel2007efficient} and \cite{tarsha2007hough}.
 These traditional methods are now outdated as DNNs proved to better at feature extraction.
 
-\subsection{Deep learning based 3D semantic segmentation}
+\subsection{Deep learning approach}
 Deep learning based models are efficient at segmentation and can be divided into three types.
 Initial type include the point based models where the model directly feeds on the 3D point cloud.
 Then the other type include projection based models where the model takes in a projected points into 2D image either a range image or bird's eye view.
 Final type of models include the use of graph neural networks.
-Point based models mostly utilize fully connected layer or convolutional layers. 
-Where as the projection based models utilize existing 2D semantic segmentation archiecture.
 
+Let us look breifly into the point based methods. Point based methods majorly utilize fully connected layer or traditional convolutional layers.
+The major revolution in Deep learning based 3D semantic segmentation came after the PointNet proposed in \cite{Qi_2017_CVPR_pointnet}.
+Pointnet applied Multi Layer Perceptrons (MLP) to extract a global feature vector from the unstructured point cloud and then classifies using the fully connected layers.
+Since only Pointnet can extract local features, Pointnet++ proposed in \cite{qi2017pointnet++} applies Pointnet over the point cloud iteratively to extract features at global scale and then classifies.
+Eventhough the performance of Pointnet and Pointnet++ are weak, they served as a backbone for new archiectures such as RandLA-Net proposed in \cite{Hu_2020_CVPR_Randla}.
+Similar to PointNet, RandLA-Net employs MLP for feature extraction and then these features are passed through attention and then for classification.
+More details about RandLA-Net can be found in Section~\ref{sec:meth_randla}.
+By the time of writing this thesis, RandLA-Net is one overconfident the best performing model with lower parameters across Static, and Sequential datasets.
 
-The detailed summary of each model belonging to these two categories are depicted in Table \ref{tab:model_relatedwork} along with number of parameters.
-Finally, graph neural networks are out of the scope for this project and will not be disucssed further.
+The other flavours of point based methods include projection onto a d-dimensional lattice or making the point cloud structured.
+SPLATNet \cite{Su_2018_CVPR_splatnet} utilizes the Bilateral Convolutional layers to project data on d-dimensional lattice and the calssified.
+Where as LatticeNet proposed in \cite{rosu2019latticenet} projects the data onto sparse lattice, then classified and learns the reprojection to 3D using novel DeformSlice module.
+\cite{spvnas} proposed SPVNAS where the point cloud is voxelized then classified and then devoxelized.
+Finally \cite{Tatarchenko_2018_CVPR_tangconv} proposed Tangent Convolution similar to standard convolutions but with extra multiplicatives.
 
-    We chose RandLA-Net as the model because of its ability to extract complex structures and lower parameters.
-    Detailed reasons and explanation about RandLA-Net is discussed in Section~\ref{sec:meth_randla}.
+In projection based models lets first discuss about the models that project the data onto 2D range image.
+First of this kind is SqueezeSeg proposed in \cite{Sequeseseg_2018}. It employs SqueezeNet for 2D segmentation and then reprojected back to 3D using Recurrent Conditional Random Fields.
+Since the performance of SqueezeSeg is weak, later versions of SqueezeSeg such as SqueezeSegV2 proposed in \cite{SqueezeSegv2} and SqueezeSegV3 as in \cite{xu2020squeezesegv3} employs Context Aggregation Module and Spatially Adaptive Convolutions respectively to improve performance.
+RangeNet proposed in \cite{Milioto2019} even has three versions similar to SqueezeSeg, where first two versions uses DarkNet21 and DarkNet53 model for 2D semantic segmentation.
+The final version uses DarkNet53 model with kNN to reproject 2D range image to 3D after segmentation.
+Similarly 3DMiniNet \cite{3Dmininet} and KPRNet \cite{kochanov2020kprnet} projects data to range image for segmentation with former using MiniNetV2 as backbone model and later using ResNeXt-101 as backbone.
+
+We now discuss the projection based models which involves bird eye view projection.
+These type of models are relatively new to the field but has comparable performance to the existing models.
+SalsaNet \cite{salsanet2020} and SalsaNext \cite{SalsaNext_2020} are the two models to employ bird eye view projection as input and both uses ResNet model as backbone.
+The later one utilizes Lovasz-Softmax loss along with cross entropy and to the best of our knowledge, this is first model to study uncertainty by modelling SalsaNext as Bayesian Neural Network.
+PolarNet \cite{polarnet} and Cylinder3D \cite{zhu2020cylindrical} are recent models to incorporate bird eye view projection into the segmentation pipeline.
+
+The detailed summary of each model discussed here is presented in Table \ref{tab:model_relatedwork} along with number of parameters.
+Finally, graph neural networks \cite{dyn_graph_cnn} are also able to produce better segmentation results but this study is limited to standard deep learning models and thus grpah neural networks are not included in this study.
+
 
     \section{Uncertainty estimation methods}
     This section will discuss existing methods to estimate uncertainty in deep neural networks.

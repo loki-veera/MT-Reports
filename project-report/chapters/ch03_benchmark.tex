@@ -76,7 +76,31 @@ S3DIS dataset is divided into 12 classes which are further divided into two subc
 First subclass include structural elements which consist of \textit{ceiling, floor, window, wall, beam, columns and door}
 and latter subclass has common items such as \textit{table, sofa, chair, board and blackboard}.
 Along with ShapeNet dataset \textcolor{red}{cite ShapeNet here}, S3DIS is also one of the most evaluated dataset in indoor setting for semantic segmentation  using in \textcolor{red}{cite S3DIS papers here} whereas ShapeNet is used for part segmentation.
+\begin{figure}[!ht]
+    \centering
+    \begin{tabular}{cc}
+        \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/seg_output/s3dis_DE/S3DIS_1_RGB.pdf} &
+        \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/seg_output/s3dis_DE/S3DIS_5_RGB.pdf} \\
+        
+        \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/seg_output/s3dis_DE/S3DIS_2_RGB.pdf} &
+        \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/seg_output/s3dis_DE/S3DIS_6_RGB.pdf} \\
 
+        \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/seg_output/s3dis_DE/S3DIS_3_RGB.pdf} &
+        \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/seg_output/s3dis_DE/S3DIS_7_RGB.pdf} \\
+
+        \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/seg_output/s3dis_DE/S3DIS_4_RGB.pdf} &
+        \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/seg_output/s3dis_DE/S3DIS_8_RGB.pdf} \\
+    \end{tabular}
+    \caption{S3DIS dataset visualization}
+    \label{fig:s3dis_get_vis}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.35]{images/seg_output/s3dis_DE/matterport_scan.pdf}
+    \caption{How matter port scan works. Image taken from \cite{}-[\$]}
+    \label{fig:how_matterport_works}
+\end{figure}
 \section{OOD Benchmarking}
 In this section we discuss benchmarked datasets and also argue why are they chosen as benchmarking datasets.
 We provided two benchmaked datasets one being Semantic3D vs S3DIS and Semantic3D vs Semantic3D (without color).
