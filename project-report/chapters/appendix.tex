@@ -128,5 +128,67 @@
         %\end{tabular}
     \end{longtable}
     
+    \section{ROC curves - Semantic3D vs S3DIS}
+    In this section, we display the ROC curves associated with the AUROC score from Table~\ref{tab:sem3dvs3dis_auroc}.
+    Figure~\ref{fig:roc_msp_ood_1} represents the ROC curves generated using Maximum Softmax Probability (MSP) for Deep Ensembles, Flipout and Dropout.
+    Similarly Figure~\ref{fig:roc_ent_ood_1} represents the ROC curves generated using the entropy score.
+    In both the cases, we observe that Dropout performs near to random classifier and Deep Ensembles outperform all the other methods.
 
+    Similarly for Semantic3D and Semantic3D without color, ROC curves have been depicted and these are associated with Table~\ref{tab:auroc_ood_2}.
+    Figure~\ref{fig:roc_msp_ood_2} and Figure~\ref{fig:roc_ent_ood_2} represents the ROC curves generated using MSP and entropy respectively.
+    In the case of MSP depicted in Figure~\ref{fig:roc_msp_ood_2}, we observe Deep Ensembles outperform other methods.
+    Whereas in the case of entropy depicted in Figure~\ref{fig:roc_ent_ood_2}, we observe similar overlapping ROC curves between Deep Ensembles, Flipout and Dropout.
+    \begin{figure*}
+        \centering
+        \begin{tabular}{cc}
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/MSP_1.pdf} & 
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/MSP_5.pdf}\\ 
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/MSP_10.pdf} &
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/MSP_15.pdf} \\ 
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/MSP_20.pdf} &
+            \\
+        \end{tabular}
+        \caption{ROC curves for Semantic3D vs S3DIS generated using Maximum Softmax Probability for Deep Ensembles, Flipout and Dropout.}
+        \label{fig:roc_msp_ood_1}
+    \end{figure*}
+    \begin{figure*}
+        \centering
+        \begin{tabular}{cc}
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/Entropy_1.pdf} & 
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/Entropy_5.pdf}\\ 
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/Entropy_10.pdf} &
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/Entropy_15.pdf} \\ 
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/Entropy_20.pdf} &
+            \\
+        \end{tabular}
+        \caption{ROC curves for Semantic3D vs S3DIS generated using Entropy for Deep Ensembles, Flipout and Dropout.}
+        \label{fig:roc_ent_ood_1}
+    \end{figure*}
+
+    \begin{figure*}
+        \centering
+        \begin{tabular}{cc}
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/MSP_cnc_1.pdf} & 
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/MSP_cnc_5.pdf}\\ 
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/MSP_cnc_10.pdf} &
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/MSP_cnc_15.pdf} \\ 
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/MSP_cnc_20.pdf} &
+            \\
+        \end{tabular}
+        \caption{ROC curves for Semantic3D vs Semantic3D without color generated using Maximum Softmax Probability for Deep Ensembles, Flipout and Dropout.}
+        \label{fig:roc_msp_ood_2}
+    \end{figure*}
+    \begin{figure*}
+        \centering
+        \begin{tabular}{cc}
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/Entropy_cnc_1.pdf} & 
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/Entropy_cnc_5.pdf}\\ 
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/Entropy_cnc_10.pdf} &
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/Entropy_cnc_15.pdf} \\ 
+            \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/Entropy_cnc_20.pdf} &
+            \\
+        \end{tabular}
+        \caption{ROC curves for Semantic3D vs Semantic3D without color generated using Entropy for Deep Ensembles, Flipout and Dropout.}
+        \label{fig:roc_ent_ood_2}
+    \end{figure*}
 \end{document}

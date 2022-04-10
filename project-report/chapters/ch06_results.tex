@@ -23,7 +23,7 @@
         \resizebox{\textwidth}{!}{%
         \begin{tabular}{c|c|cccccccc|c}
         %\textbf{\#Ensembles} & \textbf{MeanIOU} & \textbf{Accuracy} & \textbf{Manmadeterrain} & \textbf{Naturalterrain} & \textbf{Highvegetation} & \textbf{Lowvegetation} & \textbf{Buildings} & \textbf{Hardscapes} & \textbf{Scanningartifacts} & \textbf{Cars} \\ \hline
-        & & \multicolumn{7}{c}{\textbf{IoU per class}} & \\ \hline
+        & & \multicolumn{7}{c}{\textbf{IoU per-class}} & \\ \hline
         \textbf{Ensemble size} & \textbf{meanIoU} & \textbf{C1} & \textbf{C2} & \textbf{C3} & \textbf{C4} & \textbf{C5} & \textbf{C6} & \textbf{C7} & \textbf{C8} & \textbf{Accuracy} \\ \hline
         1& 68.19& 94.55& 81.19& 84.67& 29.43& 81.37& 18.85& 64.74& 90.74& 88.78 \\
         5& 69.51& 94.73& 81.92& 84.42& 28.05& \textbf{86.41}& 28.50& 61.03& 91.03& 90.04 \\
@@ -94,7 +94,7 @@
         \resizebox{\textwidth}{!}{%
         \begin{tabular}{c|c|cccccccc|c}
         %\textbf{\#Ensembles} & \textbf{MeanIOU} & \textbf{Accuracy} & \textbf{Manmadeterrain} & \textbf{Naturalterrain} & \textbf{Highvegetation} & \textbf{Lowvegetation} & \textbf{Buildings} & \textbf{Hardscapes} & \textbf{Scanningartifacts} & \textbf{Cars} \\ \hline
-        & & \multicolumn{7}{c}{\textbf{IoU per class}} & \\ \hline
+        & & \multicolumn{7}{c}{\textbf{IoU per-class}} & \\ \hline
         \textbf{\#Passes} & \textbf{MeanIoU} & \textbf{C1} & \textbf{C2} & \textbf{C3} & \textbf{C4} & \textbf{C5} & \textbf{C6} & \textbf{C7} & \textbf{C8} & \textbf{Accuracy} \\ \hline
         1& 69.95  & 94.24&80.09&86.16&22.48&88.70&39.41&57.42&91.12&90.71\\
         5& 69.83  & 94.38&80.21&84.10&23.32&87.80&39.68&57.75&91.43&90.43\\
@@ -192,7 +192,7 @@
         \caption{}
         \label{fig:msp_flipout}
         \end{subfigure}
-        \caption{Graph representing the mean probability value as a dot for Semantc3D in green and S3DIS (OOD) in red. The variance is represented as the error bars.  (a) represents the mean probability value for various ensemble sizes and (b) represents the mean probability value for multiple forward passes on Flipout model.}
+        \caption{Graph representing the mean probability value as a dot for Semantic3D in green and S3DIS (OOD) in red. The variance is represented as the error bars.  (a) represents the mean probability value for various ensemble sizes and (b) represents the mean probability value for multiple forward passes on Flipout model.}
     \end{figure}
 
     From Figure~\ref{fig:msp_ensembles}, we can infer that as the increase in ensemble size, the mean probability of the ID (Semantic3D) dataset remains stable.
@@ -376,7 +376,7 @@
         \caption{}
         \label{fig:ent_flipout}
         \end{subfigure}
-        \caption{Graph representing the mean entropy value as a dot for Semantc3D in green and S3DIS (OOD) in red. The variance is represented as the error bars.  (a) represents the mean entropy value for various ensemble sizes and (b) represents the mean entropy value for multiple forward passes on Flipout model.}
+        \caption{Graph representing the mean entropy value as a dot for Semantic3D in green and S3DIS (OOD) in red. The variance is represented as the error bars.  (a) represents the mean entropy value for various ensemble sizes and (b) represents the mean entropy value for multiple forward passes on Flipout model.}
     \end{figure}
     \begin{figure*}[h!]
         \begin{tabular}{ccc}
@@ -494,7 +494,7 @@
                                 & Flipout              & 0.77331          & 0.77237          \\
                                 & Deep Ensembles       & \textbf{0.89338} & \textbf{0.89052} \\ \hline
         \end{tabular}
-        \caption{AUROC scores}
+        \caption{AUROC scores in the case of Semantic3D and S3DIS for Dropout, Flipout, and  Deep Ensembles generated using MSP and Entropy values for various ensemble sizes and forward passes.}
         \label{tab:sem3dvs3dis_auroc}
     \end{table}
     From Table~\ref{tab:sem3dvs3dis_auroc}, we can observe that the among all the uncertainty methods used, Deep Ensembles outperform the other methods in classifying ID (Semantic3D) and OOD (S3DIS) datasets.
@@ -527,7 +527,7 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/prob_legend.pdf}
         % \includegraphics[scale=0.45]{images/legend.png}
-        \caption{OOD point visualization of the semantic3D dataset Deep Ensembles-size 10.}
+        \caption{Representation of probability map and its legend in first column and OOD map in second column generated using Deep Ensembles (ensmeble size of 10) for Semantic3D (ID) dataset. In OOD map green represents ID points and red represents OOD points.}
         \label{fig:de_ood_auroc_sem3d_prob}
     \end{figure*}
     \begin{figure*}[h!]
@@ -549,7 +549,7 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/prob_legend.pdf}
         % \includegraphics[scale=0.65]{images/legend.pdf}
-        \caption{OOD point visualization of the semantic3D dataset Deep Ensembles-size 10.}
+        \caption{Representation of probability map and its legend in first column and OOD map in second column generated using Flipout (forward passes of 10) for Semantic3D (ID) dataset. In OOD map green represents ID points and red represents OOD points.}
         \label{fig:fout_ood_auroc_sem3d_prob}
     \end{figure*}
     \begin{figure*}[h!]
@@ -568,9 +568,9 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_ent_10_3.pdf}& 
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_ent_ood_auroc_3.pdf}\\
         \end{tabular}
-        \includegraphics[scale=0.45]{images/prob_legend.pdf}
+        \includegraphics[scale=0.45]{images/ent_legend.pdf}
         % \includegraphics[scale=0.45]{images/legend.png}
-        \caption{OOD point visualization of the semantic3D dataset Deep Ensembles-size 10.}
+        \caption{Representation of entropy map and its legend in first column and OOD map in second column generated using Deep Ensembles (ensmeble size of 10) for Semantic3D (ID) dataset. In OOD map green represents ID points and red represents OOD points.}
         \label{fig:de_ood_auroc_sem3d_ent}
     \end{figure*}
     \begin{figure*}[h!]
@@ -591,9 +591,9 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_ent_3.pdf}& 
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_ent_ood_auroc_3.pdf}\\
         \end{tabular}
-        \includegraphics[scale=0.45]{images/prob_legend.pdf}
+        \includegraphics[scale=0.45]{images/ent_legend.pdf}
         % \includegraphics[scale=0.45]{images/legend.png}
-        \caption{OOD point visualization of the semantic3D dataset Deep Ensembles-size 10.}
+        \caption{Representation of entropy map and its legend in first column and OOD map in second column generated using Flipout (forward passes of 10) for Semantic3D (ID) dataset. In OOD map green represents ID points and red represents OOD points.}
         \label{fig:fout_ood_auroc_sem3d_ent}
     \end{figure*}
 
@@ -615,7 +615,7 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/prob_legend.pdf}
         % \includegraphics[scale=0.45]{images/legend.png}
-        \caption{OOD visualization of the S3DIS dataset Deep Ensembles.}
+        \caption{Representation of probability map and its legend in first column and OOD map in second column generated using Deep Ensembles (ensmeble size of 10) for S3DIS (OOD) dataset. In OOD map green represents ID points and red represents OOD points.}
         \label{fig:de_s3dis_oodmap_prob}
     \end{figure*}
     \begin{figure*}[h!]
@@ -636,7 +636,7 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/prob_legend.pdf}
         % \includegraphics[scale=0.45]{images/legend.png}
-        \caption{OOD visualization of the S3DIS dataset Flipout.}
+        \caption{Representation of probability map and its legend in first column and OOD map in second column generated using Flipout (forward passes of 10) for S3DIS (OOD) dataset. In OOD map green represents ID points and red represents OOD points.}
         \label{fig:fout_s3dis_oodmap_prob}
     \end{figure*}
 
@@ -657,9 +657,9 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/ofc_42_de_ent.pdf}& 
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/de_ent_1.pdf}\\
         \end{tabular}
-        \includegraphics[scale=0.45]{images/prob_legend.pdf}
+        \includegraphics[scale=0.45]{images/ent_legend.pdf}
         % \includegraphics[scale=0.45]{images/legend.png}
-        \caption{OOD visualization of the S3DIS dataset Deep Ensembles.}
+        \caption{Representation of entropy map and its legend in first column and OOD map in second column generated using Deep Ensembles (ensemble size of 10) for S3DIS (OOD) dataset. In OOD map green represents ID points and red represents OOD points.}
         \label{fig:de_s3dis_oodmap_ent}
     \end{figure*}
     \begin{figure*}[h!]
@@ -678,9 +678,9 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/ofc_42_fout_ent.pdf}& 
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/fout_ent_1.pdf}\\
         \end{tabular}
-        \includegraphics[scale=0.45]{images/prob_legend.pdf}
+        \includegraphics[scale=0.45]{images/ent_legend.pdf}
         % \includegraphics[scale=0.45]{images/legend.png}
-        \caption{OOD visualization of the S3DIS dataset Deep Ensembles.}
+        \caption{Representation of entropy map and its legend in first column and OOD map in second column generated using Flipout (forward passes of 10) for S3DIS (OOD) dataset. In OOD map green represents ID points and red represents OOD points.}
         \label{fig:fout_s3dis_oodmap_ent}
     \end{figure*}
     \FloatBarrier
@@ -700,7 +700,7 @@
     %     \resizebox{\textwidth}{!}{%
     %     \begin{tabular}{c|c|cccccccc|c}
     %     %\textbf{\#Ensembles} & \textbf{MeanIOU} & \textbf{Accuracy} & \textbf{Manmadeterrain} & \textbf{Naturalterrain} & \textbf{Highvegetation} & \textbf{Lowvegetation} & \textbf{Buildings} & \textbf{Hardscapes} & \textbf{Scanningartifacts} & \textbf{Cars} \\ \hline
-    %     & & \multicolumn{7}{c}{\textbf{IoU per class}} & \\ \hline
+    %     & & \multicolumn{7}{c}{\textbf{IoU per-class}} & \\ \hline
     %     \textbf{\#Ensembles} & \textbf{MeanIOU} & \textbf{C1} & \textbf{C2} & \textbf{C3} & \textbf{C4} & \textbf{C5} & \textbf{C6} & \textbf{C7} & \textbf{C8} & \textbf{Accuracy} \\ \hline
     %     1& 68.19& 94.55& 81.19& 84.67& 29.43& 81.37& 18.85& 64.74& 90.74& 88.78 \\
     %     5& 69.51& 94.73& 81.92& 84.42& 28.05& \textbf{86.41}& 28.50& 61.03& 91.03& 90.04 \\
@@ -709,7 +709,7 @@
     %     20& \textbf{70.80}& \textbf{95.55}& \textbf{84.11}& 86.65& 29.60& 85.41& \textbf{29.58}& 62.47& \textbf{93.06}& 90.56 \\
     %     \end{tabular}%
     %     }
-    %     \caption{Illustration of performance of RandLA-Net on Semantic3D over number of ensembles. meanIOU and IOU per class and overall accuracy are represented here.
+    %     \caption{Illustration of performance of RandLA-Net on Semantic3D over number of ensembles. meanIOU and IOU per-class and overall accuracy are represented here.
     %     C1 to C8 are the classes of Semantic3D which are Manmadeterrain, Naturalterrain, Highvegetation, Lowvegetation, Buildings, Hardscapes, Scanningartifacts, and Cars.}
     % \end{table}
     This experiment evaluates the performance of the Semantic3D without color (OOD) dataset on Deep Ensembles.
@@ -720,7 +720,7 @@
         \resizebox{\textwidth}{!}{%
         \begin{tabular}{c|c|cccccccc|c}
         %\textbf{\#Ensembles} & \textbf{MeanIOU} & \textbf{Accuracy} & \textbf{Manmadeterrain} & \textbf{Naturalterrain} & \textbf{Highvegetation} & \textbf{Lowvegetation} & \textbf{Buildings} & \textbf{Hardscapes} & \textbf{Scanningartifacts} & \textbf{Cars} \\ \hline
-        & & \multicolumn{7}{c}{\textbf{IoU per class}} & \\ \hline
+        & & \multicolumn{7}{c}{\textbf{IoU per-class}} & \\ \hline
         \textbf{Ensemble size} & \textbf{MeanIOU} & \textbf{C1} & \textbf{C2} & \textbf{C3} & \textbf{C4} & \textbf{C5} & \textbf{C6} & \textbf{C7} & \textbf{C8} & \textbf{Accuracy} \\ \hline
         1& 47.96&78.67&7.21&78.63&23.54&85.37&15.48&45.96&48.83&80.26\\
         5& 49.66&80.68&4.49&79.06&26.87&84.87&16.64&48.79&55.85&81.62\\
@@ -729,7 +729,7 @@
         20& 50.24&81.01&5.15&77.20&27.3&83.60&17.07&47.74&62.83&81.29\\
         \end{tabular}%
         }
-        \caption{Illustration of performance of RandLA-Net on Semantic3D wihtout color over number of ensembles. meanIOU and IOU per class and overall accuracy are represented here.
+        \caption{Illustration of performance of RandLA-Net on Semantic3D without color over number of ensembles. meanIOU, IOU per-class and overall accuracy are represented here.
         C1 to C8 are the classes of Semantic3D which are Manmadeterrain, Naturalterrain, Highvegetation, Lowvegetation, Buildings, Hardscapes, Scanningartifacts, and Cars.}
         \label{tab:de_sem3dof_eval}
     \end{table}
@@ -753,7 +753,7 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/legend.png}
         \caption{Output predictions of the RandLA-Net over the Semantic3D dataset and Semantic3D without color
-         dataset  (10 ensembles) \textcolor{red}{Legend spelling mistake}.}
+         dataset using Deep Ensembles (ensemble size of 10).}
         \label{fig:deepensemble_vis_sem3d_OF}
     \end{figure*}
     
@@ -767,7 +767,7 @@
         \resizebox{\textwidth}{!}{%
         \begin{tabular}{c|c|cccccccc|c}
         %\textbf{\#Ensembles} & \textbf{MeanIOU} & \textbf{Accuracy} & \textbf{Manmadeterrain} & \textbf{Naturalterrain} & \textbf{Highvegetation} & \textbf{Lowvegetation} & \textbf{Buildings} & \textbf{Hardscapes} & \textbf{Scanningartifacts} & \textbf{Cars} \\ \hline
-        & & \multicolumn{7}{c}{\textbf{IoU per class}} & \\ \hline
+        & & \multicolumn{7}{c}{\textbf{IoU per-class}} & \\ \hline
         \textbf{\# Passes} & \textbf{MeanIOU} & \textbf{C1} & \textbf{C2} & \textbf{C3} & \textbf{C4} & \textbf{C5} & \textbf{C6} & \textbf{C7} & \textbf{C8} & \textbf{Accuracy} \\ \hline
         1& 49.53& 79.6 &6.88 &68.51	&23.58 &86.3 &16.4 &47.24 &67.7	&79.85\\
         5& 49.1& 79.65& 6.722& 65.46& 23.42& 85.74& 16.1& 47.05&68.64& 79.11\\
@@ -776,7 +776,7 @@
         20& 49.02&79.69&6.65&64.87&23.57&85.62&16.06&47.14&68.56&79.00\\
         \end{tabular}%
         }
-        \caption{Illustration of performance of RandLA-Net on Semantic3D wihtout color over number of ensembles. meanIOU and IOU per class and overall accuracy are represented here.
+        \caption{Illustration of performance of Flipout versioned RandLA-Net on Semantic3D without color over number of ensembles. meanIOU, IOU per-class and overall accuracy are represented here.
         C1 to C8 are the classes of Semantic3D which are Manmadeterrain, Naturalterrain, Highvegetation, Lowvegetation, Buildings, Hardscapes, Scanningartifacts, and Cars.}
         \label{tab:fout_sem3dof_eval}
     \end{table}
@@ -799,13 +799,14 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/fout_sem3d_of_3.pdf}\\
         \end{tabular}
         \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Output predictions of the RandLA-Net over the Semantic3D dataset (10 forward passes) \textcolor{red}{Legend spelling mistake}.}
+        \caption{Output predictions of the RandLA-Net over the Semantic3D dataset and Semantic3D without color
+        dataset using Flipout (forward passes of 10).}
         \label{fig:flipout_vis_sem3d_OF}
     \end{figure*}   
     \FloatBarrier
 
 
-    \subsection{Maximum Softmax probability (MSP)}
+    \subsection{Maximum Softmax probability}
     This experiment focuses on the MSP values for each point in both ID and OOD datasets.
     We also try to study the distribution of probability values and try to estimate the performance of OOD detection.
     Figure~\ref{fig:msp_ensembles_ood_2} and Figure~\ref{fig:msp_flipout_ood_2} depicts the mean probability value for ID and OOD dataset along with the variance represented as error bars.
@@ -822,15 +823,18 @@
     \begin{figure}[!ht]
         \centering
         \begin{subfigure}{0.98\textwidth}
-        \includegraphics[scale=0.6]{images/MSP/Ensembles_MSP_semvsemwoc.pdf}
-        \caption{MSP deep ensembles}
+            \centering
+        \includegraphics[scale=0.5]{images/MSP/Ensembles_MSP_semvsemwoc.pdf}
+        \caption{}
         \label{fig:msp_ensembles_ood_2}
         \end{subfigure}
         \begin{subfigure}{0.98\textwidth}
-        \includegraphics[scale=0.6]{images/MSP/Flipout_MSP_semvsemwoc.pdf}
-        \caption{MSP Flipout}
+            \centering
+        \includegraphics[scale=0.5]{images/MSP/Flipout_MSP_semvsemwoc.pdf}
+        \caption{}
         \label{fig:msp_flipout_ood_2}
         \end{subfigure}
+        \caption{Graph representing the mean probability value as a dot for Semantic3D in green and Semantic3D without color (OOD) in red. The variance is represented as the error bars.  (a) represents the mean probability value for various ensemble sizes and (b) represents the mean probability value for multiple forward passes on Flipout model.}
     \end{figure}
     \begin{figure*}[h!]
         \centering
@@ -846,7 +850,7 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/de_prob_sem3d_of_3.pdf}\\
         \end{tabular}
         \includegraphics[scale=0.45]{images/prob_legend.pdf}
-        \caption{Probability map of the RandLA-Net over the Semantic3D dataset (10 ensemble) \textcolor{red}{Legend spelling mistake}.}
+        \caption{Per point probability comparison between Semantic3D (ID) and Semantic3D without color (OOD) dataset estimated using Deep Ensembles (ensemble size of 10)}
         \label{fig:de_probmap_vis_sem3d_OF}
     \end{figure*}
     \begin{figure*}[h!]
@@ -863,7 +867,7 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/fout_prob_sem3d_of_3.pdf}\\
         \end{tabular}
         \includegraphics[scale=0.45]{images/prob_legend.pdf}
-        \caption{Probability map of the RandLA-Net over the Semantic3D dataset (10 number of passes) \textcolor{red}{Legend spelling mistake}.}
+        \caption{Per point probability comparison between Semantic3D (ID) and Semantic3D without color (OOD) dataset estimated using Flipout (forward passes of 10)}
         \label{fig:fout_probmap_vis_sem3d_OF}
     \end{figure*} 
     \FloatBarrier
@@ -883,15 +887,18 @@
     \begin{figure}[!ht]
         \centering
         \begin{subfigure}{0.98\textwidth}
-        \includegraphics[scale=0.6]{images/MSP/Ensembles_ENT_semvsemwoc.pdf}
-        \caption{Entropy deep ensembles}
+            \centering
+        \includegraphics[scale=0.5]{images/MSP/Ensembles_ENT_semvsemwoc.pdf}
+        \caption{}
         \label{fig:ent_ensembles_ood_2}
         \end{subfigure}
         \begin{subfigure}{0.98\textwidth}
-        \includegraphics[scale=0.6]{images/MSP/Flipout_ENT_semvsemwoc.pdf}
-        \caption{Entropy Flipout}
+            \centering
+        \includegraphics[scale=0.5]{images/MSP/Flipout_ENT_semvsemwoc.pdf}
+        \caption{}
         \label{fig:ent_flipout_ood_2}
         \end{subfigure}
+        \caption{Graph representing the mean entropy value as a dot for Semantic3D in Semantic3D without color and S3DIS (OOD) in red. The variance is represented as the error bars.  (a) represents the mean entropy value for various ensemble sizes and (b) represents the mean entropy value for multiple forward passes on Flipout model.}
     \end{figure}
     \begin{figure*}[h!]
         \centering
@@ -907,7 +914,7 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/de_ent_sem3d_of_3.pdf}\\
         \end{tabular}
         \includegraphics[scale=0.45]{images/ent_legend.pdf}
-        \caption{Probability map of the RandLA-Net over the Semantic3D dataset (10 ensemble) \textcolor{red}{Legend spelling mistake}.}
+        \caption{Per point entropy comparison between Semantic3D (ID) and Semantic3D without color (OOD) dataset estimated using Deep Ensembles (ensemble size of 10)}
         \label{fig:de_entmap_vis_sem3d_OF}
     \end{figure*}
     \begin{figure*}[h!]
@@ -924,7 +931,7 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/fout_ent_sem3d_of_3.pdf}\\
         \end{tabular}
         \includegraphics[scale=0.45]{images/ent_legend.pdf}
-        \caption{Probability map of the RandLA-Net over the Semantic3D dataset (10 number of passes) \textcolor{red}{Legend spelling mistake}.}
+        \caption{Per point entropy comparison between Semantic3D (ID) and Semantic3D without color (OOD) dataset estimated using Flipout (forward passes of 10)}
         \label{fig:fout_entmap_vis_sem3d_OF}
     \end{figure*} 
     \FloatBarrier
@@ -960,7 +967,7 @@
                                 & Flipout              & 0.63017          & 0.65934          \\
                                 & Deep Ensembles       & \textbf{0.77031} & \textbf{0.77584} \\ \hline
         \end{tabular}
-        \caption{AUROC scores}
+        \caption{AUROC scores in case of Semantic3D vs Semantic3D without color for Dropout, Flipout, and  Deep Ensembles generated using MSP and Entropy values for various ensemble sizes and forward passes.}
         \label{tab:auroc_ood_2}
     \end{table}
     From Table~\ref{tab:auroc_ood_2}, we can infer that Deep Ensembles perform better among all other uncertainty techniques.
@@ -984,7 +991,7 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/sem3d_of/prob/de_sem3d_of_OOD_3.pdf}\\
         \end{tabular}
         % \includegraphics[scale=0.45]{images/prob_legend.pdf}
-        \caption{OOD map of the RandLA-Net over the Semantic3D dataset (10 ensembles) \textcolor{red}{Legend spelling mistake}.}
+        \caption{OOD maps for Semantic3D (ID) dataset in first column and Semantic3D without color (OOD) in second column estimated using probability map from Deep Ensembles (ensemble size of 10).}
         \label{fig:de_oodmap_sem3d_OF_prob}
     \end{figure*}
 
@@ -1002,7 +1009,7 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/sem3d_of/prob/fout_sem3d_of_OOD_3.pdf}\\
         \end{tabular}
         % \includegraphics[scale=0.45]{images/prob_legend.pdf}
-        \caption{OOD map of the RandLA-Net over the Semantic3D dataset (10 ensembles) \textcolor{red}{Legend spelling mistake}.}
+        \caption{OOD maps for Semantic3D (ID) dataset in first column and Semantic3D without color (OOD) in second column estimated using probability map from Flipout (forward passes of 10).}
         \label{fig:fout_oodmap_sem3d_OF_prob}
     \end{figure*} 
 
@@ -1020,7 +1027,7 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/sem3d_of/ent/de_sem3d_of_OOD_3.pdf}\\
         \end{tabular}
         % \includegraphics[scale=0.45]{images/prob_legend.pdf}
-        \caption{OOD map of the RandLA-Net over the Semantic3D dataset (10 ensembles) \textcolor{red}{Legend spelling mistake}.}
+        \caption{OOD maps for Semantic3D (ID) dataset in first column and Semantic3D without color (OOD) in second column estimated using entropy map from Deep Ensembles (ensemble size of 10).}
         \label{fig:de_oodmap_sem3d_OF_ent}
     \end{figure*}
 
@@ -1038,7 +1045,7 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/sem3d_of/ent/fout_sem3d_of_OOD_3.pdf}\\
         \end{tabular}
         % \includegraphics[scale=0.45]{images/prob_legend.pdf}
-        \caption{OOD map of the RandLA-Net over the Semantic3D dataset (10 ensembles) \textcolor{red}{Legend spelling mistake}.}
+        \caption{OOD maps for Semantic3D (ID) dataset in first column and Semantic3D without color (OOD) in second column estimated using entropy map from Flipout (forward passes of 10).}
         \label{fig:fout_oodmap_sem3d_OF_ent}
     \end{figure*} 
     \FloatBarrier
