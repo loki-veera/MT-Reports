@@ -191,4 +191,22 @@
         \caption{ROC curves for Semantic3D vs Semantic3D without color generated using Entropy for Deep Ensembles, Flipout and Dropout.}
         \label{fig:roc_ent_ood_2}
     \end{figure*}
+
+    \subsection{Thresholds}
+    In this section, we discuss the thresholds  (probabilities and entropies) chosen from the ROC curves.
+    All the thresholds in Table~\ref{tab:thresholds} are generated for Ensemble size 10 and 10 forward passes in case of Flipout for the OOD benchmark datasets.
+    We chose 10 because from Table~\ref{tab:sem3dvs3dis_auroc} and Table~\ref{tab:auroc_ood_2}, we observe that after the ensemble size/forward passes of 10 the improvements are  minimal.
+    \begin{table}[]
+        \centering
+        \begin{tabular}{cccc}
+            \hline
+            OOD Benchmark                                           & Method    & MSP   & Entropy \\ \hline
+            \multirow{2}{*}{Semantic3D vs S3DIS}                    & Ensembles & 0.755 & 0.386   \\
+                                                                    & Flipout   & 0.717 & 0.439   \\ \hline
+            \multirow{2}{*}{Semantic3D vs Semantic3D without color} & Ensembles & 0.790 & 0.323   \\ 
+                                                                    & Flipout   & 0.796 & 0.131   \\ \hline
+        \end{tabular}
+        \caption{Probability threshold and entropy threshold generated from the corresponding ROC curves for OOD benchmark datasets for both uncertainty methods.}
+        \label{tab:thresholds}
+    \end{table}
 \end{document}

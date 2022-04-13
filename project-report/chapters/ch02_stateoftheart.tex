@@ -77,7 +77,7 @@
     The datasets belonging to the each acquisition type are summed up in  Table \ref{table:3d_lidar_datasets_table}.
     Most of the datasets from Table \ref{table:3d_lidar_datasets_table} are taken from \cite{survey3d} and also as a part of this study, additional new datasets were added to the list.
     The newly added datasets include DALES \cite{varney2020dales}, ScanObjectNN \cite{scanobejctnn} in static acquisition mode and AIO Drive \cite{Weng2020_AIODrive}, Toronto3D \cite{tan2020toronto3d} are additions in the sequential mode.
-    \cite{survey3d} also classifies GTAV \textcolor{red}{\textbf{cite}} dataset as synthetic 3D LiDAR but the corresponding paper doesn't report any LiDAR dataset and proposed only 2D dataset for segmentation.
+    % \cite{survey3d} also classifies GTAV \textcolor{red}{\textbf{cite}} dataset as synthetic 3D LiDAR but the corresponding paper doesn't report any LiDAR dataset and proposed only 2D dataset for segmentation.
     The limited number of datasets in 3D LiDAR allowed us to study the characteristics of each dataset, such as each class, data distribution and features of the point cloud. 
     %%%%% It is summarized in Table \textcolor{red}{\textbf{ref}} in Appendix \textcolor{red}{\textbf{chapter number}}
     %%\section{TODO}
@@ -123,7 +123,7 @@
     
     We chose the Semantic3D dataset as the in-distribution (ID) training dataset from the available datasets. 
     S3DIS is chosen as an out-of-distribution (OOD) dataset as S3DIS is much different from Semantic3D.
-    Chapter~\ref{ch:benchmark} represents the detailed discussion on databsets and benchmarking.
+    Chapter~\ref{ch:benchmark} represents the detailed discussion on datasets and benchmarking.
 
     \section{3D semantic segmentation models}
 
@@ -138,6 +138,7 @@ Some of these methods include segmentation from edge information \cite{bhanu1986
 These traditional methods are outdated as DNNs proved to be better at feature extraction.
 
 \subsection{Deep learning approach}
+\label{sec:dl_approach}
 Deep learning based models are efficient at segmentation and can be divided into three types.
 The initial type includes the point-based models where the model directly feeds on the 3D point cloud.
 Then the other type includes projection based models where the model takes in projected points into a 2D image, either a range image or a bird's eye view.
@@ -178,15 +179,15 @@ Finally, graph neural networks \cite{dyn_graph_cnn} are also able to produce bet
 
     \section{Uncertainty estimation methods}
     This section will discuss existing methods to estimate uncertainty in deep neural networks.
-    Here we divide the existing methods into ensemble methods, Bayesian method and others.
+    Here we divide the uncertainty estimation methods into ensemble methods, Bayesian methods.
     The methods discussed here primarily estimate epistemic uncertainty. Only test time augmentation and gaussian density models estimate aleatoric uncertainty.
 
     \cite{matias_uncertainty} argues that there are two kinds of uncertainties, they are epistemic and aleatoric uncertainty.
     Epistemic uncertainty is uncertainty in the model becuase of lack of adequate training data or lack of proper model specification.
     \cite{matias_uncertainty} argues that the epistemic uncertainty is most helpful in OOD detection.
-    This is because during the training model parameters trains to a particular distribution of data, must produce high uncertainty estimates when they observe data from different distrbution.
+    This is because during the training, model parameters trains to a particular distribution of data, and must produce high uncertainty estimates when they observe data from different distrbution.
     Aleatoric uncertainty is irreducible and as it is a property of the data like measurement noise.
-    An example of aleatoric uncertainty in point cloud can be incorrect data from the LiDAR scanner collected on a foggy day, as fog reflects most of the laser rays creating disturbances in the scan.
+    An example of aleatoric uncertainty in point cloud can be incorrect data from the LiDAR scanner collected on a foggy day, as fog reflects most of the laser rays creating disturbances in the scan and also limiting the range.
     \subsection{Ensemble methods}
     Deep ensembles first proposed in  \cite{lakshminarayanan2016simple} is the most prominently used method for uncertainty estimation.
     They exploit the combinatory power of multiple models.

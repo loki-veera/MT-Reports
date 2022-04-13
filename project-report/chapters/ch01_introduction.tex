@@ -7,7 +7,7 @@ The development of Deep Neural Networks (DNNs) made tasks such as object classif
 These DNNs has been deployed in various real world scenarios such as autonomous driving \cite{autonomousdriving}, semi-autonomous robotic surgery \cite{roboticsurgery} and also in space rovers \cite{Marsrover_1}, \cite{Marsrover_2}.
 DNNs are majorly deployed in the perception stack in the autonomous driving pipeline. 
 Figure~\ref{fig:Apollopipeline} depicts the pipeline of the modules present in one of the open source autonomous driving platform called Apollo \cite{baiduapollo}.
-From this pipeline, one can infer that the most of the decisions regarding the vehicle control made by autonomous system is dependent on the output of the perception module.
+From this pipeline, one can infer that the most of the decisions in the prediction and motion planning module of the autonomous car is dependent on the output of the perception module.
 Since the perception module plays such significance, the developers of the perception stack must make sure the outputs are meaningful.
 \begin{figure}[h!]
     \centering
@@ -155,7 +155,7 @@ The contributions made in this thesis are
 \begin{enumerate}
     \item A complete survey on the available 3D LiDAR datasets
     \item A detailed survey on existing 3D semantic segmentation models
-    \item Benchmarking of 3D LiDAR datasets for OOD detection. Proposed two benchmark datasets Sematic3D vs S3DIS and Semantic3D vs Toronto3D with Semantic3D being trianing dataset and S3DIS and Toronto3D being OOD datasets.
+    \item Benchmarking of 3D LiDAR datasets for OOD detection. Proposed two benchmark datasets Sematic3D vs S3DIS and Semantic3D vs Semantic3D without color with Semantic3D being training dataset and S3DIS and Semantic3D without color being OOD datasets.
     \item A survey on the uncertainty estimation methods and classical OOD methods.
     \item An evaluation of OOD on benchmarked datasets over RandLA-Net model using Deep ensemble technique for uncertainty estimation.
 \end{enumerate}

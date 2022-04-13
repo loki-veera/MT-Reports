@@ -1,22 +1,22 @@
 %!TEX root = ../report.tex
 \begin{document}
 \chapter{Methodology}
-In this chapter, we will discuss about the RandlLA-Net used for 3D semantic segmentation, especially about network architecture and also how it helps in better segmentation.
-We also discuss about the details of the Deep Ensembles and the Flipout methods for uncertainty quantification.
-We also study the evaluation metrics for 3D semantic segmentation and OOD detection along with the methods to generate OOD score such as Maxmimum Softmax Probability (MSP) as a baseline method and Entropy.
+In this chapter, we will discuss the RandlLA-Net used for 3D semantic segmentation, especially about network architecture and how it helps in better segmentation.
+We also discuss the details of the Deep Ensembles and the Flipout methods for uncertainty quantification.
+We also study the evaluation metrics for 3D semantic segmentation and OOD detection and the methods to generate OOD scores, such as Maximum Softmax Probability (MSP) as a baseline method and Entropy.
 \section{RandLA-Net}
 \label{sec:meth_randla}
-As stated in \cite{Hu_2020_CVPR_Randla}, it is a light weight, and efficient neural network architecture for sematic segmentation of 3D point clouds.
-From related work section \textcolor{red}{\textbf{refer section here}}, we can observe that the RandLA-Net architecture is best performing among the point models.
-Efficient computation, memory usage and a model with direct application o 3D points are the main motivation when developing the RandLA-Net.
-To acheive these goals, RandLA-Net employs random point sampling along with the local feature aggregation module.
-Authors in \cite{Hu_2020_CVPR_Randla} proved that by a successive application of random point sampling along with lcoal feature aggregation module effective reduce and extract the features of the large scale point clouds from a scale of $10^5$ to $10^2$.
+As stated in \cite{Hu_2020_CVPR_Randla}, it is a lightweight and efficient neural network architecture for semantic segmentation of 3D point clouds.
+From the Section~\ref{sec:dl_approach}, we can observe that the RandLA-Net architecture is best performing among the point models.
+Efficient computation, memory usage and a model with direct application o 3D points are the primary motivation when developing the RandLA-Net.
+To achieve these goals, RandLA-Net employs random point sampling and the local feature aggregation module.
+Authors in \cite{Hu_2020_CVPR_Randla} proved that a successive application of random point sampling along with the local feature aggregation module effective reduce and extracts the features of the large scale point clouds from a scale of $10^5$ to $10^2$.
 
 RandLA-Net utilizes random point sampling among the other sampling methods such as Farthest Point Sampling, Inverse Density Point Sampling.
-In random point sampling, we select K points uniformly from original point cloud and has a computational complexity time of O(1).
-When compared among other point sampling methods, random point sampling has the lowest computational complexity and computation time is completely independent on number of points.
-Despite of these advantages, random point sampling comes with a major disadvantgae of important points being dropped.
-To overcome this, authors of RandLA-Net proposed local feature aggragation module for progressive capture of complex features on these selected points.
+We select K points uniformly from the original point cloud in random point sampling and have a computational complexity time of O(1).
+Compared with other point sampling methods, random point sampling has the lowest computational complexity and computation time independent of the number of points.
+Despite these advantages, random point sampling has a significant disadvantage of dropping essential points.
+To overcome this, the authors of RandLA-Net proposed a local feature aggregation module for the progressive capture of complex features on these selected points.
 \begin{figure}
     \centering
     \begin{subfigure}{0.45\textwidth}
@@ -36,14 +36,14 @@ To overcome this, authors of RandLA-Net proposed local feature aggragation modul
 \end{figure}
 
 Figure \ref{fig:randlanetlfa} represents the local features aggregation module for the RandLA-Net.
-This module is applied paralelly on the 3D points and architecture of local feature aggregation module is further divided into three sub modules.
-They are local spatial encoding (LocSE), attentive pooling and dilated residual block represented as green, pink and blue blocks respectively in Figure \ref{fig:randlanetlfa}.
+This module is applied parallelly on the 3D points, and the architecture of the local feature aggregation module is further divided into three sub-modules.
+They are local spatial encoding (LocSE), attentive pooling and dilated residual blocks represented as green, pink and blue blocks, respectively, in Figure \ref{fig:randlanetlfa}.
 Let us discuss further each of these submodules in detail.
 
 \subsection{Local Spatial Encoding (LocSE)}
-Local spatial enconding module takes each point ($p_i$) in point cloud (P) and encodes its neighbouring points position(x, y and z).
-This encoding makes sure that point p always have information of its neighbours.
-Also this encoding helps in learning geometric patterns and learn complex structures progressively.
+The local spatial encoding module takes each point ($p_i$) in the point cloud (P) and encodes its neighbouring points' position(x, y and z).
+This encoding makes sure that point p always has information about its neighbours.
+Also, this encoding helps in learning geometric patterns and learning complex structures progressively.
 This module works in three steps:
 \begin{enumerate}
     \item Finding nearest neighbours
@@ -58,84 +58,82 @@ r_i^k = MLP(p_i \oplus p_i^k \oplus (p_i - p_i^k) \oplus ||p_i-p_i^k||)
 $$
 where $r_i^k$ is the relative position of point $p_i$ with respect to $p_i^k$, here in $p_i$ and $p_i^k$ only the x,y and z positions are used.
 $\oplus$, and $||p_i-p_i^k||$ represents the concatenation operation and euclidean distance calculation between $p_i$ and $p_i^k$ respectively.
-This step 2 of relative position encoding is represented by above part in LocSE module in green track in Figure \ref{fig:randlanetlfa}.
+This step 2 of relative position encoding is represented by the above part in the LocSE module in the green track in Figure \ref{fig:randlanetlfa}.
 Step 3 creates a augmented feature vector $\hat{f_i^k}$ by concatenation of relative point position ($r_i^k$) and its point features ($f_i^k$) of point $p_i^k$.
-Point features ($f_i^k$) include the R,G and B values and other features such as intensity values.
-This step 3 is represented in lower part of the LocSE module in yellow track in Figure \ref{fig:randlanetlfa}.
-
+Point features ($f_i^k$) include the R, G and B values and other features such as intensity values.
+This step 3 is represented in the lower part of the LocSE module in the yellow track in Figure \ref{fig:randlanetlfa}.
 \subsection{Attentive Pooling}
-This augmented feature vector $\hat{f_i^k}$ from LocSE module is passed through a pooling layer to extract important features.
-Authors state that use of max and mean pooling layer leads in loss of information, because of this authors made use of attention mechanism which helps in learning important features automatically.
-Given the feature vector $\hat{f_i^k}$ a function $g$ is learned by help of MLP and softmax and the resultant vector is denoted as $s_i^k$ in the pink block in Figure \ref{fig:randlanetlfa}.
+This augmented feature vector $\hat{f_i^k}$ from the LocSE module is passed through a pooling layer to extract essential features.
+Authors state that use of max and mean pooling layer leads to loss of information. Because of this, the authors made use of the attention mechanism, which helps in learning important features automatically.
+Given the feature vector, $\hat{f_i^k}$ a function $g$ is learned with the help of MLP and softmax, and the resultant vector is denoted as $s_i^k$ in the pink block in Figure \ref{fig:randlanetlfa}.
 These each feature score $s_i^k$ from function $g$ is multiplied with feature vector $f_i^k$ called informative feature vector and summed up to form a unique feature vector $\tilde{f_i}$ for point $p_i$ and this operation is mathematically denoted as
 $$
 \tilde{f_i}= \sum_{k=1}^K (\hat{f_i^k}.s_i^k)
 $$
 
 \subsection{Dilated Residual Block}
-Dilated Resudial Block is a ResNet inspired module as claimed by authors and represented as blue color module in Figure \ref{fig:randlanetlfa}.
-This module is a combination of multiple LocSE, Attentive Polling, and a skip connection which feeds informative feature vector to output.
+Dilated Residual Block is a ResNet inspired module as claimed by authors and represented as a blue colour module in Figure \ref{fig:randlanetlfa}.
+This module combines multiple LocSE, Attentive Polling, and a skip connection that feeds an informative feature vector to output.
 \begin{figure}
     \centering
     \includegraphics[scale=0.5]{images/dilatedresidualblock.png}
     \caption{Image depicting the working of Dilated residual block with each circle representing the receptive field of the block for feature extraction. Image taken from \cite{Hu_2020_CVPR_Randla}.}
     \label{fig:dilatedresidualblock}
 \end{figure}
-Let us consider a red point in Figure \ref{fig:dilatedresidualblock} and after application of first LocSE and Attentive Pooling module it observes K neighbours represented in red circle.
-Secondary application of LocSE and Attentive Polling allows the red point to observe $K^{2}$ neighbours represented as large red circle in right subimage in Figure \ref{fig:dilatedresidualblock}.
-This progressive dilation of receptive fields allows to observe local features in first application of LocSe and Attentive Pooling and then observe global features on further application of LocSE and Attentive Polling modules.
-Authors claim that more LocSE and Attentive Pooling stacked in Dilated Residual Block powerful the Dilated Residual Block becomes and greater the receptive field at an expense of computational time.
-Authors also claim that only by stacked application of two LocSE and Attentive Pooling modules is powerful enough and it is effective and efficient in computational time.
+Let us consider a red point in Figure \ref{fig:dilatedresidualblock}. After applying the first LocSE and Attentive Pooling module, it observes that K neighbours are represented in the red circle.
+A secondary application of LocSE and Attentive Polling allows the red point to observe $K^{2}$ neighbours represented as a large red circle in the right subimage in Figure \ref{fig:dilatedresidualblock}.
+This progressive dilation of receptive fields allows for observing local features in the first application of LocSe and Attentive Pooling and then observing global features on further application of LocSE and Attentive Polling modules.
+Authors claim that the more LocSE and Attentive Pooling stacked in Dilated Residual Block powerful the Dilated Residual Block becomes and greater the receptive field at the expense of computational time.
+Authors also claim that only the stacked application of two LocSE and Attentive Pooling modules is powerful enough, and it is effective and efficient in computational time.
 
-To summarize upto this point, we have studied the special feature of RandLA-Net. That is how random point sampling in conjecture with local features aggregation module in Figure \ref{fig:randlanetlfa} helps in extraction of features progressively.
-We also studied how local feature aggragation module is divided into three sub modules namely Local Spatial Encoding (LocSE), Attentive Pooling and Dilated Residual Block and each of this submodules working procedure.
-In the next section we study the architecture of RandLA-Net.
+To summarize, up to this point, we have studied the unique feature of RandLA-Net. That is how random point sampling in conjecture with local features aggregation module in Figure \ref{fig:randlanetlfa} helps in the extraction of features progressively.
+We also studied how the local feature aggregation module is divided into three sub-modules: Local Spatial Encoding (LocSE), Attentive Pooling and Dilated Residual Block. Each of these submodules' working procedures.
+In the next section, we study the architecture of RandLA-Net.
 
 \subsection{RandLA-Net architecture}
 RandLA-Net is an encoder-decoder architecture with skip connections as used in various segmentation networks such as 3D U-Net\cite{wang2018two_3DUnet}.
-The input point clouds are directly applied to encoder consisting of Fully Connected (FC) and four Local Feature Aggragation (LFA) modules connected sequentially.
-The size of point cloud reduces by a factor of four for every encoder layer. 
-Similarly four decoder layers are used and the input features maps to each decoder layer is upsampled and concatenated to respective encoder feature maps via skip connections.
-The MLP is applied and fed into next decoder layer.
-Output of final decoder layer is fed in to three FC layers for point classification and a dropout layer is added before last layer with a dropout rate of 0.5.
+The input point clouds are directly applied to the encoder consisting of Fully Connected (FC) and four Local Feature Aggregation (LFA) modules connected sequentially.
+The point cloud size reduces by a factor of four for every encoder layer. 
+Similarly, four decoder layers are used, and the input features maps to each decoder layer are upsampled and concatenated to respective encoder feature maps via skip connections.
+The MLP is applied and fed into the next decoder layer.
+The output of the final decoder layer is fed into three FC layers for point classification, and a dropout layer is added before the last layer with a dropout rate of 0.5.
 The detailed network architecture is illustrated in Figure \ref{fig:networkarchitecture}.
-
 
 We chose RandLA-Net because of the following reasons:
 \begin{enumerate}
     \item Efficient extraction of complex structures progressively using Local Feature Aggregation (LFA) module.
-    \item Has lower number of parameters (1.24M) making training efficient, as 3D semantic segmentation models are computationally expensive.
-    \item Proven performance over variety of datasets such as Semantic3D and SemanticKITTI, along with ablation study of each submodule in LFA proposed in \cite{Hu_2020_CVPR_Randla}.
-    \item No preprocessing such as range image representation as in \cite{Milioto2019} or farthest point sampling with a computaitonal complexity of $O(N^2)$ as in \cite{Qi_2017_CVPR_pointnet}. Whereas RandLA-Net employs random point sampling with computational time of $O(1)$.
-    \item State of the art performance in point based methods, consisting of only Multi Layer Perceptrons (MLP) and without expensive operations such as kernalization or graph construction.
+    \item Has fewer parameters (1.24M), making training efficient, as 3D semantic segmentation models are computationally expensive.
+    \item Proven performance over a variety of datasets such as Semantic3D and SemanticKITTI, along with ablation study of each submodule in LFA proposed in \cite{Hu_2020_CVPR_Randla}.
+    \item No preprocessing such as range image representation as in \cite{Milioto2019}, or farthest point sampling with a computational complexity of $O(N^2)$ as in \cite{Qi_2017_CVPR_pointnet}. Whereas RandLA-Net employs random point sampling with a computational time of $O(1)$.
+    \item State of the art performance in point-based methods, consisting of only Multi-Layer Perceptrons (MLP) and without expensive operations such as kernelization or graph construction.
 \end{enumerate}
 
 \subsection{Evaluation metrics-Semantic Segmentation}
-To evaluate the performance of RandLA-Net over the training dataset (Semantic3D in our case) we chose two metrics.
+To evaluate the performance of RandLA-Net over the training dataset (Semantic3D in our case), we chose two metrics.
 They are Mean Intersection-over-Union (mIoU) and Accuracy.
 
 \subsubsection{Mean Intersection-over-Union (mIoU)}
-Mean Intersection-over-Union is a widely used metric for performance evaluation in task of semantic segmentation.
-It is calculated as mean of fraction of intersection area between predicted and ground truth masks and union of predicted and ground truth masks.
+Mean Intersection-over-Union is a widely used metric for performance evaluation in the task of semantic segmentation.
+It is calculated as a mean of a fraction of the intersection area between predicted and ground-truth masks and the union of predicted and ground truth masks.
 mIoU is calculated as
 $$mIoU=\frac{1}{N}\sum_{k=1}^N \frac{p_k\cap g_k}{p_k \cup g_k}$$
-where $N$ is the number of classes, $p_k$ and $g_k$ are predicted mask and ground truth mask of $k^{th}$ class.
+Where $N$ is the number of classes, $p_k$ and $g_k$ are predicted mask and ground truth mask of $k^{th}$ class.
 
 \subsubsection{Accuracy}
-Accuracy is another wide used metric, which can be quantified as number of points in the point cloud correctly classified.
-It can be formulated from confusion matrix as
+Accuracy is another widely used metric, which can be quantified as a number of points in the point cloud correctly classified.
+It can be formulated from the confusion matrix as
 $$Accuracy = \frac{TP+TN}{TP+TN+FP+FN}$$
-where TP, TN, FP and FN are True Positives, True Negatives, False Positives and False Negatives respectively from the confusion matrix.
+Where TP, TN, FP and FN are True Positives, True Negatives, False Positives and False Negatives, respectively, from the confusion matrix.
 This metric alone can be misleading in case of serious class imbalance.
 
-Here, we conclude the study of RandLA-Net, reason for its effective performance, argued the reasons to chose RandLA-Net and briefly discussed evaluation metrics used.
-In following sections we will discuss about the utilized uncertainty estimation methods such as deep ensembles, \textcolor{red}{\textbf{complete this}}
+Here, we conclude the study of RandLA-Net, the reason for its effective performance, argue the reasons to chose RandLA-Net and briefly discuss the evaluation metrics used.
+In the following sections, we will discuss the utilized uncertainty estimation methods such as deep ensembles, Flipout and metrics used for evaluation of 3D semantic segmentation and OOD detection.
 
 \section{Deep ensembles}
 \label{sec:meth_deepensembles}
-Deep ensembles employ kind of ensemble learning technique and proposed in \cite{lakshminarayanan2016simple}.
-Similar to bagging, here the idea is to train the same network with same data with random initializations N number of times.
-These N trained models converge similarly with little difference given the same trianing conditions and hyperparameters.
+Deep ensembles employ a kind of ensemble learning technique and are proposed in \cite{lakshminarayanan2016simple}.
+Similar to bagging, here, the idea is to train the same network with the same data with random initializations N number of times.
+These N trained models converge similarly with little difference given the same training conditions and hyperparameters.
 \begin{figure}
     \centering
     \includegraphics[scale=0.55]{images/DE.jpg}
@@ -143,34 +141,33 @@ These N trained models converge similarly with little difference given the same 
     These individual predictions from each model are averaged to compute final prediction.}
     \label{fig:deepensembles}
 \end{figure}
-An example of deep ensemble is depicted in Figure \ref{fig:deepensembles}.
-Here the input point cloud is fed into N number of models, in our case these models are all RandLA-Net.
+An example of a deep ensemble is depicted in Figure \ref{fig:deepensembles}.
+Here the input point cloud is fed into N number of models. In our case, these models are all RandLA-Net.
 The resulting predictions are combined to get the final prediction. 
-The combination is done by averaging over all the predictions of N models to get final predictions in our case.
-the detailed training algorithm is given in appendix \textcolor{red}{\textbf{cite appendix here}}.
-Deep ensembles are proven to improve the overall performance of the model as in \cite{bhandary2020evaluating} and we also expect same behaviour in our case.
+The combination is done by averaging over all the predictions of N models to get the final predictions in our case.
+Deep ensembles are proven to improve the overall performance of the model as in \cite{bhandary2020evaluating}, and we also expect the same behaviour in our case.
 
-Inspite of their performance boosting ability, they are also used to estimate uncertainty as in \cite{lakshminarayanan2016simple}.
-\cite{lakshminarayanan2016simple} proposes that with the increase in number of ensembles, the Negative Log-Likelihood (NLL) and Brier score goes down suggesting network produces well calibrated predictions.
-\cite{lakshminarayanan2016simple} also study the effect of entropy with out-of-distribution (OOD) classes.
-They performed the study on MNIST-NotMNIST, and SVHN-CIFAR10 with first dataset in pair being in distribution (ID) and second dataset is OOD dataset.
-Authors verified that the distribution of entropy on ID dataset is peaky and similarly the distribution of entropy on OOD dataset is more spread across all entropy values.
-We hypothesize, that similar performance is observed in 3D semantic segmentation as task of segmentation can be treated as multi class classification in a point cloud.
-Because of proven ability to classify OOD on classification task, boost the performance of the model and ease of implementation makes deep ensembles an ideal candidate for OOD detection in 3D semantic segmentation.
+Despite their performance boosting ability, they are also used to estimate uncertainty as in \cite{lakshminarayanan2016simple}.
+\cite{lakshminarayanan2016simple} proposes that with the increase in the number of ensembles, the Negative Log-Likelihood (NLL) and Brier score goes down, suggesting the network produces well-calibrated predictions.
+\cite{lakshminarayanan2016simple} also studies the effect of entropy with out-of-distribution (OOD) classes.
+They performed the study on MNIST-NotMNIST and SVHN-CIFAR10, with the first dataset in pair being in distribution (ID) and the second dataset being the OOD dataset.
+The authors verified that entropy distribution on the ID dataset is peaky. Similarly, the entropy distribution on the OOD dataset is more spread across all entropy values.
+We hypothesize that similar performance is observed in 3D semantic segmentation as a task of segmentation can be treated as multi-class classification in a point cloud.
+Because proven ability to classify OOD on the classification task boosts the model's performance and ease of implementation makes deep ensembles an ideal candidate for OOD detection in 3D semantic segmentation.
 
 \section{Flipout}
 \label{sec:meth_flipout}
-In this thesis, we also employed Flipout version of RandLA-Net model for uncertainty estimates and in this section we discuss more details about Flipout and its application.
-Flipout was originally introduced in \cite{Flipout} as an efficient method of gradient decorrelation in mini-batch of examples.
-This effect is implemented by addition of independent weight perturbations sampled from a distribution for each example.
-Authors in \cite{Flipout}, describes weight perturbations as methods whose weights of neural network are sampled from a distribution during training.
-In general neural network weights are point estimates where the weight is a single scalar value, in the case of weight perturbations they are modelled as a distribution where each weight $W=\overline{W}+\Delta W$ in which $\overline{W}$ is the mean weight and $\Delta W$ is the perturbation.
-If this $\Delta W$ is sampled from a Gaussian distribution then it called as Gaussian perturbation.
-Since the sampled weight perturbation is same for all the examples over the mini batch, authors argue that there is a correlation between the gradients.
-So authors of Flipout makes two critical assumptions to deal with this problem. 
-They are perturbation of different weights should be different and the distribution of perturbation should be symmetric around zero.
-So under these assumptions, authors observed that the perturbation distribution is invariant to element wise multiplication of random sign matrix.
-Here random sign matrix is defined as matrix whose elements are randomly sampled uniformly from $\pm 1$. 
+In this thesis, we also employed the Flipout version of the RandLA-Net model for uncertainty estimates, and in this section, we discuss Flipout and its application.
+Flipout was originally introduced in \cite{Flipout} as an efficient method of gradient decorrelation in a mini-batch of examples.
+This effect is implemented by adding independent weight perturbations sampled from distribution for each example.
+Authors in \cite{Flipout} describe weight perturbations as methods whose weights of the neural network are sampled from distribution during training.
+In general, neural network weights are point estimates where the weight is a single scalar value. In the case of weight perturbations, they are modelled as a distribution where each weight $W=\overline{W}+\Delta W$ in which $\overline{W}$ is the mean weight and $\Delta W$ is the perturbation.
+If this $\Delta W$ is sampled from a Gaussian distribution, it is called a Gaussian perturbation.
+Since the sampled weight perturbation is the same for all the examples over the mini-batch, the authors argue a correlation between the gradients.
+So authors of Flipout make two critical assumptions to deal with this problem. 
+They are a perturbation of different weights should be different, and the distribution of perturbation should be symmetric around zero.
+So under these assumptions, the authors observed that the perturbation distribution is invariant to element-wise multiplication of the random sign matrix.
+Here random sign matrix is defined as a matrix whose elements are randomly sampled uniformly from $\pm 1$. 
 So the weight perturbation is modelled as Equation~\ref{eq:flipout_main} where $\widehat{\Delta W}$ is the base perturbation which is same for all weights, $\times$ represents element wise multiplication, $r_n, s_n$ represent the randomly signed vectors of ($\pm 1$) and $\Delta W_n$ is the perturbation of $n^{th}$ weight.
 \begin{equation}
     \Delta W_n = \widehat{\Delta W} \times r_n s_{n}^T
@@ -190,11 +187,12 @@ Here $R$ and $S$ are independent of $\overline{W}$ and $\widehat{\Delta W}$ whic
 Authors also argue that the Flipout reduces the variance in gradients when compared to shared perturbation but has a slightly higher variance than independent perturbations along with the mathematical proof produced in \cite{Flipout}.
 
 
-In a glance, these random weight perturbations gives us slightly different output estiamates for every forward pass.
-In our case we changed the few classification layers of the network to Flipout compatible  more about the setup in Chapter~[\$].
-We then compute the forward pass multiple times and these mutiple output estimates from multiple forward passes are then averaged to get the final prediction estimate.
-A representation of this operation is presented in Figure~\ref{fig:flipout_ex} and here $F_1$ represents the single feature extraction network and these features are fed into multiple classification heads represented from $C_1$ to $C_N$.
-These classification are averaged to get final classification score.
+At a glance, these random weight perturbations give us slightly different output estimates for every forward pass.
+In our case, we changed the few classification layers of the network to Flipout compatible more about the setup in Section \ref{sec:flipout_setup}.
+We then compute the forward pass multiple times, and these multiple output estimates from multiple forward passes are then averaged to get the final prediction estimate.
+A representation of this operation is presented in Figure~\ref{fig:flipout_ex}, and here, $F_1$ represents the single feature extraction network, and these features are fed into multiple classification heads represented from $C_1$ to $C_N$.
+These classifications are averaged to get the final classification score.
+
 \begin{figure}
     \centering
     \includegraphics[scale=0.5]{images/flipout.jpg}
@@ -205,13 +203,14 @@ These classification are averaged to get final classification score.
 \FloatBarrier
 
 \section{OOD estimates}
-In this section, we discuss about the two methods used to generate the OOD score for classifing the OOD objects and how these scores are calculated.
+In this section, we discuss the two methods used to generate the OOD score for classifying the OOD objects and how these scores are calculated.
 The two metrics are Maximum Softmax Probability (MSP) and Entropy.
+
 \subsection{Maximum Softmax Probability}
-First proposed in \cite{hendrycks2016baseline_MSP}, uses the probablity of the classification from the Softmax for OOD detection. 
-MSP still serves a most evaluated baseline method for OOD detection.
-Since we are the first study to perform OOD detection 3D semantic segmentation to best of our knowledge, we wanted to incorporate this score as a baseline. 
-Here the main idea is that if a point in a point cloud is known, then it will have higher MSP score and vice versa.
+First proposed in \cite{hendrycks2016baseline_MSP}, uses the probability of the classification from the Softmax for OOD detection. 
+MSP still serves as the most evaluated baseline method for OOD detection.
+Since we are the first study to perform OOD detection 3D semantic segmentation to the best of our knowledge, we wanted to incorporate this score as a baseline. 
+Here the main idea is that if a point in a point cloud is known, then it will have a higher MSP score and vice versa.
 It is calculated as a given in Equation~[\$], where $y_n$ is the list of softmax probablity score for each class given as $p_1, p_2, .., p_n$.
 $$y_n = [p_1, p_2,..,p_n]$$
 \begin{equation}
@@ -219,32 +218,32 @@ $$y_n = [p_1, p_2,..,p_n]$$
 \end{equation}
 
 \subsection{Entropy}
-Entropy is defined by \cite{entropy_robinson} as an "ill defined notion of chaos or uncertainty".
-Entropy has its roots in thermodynamics and in computer science it can be used as measure of information content.
+Entropy is defined by \cite{entropy_robinson} as an "ill-defined notion of chaos or uncertainty".
+Entropy has its roots in thermodynamics, and in computer science, it can be used as a measure of information content.
 In deep learning, Entropy is used as a measure for uncertainty and calculated as given in Equation~\ref{eq:ent_calc}, where $P(x_i)$ is softmax probablity for $i^{th}$ of point x.
 \begin{equation}
     Entropy = -\sum_i P(x_i) log P(x_i)
     \label{eq:ent_calc}
 \end{equation}
-In theory, following this formula if the point in the point cloud is from In Distribution (ID) then the softmax output is higher for one class and other classes will be near to zero.
-This leads to lower entropy score for the ID point and for the Out Of Distribution (OOD) point in the point cloud the softmax output is spread across all the classes.
-This means that the OOD point will have the higher entropy score.
+In theory, following this formula, if the point in the point cloud is from In Distribution (ID), then the softmax output is higher for one class, and other classes will be near zero.
+This leads to a lower entropy score for the ID point, and for the Out Of Distribution (OOD) point in the point cloud, the softmax output is spread across all the classes.
+This means that the OOD point will have a higher entropy score.
 
 \section{Evaluation metric-OOD detection}
-In this section, we will discuss the metrics used for evaluating the OOD detection, one is Receiver Operating Characteristic (ROC) curve to extract thresholds of the score and Area Under the ROC curve (AUROC) for evaluation and comparison of the OOD detection performance.
+This section will discuss the metrics used for evaluating OOD detection. Firstly the Receiver Operating Characteristic (ROC) curve to extract thresholds of the score and later the Area Under the ROC curve (AUROC) for evaluation and comparison of the OOD detection performance.
 \subsection{Receiver Operating Characteristic Curve}
-ROC curves are typically used for selecting the best classifiers based on the performance.
-ROC curves were historically used in signal detection but later found their way into machine learning community.
-According to \cite{}-[\$] this is because accuracy itself is a poor metric to realise the model's performance.
-Also ROC curves are insucceptible to change in class distribution that is proportion of negative to positive examples.
+RROC curves are typically used for selecting the best classifiers based on their performance.
+ROC curves were historically used in signal detection but later found their way into the machine learning community.
+According to \cite{}-[\$], this is because accuracy itself is a poor metric to realise the model's performance.
+Also, ROC curves are insusceptible to change in class distribution, that is, the proportion of negative to positive examples.
 ROC curves are drawn based on True Positive Rate (TPR) and False Positive Rate (FPR).
-TPR is calculated as number of positively classified samples to total positive samples and FPR is calculated as number of negatively classified samples to total number of negative samples.
+TPR is calculated as the number of positively classified samples to the total positive samples, and FPR is calculated as the number of negatively classified samples to the total number of negative samples.
 
-An ROC curve is generated as follows, given a set of probabilities/scores and their true labels either positive or negative.
-We then generate a range of threshold values from these probabilities and then compute TPR and FPR for each threhold value.
+A ROC curve is generated as follows, given a set of probabilities/scores and their true labels, either positive or negative.
+We then generate a range of threshold values from these probabilities and then compute TPR and FPR for each threshold value.
 These TPR and FPR are plotted to generate a ROC curve as displayed in Figure~\ref{fig:ROC_curve_example}. 
-Figure~\ref{fig:ROC_curve_example} represents ROC curves for various classfiers, here red line represents roc curve for the random classifier and green line represents roc curve for a perfect classifier.
-Since we want out classifier to be better performing than a random classifier, we expect our ROC curve to be in the blue region.
+Figure~\ref{fig:ROC_curve_example} represents ROC curves for various classifiers, and here red line represents the roc curve for the random classifier, and the green line represents the roc curve for a perfect classifier.
+Since we want our classifier to be better performing than a random classifier, we expect our ROC curve to be in the blue region.
 \begin{figure}[!ht]
     \centering
     \includegraphics[scale=0.35]{images/ROC_curve_example.pdf}
@@ -254,10 +253,9 @@ Since we want out classifier to be better performing than a random classifier, w
 \end{figure}
 
 \subsection{Area Under an ROC curve}
-Since the ROC curves are a tow dimensional depiction and we need a single scalar value to compare the performance of the classifiers we use Area Under an ROC curve (AUROC) value.
-AUROC is the area enclosed below the ROC curve and the AUROC value ranges between 0 and 1 as the curve is plotted in a unit square.
-AUROC for a random classifer's ROC curve as depicted in red color in Figure~\ref{fig:ROC_curve_example} is 0.5 and perfect classifier depicted as green line is 1 as it's area encompasses the while square.
-In this thesis, we use this score to evaluate and  compare the performance of OOD detection between Deep Ensembles and Flipout.
+Since the ROC curves are a tow dimensional depiction and we need a single scalar value to compare the performance of the classifiers, we use the Area Under a ROC curve (AUROC) value.
+AUROC is the area enclosed below the ROC curve, and the AUROC value ranges between 0 and 1 as the curve is plotted in a unit square.
+AUROC for a random classifier's ROC curve as depicted in red colour in Figure~\ref{fig:ROC_curve_example} is 0.5, and the perfect classifier depicted as the green line is one as its area encompasses the whole square.
+In this thesis, we use this score to evaluate and compare the performance of OOD detection between Deep Ensembles and Flipout.
 
-\section{Summary}
 \end{document}
