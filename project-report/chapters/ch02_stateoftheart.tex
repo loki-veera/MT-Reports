@@ -295,12 +295,12 @@ Finally, graph neural networks \cite{dyn_graph_cnn} are also able to produce bet
     \begin{equation}
         S_{ODIN}(x) = max_i \frac{exp(f_i(x)/T)}{\sum^{C}_{j=1}exp(f_j(x)/T)}  \label{eq:SODIN}
     \end{equation}
-    \begin{equation}
-        \begin{cases}
-            ID if S(x) > \delta_t \\
-            OOD otherwise
-        \end{cases}
-    \end{equation}
+    % \begin{equation}
+    %     \begin{cases}
+    %         ID if S(x) > \delta_t \\
+    %         OOD otherwise
+    %     \end{cases}
+    % \end{equation}
     \cite{lee2018simple_mahalanobis} has proposed a threshold-based OOD detection method using the Mahalanobis distance as a confidence score.
     The Mahalanobis distance is calculated for every activation map of each layer of the network, and these individual Mahalanobis scores are combined to get a confidence score.
     The Mahalanobis distance is calculated between the activation map and each class distribution represented as multivariate gaussian.

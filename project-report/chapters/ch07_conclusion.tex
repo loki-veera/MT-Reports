@@ -2,45 +2,44 @@
 
 \begin{document}
     \chapter{Conclusions}
-    Advancements in the area of Deep learning, pushed the Deep Neural Networks (DNN) to industry ready.
-    But they still suffer from the problem of misdetecting new objects in the environment.
-    This is a major problem to deal in safety critical applications.
-    This thesis focuses on finding the objects (Out Of Distribution) which are different from the training set in 3D semantic segmentation setting.
+    Advancements in Deep learning pushed the Deep Neural Networks (DNN) to industry-ready.
+    Nevertheless, they still suffer from the problem of misdetecting new objects in the environment.
+    This is a significant problem to deal with in safety-critical applications.
+    This thesis focuses on finding the objects (Out Of Distribution) different from the training set in the 3D semantic segmentation setting.
     In this thesis, we surveyed the publicly available 3D LiDAR datasets.
-    A survey on the  state-of-the-art models for 3D semantic segmentation is also made and chose RandLA-Net as the network of interest.
-    Deep Ensembles and Flipout are used to estimate uncertainty especially the entropy. 
-    We propose two benchmark datasets for OOD detection one being Semantic3D vs S3DIS (Outdoor vs Indoor) and Semantic3D vs Semantic3D without color (color vs no color)
-    The objects in first OOD benchmark (S3DIS) are structurally different compared to training datset (Semantic3D).
-    In the case of second OOD benchmark (Semantic3D without color) the color feature is removed but structurally equal to Semantic3D.
-    In this thesis, we define a point as OOD point or not based on the Maximum Softmax Probability (MSP) or entropy.
-    We observe that OOD dataset has higher entropy scores and lower probability scores and viceversa in case of training dataset.
-    The difference in MSP and entropy is high in case of S3DIS as the environment is very different than the training environment.
-    In the case of the Semantic3D without color the difference to training dataset is very low but the spread of probability and entropy values are higher for OOD.
-    We used AUROC score to evaluate the performance of the model with Deep Ensembles and Flipout for multiple ensembles and forward passes respectively.
-    Overall, the performance of OOD detection is better with Deep Ensembles than Flipout or Dropout.
-    This is in compliance with the results from OOD detection for 2D classification task in \cite{lakshminarayanan2016simple}.
-    Overall, we can conclude that the OOD detection in case of new objects is possible with MSP or Entropy.
-    Whereas in the case of OOD object having similar structure to an object in the training set but with a difference in other attributes such as color then the detection of OOD is very difficult.
-
+    A survey on the state-of-the-art models for 3D semantic segmentation was also made, and chose RandLA-Net as the network of interest.
+    Deep Ensembles and Flipout are used to estimate uncertainty, especially the entropy. 
+    We propose two benchmark datasets for OOD detection, one being Semantic3D vs S3DIS (Outdoor vs Indoor) and Semantic3D vs Semantic3D without colour (colour vs no colour)
+    The objects in the first OOD benchmark (S3DIS) are structurally different from the training dataset (Semantic3D).
+    In the case of the second OOD benchmark (Semantic3D without colour), the colour feature is removed but structurally equal to Semantic3D.
+    This thesis defines a point in the point cloud as an OOD point or not based on the Maximum Softmax Probability (MSP) or entropy.
+    We observe that the OOD dataset has higher entropy scores and lower probability scores and vice-versa in the case of the training dataset.
+    The difference in MSP and entropy is high in the case of S3DIS as the environment is very different from the training environment.
+    In the case of the Semantic3D without colour, the difference to the training dataset is thin, but the spread of probability and entropy values are higher for OOD.
+    We used the AUROC score to evaluate the model's performance of OOD detection with Deep Ensembles and Flipout for multiple ensembles and forward passes, respectively.
+    Overall, the performance of OOD detection is better with Deep Ensembles than with Flipout or Dropout.
+    This result complies with the results from OOD detection for the 2D classification task in \cite{lakshminarayanan2016simple}.
+    Overall, we can conclude that the OOD detection in the case of new objects is possible with MSP or Entropy.
+    Whereas in the case of an OOD object having a similar structure to an object in the training set but with a difference in other attributes such as colour, the detection of OOD is challenging.
     
     \section{Lessons learned}
     The following are the lessons learned during the duration of the thesis
     \begin{enumerate}
-        \item Training and evaluation of 3D DNN's are time consuming and resource intensive. Even a single forward pass on the test set takes around 4 hours.
+        \item Training and evaluation of 3D DNNs are time-consuming and resource-intensive. Even a single forward pass on the test set takes around 4 hours.
         \item LiDAR datasets have huge memory requirements even for preprocessing or computing metrics.
-        \item With this level of requirements, finding a proper prior for Flipout layers is hard. In turn this makes the tuning of Flipout versioned network hard.
-        \item Picking the suitable candidates for OOD benchmark requires to in depth analysis of dataset like structural property, color spectrum.
-        \item Because the DNN is not perfect, there are few points in the training dataset classified as OOD points. These points have lower probability score. So to get a perfect classification, pos-hoc methods like MSP or entropy are of little use.
+        \item With this level of requirements, finding a proper prior for Flipout layers is hard. In turn, this makes the tuning of the Flipout versioned network hard.
+        \item Picking the suitable candidates for the OOD benchmark requires in depth analysis of datasets like structural similarities and colour spectrum.
+        \item Because the DNN is not perfect, few points in the training dataset are classified as OOD points. These points have a lower probability score. So to get a perfect classification, post-hoc methods like MSP or entropy are of little use.
     \end{enumerate}
 
     \section{Future work}
     The following are the ways this study can be further extended.
     \begin{enumerate}
-        \item Since this study is performed on the point based model, this can be extended to a projection based model like RangeNet++ \cite{Hu_2020_CVPR_Randla} or SalsaNext \cite{SalsaNext_2020}.
-        \item From the survey, we observe that current models performance are not as their counterparts in 2D semantic segmentation. There is still need for better performing model with lower parameters.
-        \item The OOD datasets proposed in this dataset are of static datatype which have a higher point density. It would be interesting to see the of sequential data as an OOD candidate as they have lower point density.
-        \item We observed another potential candidate for OOD dataset it is Toronto3D dataset. This is because the Toronto3D dataset is an outdoor dataset but the objects such as buildings, trees are more American compared to European setting in Semantic3D. Also the size of Toronto3D dataset is small compared to other datasets.
-        \item The adverse weather conditions to the training dataset can be applied as \cite{fogsim} proposed LiDAR fog injection module and this can be another potential way to create an OOD dataset from the training set.
-        \item This study can be extended to apply non post-hoc methods such as Mahalanobis distance based OOD \cite{lee2018simple_mahalanobis} or MetaSeg \cite{MetaSeg}.
+        \item Since this study is performed on the point-based model, this can be extended to a projection based model like RangeNet++ \cite{Hu_2020_CVPR_Randla} or SalsaNext \cite{SalsaNext_2020}.
+        \item From the survey, we observe that the current 3D model's performance is not like its counterparts in 2D semantic segmentation. There is still a need for better performing model with lower parameters.
+        \item The OOD datasets proposed in this dataset are static datatype which has a higher point density. It would be interesting to see sequential data as an OOD candidate as they have a lower point density.
+        \item We observed another potential candidate for the OOD dataset, and it is the Toronto3D dataset. The Toronto3D dataset is an outdoor dataset, but objects such as buildings and trees are more American than the European setting in Semantic3D. Also, the size of the Toronto3D dataset is small compared to other datasets.
+        \item The adverse weather conditions to the training dataset can be applied as \cite{fogsim} proposed LiDAR fog injection module, and this can be another possible way to create an OOD dataset from the training set.
+        \item This study can be extended to apply non post-hoc methods such as Mahalanobis distance-based OOD \cite{lee2018simple_mahalanobis} or MetaSeg \cite{MetaSeg}.
     \end{enumerate}
 \end{document}

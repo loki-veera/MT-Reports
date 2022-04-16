@@ -25,8 +25,8 @@
 \end{enumerate}
 Figure \ref{fig:sem3ddist} depicts the distribution of points (in millions) per class in Semantic3D dataset.
 This graph shows that the manmade terrain made up most of the dataset because the lidar is placed on the street during collection.
-As manmade terrain class is near to lidar in every scene, it is common with outdoor lidar datasets.
-The classes low vegetation, hardscapes, scanning artefacts and cars have fewer training points, and lower performance from the model in these classes is expected.
+As manmade terrain class is near the lidar in every scene, it is common with outdoor lidar datasets.
+The classes such as low vegetation, hardscapes, scanning artefacts and cars have fewer training points, and lower performance from the model in these classes is expected.
 Also, according to \cite{hackel2017semantic3d}, scanning artefacts, cars and hardscapes are the most challenging classes because of variation in object shapes.
 \cite{survey3d} also proves that the Semantic3D is one of the most diverse datasets in 3D LiDAR data compared to other datasets such as SemanticKITTI and SemanticPOSS.
 Because of these reasons, we considered using the Semantic3D dataset as In Distribution (ID) training data.
@@ -75,11 +75,11 @@ It is only one of two datasets available in indoor LiDAR dataset candidates.
 The other is ScanObjectNN, whose dataset is not available online.
 S3DIS dataset comprises scans of three different buildings covering 6020 square meters.
 These scans include personal offices, restrooms, open spaces, lobbies and hallways.
-The scans are generated using Matterport 3D scanner as a triangular mesh and can be seen in Figure~\ref{fig:how_matterport_works}.
+The scans are generated using a Matterport 3D scanner as a triangular mesh and can be seen in Figure~\ref{fig:how_matterport_works}.
 S3DIS dataset is divided into 12 classes, further divided into two subclasses.
 The first subclass includes structural elements, which consist of \textit{ceiling, floor, window, wall, beam, columns and door}
 Furthermore, the latter subclass has everyday items such as \textit{table, sofa, chair, board and blackboard}.
-Along with ShapeNet dataset \cite{chang2015shapenet}, S3DIS is also one of the most evaluated dataset in indoor setting for semantic segmentation  using in \cite{Armeni_2016_CVPR_S3DIS} whereas ShapeNet is used for part segmentation.
+Along with ShapeNet dataset \cite{chang2015shapenet}, S3DIS is also one of the most evaluated datasets in indoor settings for semantic segmentation using in \cite{Armeni_2016_CVPR_S3DIS} whereas ShapeNet is used for part segmentation.
 \begin{figure}[!ht]
     \centering
     \begin{tabular}{cc}
@@ -106,7 +106,7 @@ Along with ShapeNet dataset \cite{chang2015shapenet}, S3DIS is also one of the m
     \label{fig:how_matterport_works}
 \end{figure}
 \section{OOD Benchmarking}
-In this section, we discuss benchmarked datasets and argue why they are chosen as benchmarking datasets.
+This section discusses benchmarked datasets and argues why they are chosen as benchmarking datasets.
 We provided two benchmark datasets, one being Semantic3D vs S3DIS and Semantic3D vs Semantic3D (without colour).
 
 \subsection{Semantic3D vs S3DIS}
@@ -121,5 +121,5 @@ We expect the Semantic3D trained model to detect OOD (S3DIS) dataset with relati
 
 \subsection{Semantic3D vs Semantic3D (without color)}
 Since our main hypothesis is that RGB colours play a significant role in detecting the OOD objects.
-So we removed the colours of the Semantic3D dataset, and since the model requires RGB values for prediction, we changed the colour of points to black.w
+So we removed the colours of the Semantic3D dataset, and since the model requires RGB values for prediction, we changed the colour of points to black.
 \end{document}

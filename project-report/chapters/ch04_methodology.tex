@@ -2,20 +2,20 @@
 \begin{document}
 \chapter{Methodology}
 \label{chapter:methodology}
-In this chapter, we will discuss the RandlLA-Net used for 3D semantic segmentation, especially about network architecture and how it helps in better segmentation.
+This chapter will discuss the RandlLA-Net used for 3D semantic segmentation, especially about network architecture and how it helps in better segmentation.
 We also discuss the details of the Deep Ensembles and the Flipout methods for uncertainty quantification.
 We also study the evaluation metrics for 3D semantic segmentation and OOD detection and the methods to generate OOD scores, such as Maximum Softmax Probability (MSP) as a baseline method and Entropy.
 \section{RandLA-Net}
 \label{sec:meth_randla}
 As stated in \cite{Hu_2020_CVPR_Randla}, it is a lightweight and efficient neural network architecture for semantic segmentation of 3D point clouds.
-From the Section~\ref{sec:dl_approach}, we can observe that the RandLA-Net architecture is best performing among the point models.
+From Section~\ref{sec:dl_approach}, we can observe that the RandLA-Net architecture is best performing among the point models.
 Efficient computation, memory usage and a model with direct application o 3D points are the primary motivation when developing the RandLA-Net.
-To achieve these goals, RandLA-Net employs random point sampling and the local feature aggregation module.
+RandLA-Net employs random point sampling and the local feature aggregation module to achieve these goals.
 Authors in \cite{Hu_2020_CVPR_Randla} proved that a successive application of random point sampling along with the local feature aggregation module effective reduce and extracts the features of the large scale point clouds from a scale of $10^5$ to $10^2$.
 
 RandLA-Net utilizes random point sampling among the other sampling methods such as Farthest Point Sampling, Inverse Density Point Sampling.
 We select K points uniformly from the original point cloud in random point sampling and have a computational complexity time of O(1).
-Compared with other point sampling methods, random point sampling has the lowest computational complexity and computation time independent of the number of points.
+Random point sampling has the lowest computational complexity and computation time independent of the number of points compared with other point sampling methods.
 Despite these advantages, random point sampling has a significant disadvantage of dropping essential points.
 To overcome this, the authors of RandLA-Net proposed a local feature aggregation module for the progressive capture of complex features on these selected points.
 \begin{figure}
@@ -52,8 +52,8 @@ This module works in three steps:
     \item Feature augmentation
 \end{enumerate}
 
-In step 1, neighbouring points for point ($p_i$) are collected using euclidean distance based K-nearest neighbour (KNN) algorithm.
-Step 2 encodes these collected K-points for point ($p_i$) using a Multi Layer Perceptron (MLP) into realtive point position. The encoding formula is given by
+In step 1, neighbour points for point ($p_i$) are collected using the euclidean distance-based K-nearest neighbour (KNN) algorithm.
+Step 2 encodes these collected K-points for point ($p_i$) using a Multi-Layer Perceptron (MLP) into relative point position. The encoding formula is given by
 $$
 r_i^k = MLP(p_i \oplus p_i^k \oplus (p_i - p_i^k) \oplus ||p_i-p_i^k||)
 $$
@@ -94,7 +94,7 @@ In the next section, we study the architecture of RandLA-Net.
 \subsection{RandLA-Net architecture}
 RandLA-Net is an encoder-decoder architecture with skip connections as used in various segmentation networks such as 3D U-Net\cite{wang2018two_3DUnet}.
 The input point clouds are directly applied to the encoder consisting of Fully Connected (FC) and four Local Feature Aggregation (LFA) modules connected sequentially.
-The point cloud size reduces by a factor of four for every encoder layer. 
+The point cloud size reduces by four for every encoder layer. 
 Similarly, four decoder layers are used, and the input features maps to each decoder layer are upsampled and concatenated to respective encoder feature maps via skip connections.
 The MLP is applied and fed into the next decoder layer.
 The output of the final decoder layer is fed into three FC layers for point classification, and a dropout layer is added before the last layer with a dropout rate of 0.5.
@@ -125,21 +125,20 @@ Accuracy is another widely used metric, which can be quantified as a number of p
 It can be formulated from the confusion matrix as
 $$Accuracy = \frac{TP+TN}{TP+TN+FP+FN}$$
 Where TP, TN, FP and FN are True Positives, True Negatives, False Positives and False Negatives, respectively, from the confusion matrix.
-This metric alone can be misleading in case of serious class imbalance.
+This metric alone can be misleading in case of severe class imbalance.
 
 Here, we conclude the study of RandLA-Net, the reason for its effective performance, argue the reasons to chose RandLA-Net and briefly discuss the evaluation metrics used.
-In the following sections, we will discuss the utilized uncertainty estimation methods such as deep ensembles, Flipout and metrics used for evaluation of 3D semantic segmentation and OOD detection.
-
+In the following sections, we will discuss the utilized uncertainty estimation methods such as deep ensembles, Flipout and metrics used to evaluate 3D semantic segmentation and OOD detection.
 \section{Deep ensembles}
 \label{sec:meth_deepensembles}
 Deep ensembles employ a kind of ensemble learning technique and are proposed in \cite{lakshminarayanan2016simple}.
-Similar to bagging, here, the idea is to train the same network with the same data with random initializations N number of times.
+Like bagging, the idea is to train the same network with the same data with random initializations N number of times.
 These N trained models converge similarly with little difference given the same training conditions and hyperparameters.
 \begin{figure}
     \centering
     \includegraphics[scale=0.55]{images/DE.jpg}
     \caption{Illustration of test dataflow in Deep Ensembles, where input point cloud is fed into multiple randomly initialized models ($M_1-M_n$). 
-    These individual predictions from each model are averaged to compute final prediction.}
+    These individual predictions from each model are averaged to compute the final prediction.}
     \label{fig:deepensembles}
 \end{figure}
 An example of a deep ensemble is depicted in Figure \ref{fig:deepensembles}.
@@ -159,7 +158,7 @@ Because proven ability to classify OOD on the classification task boosts the mod
 \section{Flipout}
 \label{sec:meth_flipout}
 In this thesis, we also employed the Flipout version of the RandLA-Net model for uncertainty estimates, and in this section, we discuss Flipout and its application.
-Flipout was originally introduced in \cite{Flipout} as an efficient method of gradient decorrelation in a mini-batch of examples.
+Flipout has initially been introduced in \cite{Flipout} as an efficient method of gradient decorrelation in a mini-batch of examples.
 This effect is implemented by adding independent weight perturbations sampled from distribution for each example.
 Authors in \cite{Flipout} describe weight perturbations as methods whose weights of the neural network are sampled from distribution during training.
 In general, neural network weights are point estimates where the weight is a single scalar value. In the case of weight perturbations, they are modelled as a distribution where each weight $W=\overline{W}+\Delta W$ in which $\overline{W}$ is the mean weight and $\Delta W$ is the perturbation.
@@ -180,7 +179,7 @@ $$y_n = \phi((\overline{W}+\widehat{\Delta W} \times r_n s_{n}^T)^Tx_n)$$
 $$y_n = \phi(\overline{W} x_n+(\widehat{\Delta W}^T (x_n\times s_{n}))\times r_n)$$
 Here $\phi$ is the activation function, and $x_n$ is the $n^{th}$ input example in the mini batch.
 This whole operation is vectorized and is stated as a matrix multiplication in Equation~\ref{eq:fowpass_flipout} where $R$ and $S$ consist of rows of $r_n$ and $s_n$.
-Here $R$ and $S$ are independent of $\overline{W}$ and $\widehat{\Delta W}$ which doesn't add any extra terms in backpropagation.
+Here $R$ and $S$ are independent of $\overline{W}$ and $\widehat{\Delta W}$ which does not add any additional terms in backpropagation.
 \begin{equation}
     Y = \phi(X\overline{W}+((X\times S)\widehat{\Delta W})\times R)
     \label{eq:fowpass_flipout}
@@ -228,25 +227,25 @@ In deep learning, Entropy is used as a measure for uncertainty and calculated as
     Entropy = -\sum_i P(x_i) log P(x_i)
     \label{eq:ent_calc}
 \end{equation}
-In theory, following this formula, if the point in the point cloud is from In Distribution (ID), then the softmax output is higher for one class, and other classes will be near zero.
+In theory, following this formula, if the point in the point cloud is from In Distribution (ID), the softmax output is higher for one class, and other classes will be near zero.
 This leads to a lower entropy score for the ID point, and for the Out Of Distribution (OOD) point in the point cloud, the softmax output is spread across all the classes.
 This means that the OOD point will have a higher entropy score.
 
 \section{Evaluation metric-OOD detection}
 This section will discuss the metrics used for evaluating OOD detection. Firstly the Receiver Operating Characteristic (ROC) curve to extract thresholds of the score and later the Area Under the ROC curve (AUROC) for evaluation and comparison of the OOD detection performance.
 \subsection{Receiver Operating Characteristic Curve}
-RROC curves are typically used for selecting the best classifiers based on their performance.
+ROC curves are typically used for selecting the best classifiers based on their performance.
 ROC curves were historically used in signal detection but later found their way into the machine learning community.
 According to \cite{ROC_example}, this is because accuracy itself is a poor metric to realise the model's performance.
 Also, ROC curves are insusceptible to change in class distribution, that is, the proportion of negative to positive examples.
 ROC curves are drawn based on True Positive Rate (TPR) and False Positive Rate (FPR).
-TPR is calculated as the number of positively classified samples to the total positive samples, and FPR is calculated as the number of negatively classified samples to the total number of negative samples.
+TPR is calculated as the number of positively classified samples to the total positive samples. FPR is calculated as the number of negatively classified samples to the total number of negative samples.
 
-A ROC curve is generated as follows, given a set of probabilities/scores and their true labels, either positive or negative.
-We then generate a range of threshold values from these probabilities and then compute TPR and FPR for each threshold value.
+A ROC curve is generated, given a set of probabilities/scores and their true labels, either positive or negative.
+We then generate a range of threshold values from these probabilities and compute TPR and FPR for each threshold value.
 These TPR and FPR are plotted to generate a ROC curve as displayed in Figure~\ref{fig:ROC_curve_example}. 
-Figure~\ref{fig:ROC_curve_example} represents ROC curves for various classifiers, and here red line represents the roc curve for the random classifier, and the green line represents the roc curve for a perfect classifier.
-Since we want our classifier to be better performing than a random classifier, we expect our ROC curve to be in the blue region.
+Figure~\ref{fig:ROC_curve_example} represents ROC curves for various classifiers, and here red line represents the roc curve for the random classifier. The green line represents the roc curve for a perfect classifier.
+Since we want our classifier to perform better than a random classifier, we expect our ROC curve to be in the blue region.
 \begin{figure}[!ht]
     \centering
     \includegraphics[scale=0.35]{images/ROC_curve_example.pdf}

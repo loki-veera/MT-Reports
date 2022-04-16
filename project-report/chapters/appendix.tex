@@ -6,12 +6,11 @@
     This chapter acts as a supplementary for the thesis.
     \section{RandLA-Net - Dropout}
     \label{sec:randladout}
-    The original architecture of the RandLA-Net has only one dropout layer at the end of the second classification layer represented as DP in Figure~\ref{fig:networkarchitecture}.
+    The original architecture of the RandLA-Net has only one dropout layer at the end of the second classification layer, represented as DP in Figure~\ref{fig:networkarchitecture}.
     We also used the same setup for our dropout experiment with a dropout probability of 0.5.
-    Similar to other experiments we performed 20 forward passes on the dropout, then averaged and represented every AUROC performance on every $5^{th}$ forward pass.
-
+    Similar to other experiments, we performed 20 forward passes on the dropout, then averaged and represented every AUROC performance on every $5^{th}$ forward pass.
     \section{Summary of the models}
-    As the survey of existing 3D semantic segmentation models is a part of this thesis, we display a table which summarizes the performance of each model disucssed in Section~\ref{sec:dl_approach}.
+    As the survey of existing 3D semantic segmentation models is a part of this thesis, we display a table that summarizes the performance of each model discussed in Section~\ref{sec:dl_approach}.
     \begin{longtable}{|p{0.15\linewidth} | p{0.59\linewidth}| p{0.06\linewidth} |p{0.09\linewidth}|}
         %\centering
         %\begin{tabular}{|p{0.15\linewidth} | p{0.6\linewidth}| p{0.06\linewidth} |p{0.08\linewidth}|}
@@ -135,7 +134,7 @@
     Similarly Figure~\ref{fig:roc_ent_ood_1} represents the ROC curves generated using the entropy score.
     In both the cases, we observe that Dropout performs near to random classifier and Deep Ensembles outperform all the other methods.
 
-    Similarly for Semantic3D and Semantic3D without color, ROC curves have been depicted and these are associated with Table~\ref{tab:auroc_ood_2}.
+    Similarly, for Semantic3D and Semantic3D without colour, ROC curves have been depicted, and these are associated with Table~\ref{tab:auroc_ood_2}.
     Figure~\ref{fig:roc_msp_ood_2} and Figure~\ref{fig:roc_ent_ood_2} represents the ROC curves generated using MSP and entropy respectively.
     In the case of MSP depicted in Figure~\ref{fig:roc_msp_ood_2}, we observe Deep Ensembles outperform other methods.
     Whereas in the case of entropy depicted in Figure~\ref{fig:roc_ent_ood_2}, we observe similar overlapping ROC curves between Deep Ensembles, Flipout and Dropout.
@@ -194,7 +193,7 @@
     \end{figure*}
 
     \subsection{Thresholds}
-    In this section, we discuss the thresholds  (probabilities and entropies) chosen from the ROC curves.
+    This section discusses the thresholds  (probabilities and entropies) chosen from the ROC curves.
     All the thresholds in Table~\ref{tab:thresholds} are generated for Ensemble size 10 and 10 forward passes in case of Flipout for the OOD benchmark datasets.
     We chose 10 because from Table~\ref{tab:sem3dvs3dis_auroc} and Table~\ref{tab:auroc_ood_2}, we observe that after the ensemble size/forward passes of 10 the improvements are  minimal.
     \begin{table}[]
