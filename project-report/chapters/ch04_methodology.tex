@@ -2,7 +2,7 @@
 \begin{document}
 \chapter{Methodology}
 \label{chapter:methodology}
-This chapter will discuss the RandlLA-Net used for 3D semantic segmentation, especially about network architecture and how it helps in better segmentation.
+This chapter will discuss the RandlLA-Net used for 3D semantic segmentation, especially network architecture and how it helps segmentation. 
 We also discuss the details of the Deep Ensembles and the Flipout methods for uncertainty quantification.
 We also study the evaluation metrics for 3D semantic segmentation and OOD detection and the methods to generate OOD scores, such as Maximum Softmax Probability (MSP) as a baseline method and Entropy.
 \section{RandLA-Net}
@@ -16,7 +16,7 @@ Authors in \cite{Hu_2020_CVPR_Randla} proved that a successive application of ra
 RandLA-Net utilizes random point sampling among the other sampling methods such as Farthest Point Sampling, Inverse Density Point Sampling.
 We select K points uniformly from the original point cloud in random point sampling and have a computational complexity time of O(1).
 Random point sampling has the lowest computational complexity and computation time independent of the number of points compared with other point sampling methods.
-Despite these advantages, random point sampling has a significant disadvantage of dropping essential points.
+Random point sampling has a significant disadvantage of dropping essential points despite these advantages.
 To overcome this, the authors of RandLA-Net proposed a local feature aggregation module for the progressive capture of complex features on these selected points.
 \begin{figure}
     \centering
@@ -60,20 +60,20 @@ $$
 where $r_i^k$ is the relative position of point $p_i$ with respect to $p_i^k$, here in $p_i$ and $p_i^k$ only the x,y and z positions are used.
 $\oplus$, and $||p_i-p_i^k||$ represents the concatenation operation and euclidean distance calculation between $p_i$ and $p_i^k$ respectively.
 This step 2 of relative position encoding is represented by the above part in the LocSE module in the green track in Figure \ref{fig:randlanetlfa}.
-Step 3 creates a augmented feature vector $\hat{f_i^k}$ by concatenation of relative point position ($r_i^k$) and its point features ($f_i^k$) of point $p_i^k$.
+Step 3 creates an augmented feature vector $\hat{f_i^k}$ by concatenation of relative point position ($r_i^k$) and its point features ($f_i^k$) of point $p_i^k$.
 Point features ($f_i^k$) include the R, G and B values and other features such as intensity values.
 This step 3 is represented in the lower part of the LocSE module in the yellow track in Figure \ref{fig:randlanetlfa}.
 \subsection{Attentive Pooling}
 This augmented feature vector $\hat{f_i^k}$ from the LocSE module is passed through a pooling layer to extract essential features.
 Authors state that use of max and mean pooling layer leads to loss of information. Because of this, the authors made use of the attention mechanism, which helps in learning important features automatically.
-Given the feature vector, $\hat{f_i^k}$ a function $g$ is learned with the help of MLP and softmax, and the resultant vector is denoted as $s_i^k$ in the pink block in Figure \ref{fig:randlanetlfa}.
+Given the feature vector $\hat{f_i^k}$, a function $g$ is learned with the help of MLP and softmax, and the resultant vector is denoted as $s_i^k$ in the pink block in Figure \ref{fig:randlanetlfa}.
 These each feature score $s_i^k$ from function $g$ is multiplied with feature vector $f_i^k$ called informative feature vector and summed up to form a unique feature vector $\tilde{f_i}$ for point $p_i$ and this operation is mathematically denoted as
 $$
 \tilde{f_i}= \sum_{k=1}^K (\hat{f_i^k}.s_i^k)
 $$
 
 \subsection{Dilated Residual Block}
-Dilated Residual Block is a ResNet inspired module as claimed by authors and represented as a blue colour module in Figure \ref{fig:randlanetlfa}.
+Dilated Residual Block is a ResNet inspired module claimed by authors and represented as a blue colour module in Figure \ref{fig:randlanetlfa}.
 This module combines multiple LocSE, Attentive Polling, and a skip connection that feeds an informative feature vector to output.
 \begin{figure}
     \centering
@@ -92,8 +92,8 @@ We also studied how the local feature aggregation module is divided into three s
 In the next section, we study the architecture of RandLA-Net.
 
 \subsection{RandLA-Net architecture}
-RandLA-Net is an encoder-decoder architecture with skip connections as used in various segmentation networks such as 3D U-Net\cite{wang2018two_3DUnet}.
-The input point clouds are directly applied to the encoder consisting of Fully Connected (FC) and four Local Feature Aggregation (LFA) modules connected sequentially.
+RandLA-Net is an encoder-decoder architecture with skip connections used in various segmentation networks such as 3D U-Net\cite{wang2018two_3DUnet}.
+The input point clouds are directly applied to the encoder consisting of Fully Connected (FC) and four Local Feature Aggregation (LFA) modules are connected sequentially.
 The point cloud size reduces by four for every encoder layer. 
 Similarly, four decoder layers are used, and the input features maps to each decoder layer are upsampled and concatenated to respective encoder feature maps via skip connections.
 The MLP is applied and fed into the next decoder layer.
@@ -104,8 +104,8 @@ We chose RandLA-Net because of the following reasons:
 \begin{enumerate}
     \item Efficient extraction of complex structures progressively using Local Feature Aggregation (LFA) module.
     \item Has fewer parameters (1.24M), making training efficient, as 3D semantic segmentation models are computationally expensive.
-    \item Proven performance over a variety of datasets such as Semantic3D and SemanticKITTI, along with ablation study of each submodule in LFA proposed in \cite{Hu_2020_CVPR_Randla}.
-    \item No preprocessing such as range image representation as in \cite{Milioto2019}, or farthest point sampling with a computational complexity of $O(N^2)$ as in \cite{Qi_2017_CVPR_pointnet}. Whereas RandLA-Net employs random point sampling with a computational time of $O(1)$.
+    \item Proven performance over various datasets such as Semantic3D and SemanticKITTI, along with ablation study of each submodule in LFA proposed in \cite{Hu_2020_CVPR_Randla}.
+    \item No preprocessing such as range image representation as in \cite{Milioto2019} or farthest point sampling with a computational complexity of $O(N^2)$ as in \cite{Qi_2017_CVPR_pointnet}. RandLA-Net employs random point sampling with a computational time of $O(1)$.
     \item State of the art performance in point-based methods, consisting of only Multi-Layer Perceptrons (MLP) and without expensive operations such as kernelization or graph construction.
 \end{enumerate}
 
@@ -168,7 +168,7 @@ So authors of Flipout make two critical assumptions to deal with this problem.
 They are a perturbation of different weights should be different, and the distribution of perturbation should be symmetric around zero.
 So under these assumptions, the authors observed that the perturbation distribution is invariant to element-wise multiplication of the random sign matrix.
 Here random sign matrix is defined as a matrix whose elements are randomly sampled uniformly from $\pm 1$. 
-So the weight perturbation is modelled as Equation~\ref{eq:flipout_main} where $\widehat{\Delta W}$ is the base perturbation which is same for all weights, $\times$ represents element wise multiplication, $r_n, s_n$ represent the randomly signed vectors of ($\pm 1$) and $\Delta W_n$ is the perturbation of $n^{th}$ weight.
+So the weight perturbation is modelled as Equation~\ref{eq:flipout_main} where $\widehat{\Delta W}$ is the base perturbation which is the same for all weights, $\times$ represents element-wise multiplication, $r_n, s_n$ represent the randomly signed vectors of ($\pm 1$) and $\Delta W_n$ is the perturbation of $n^{th}$ weight.
 \begin{equation}
     \Delta W_n = \widehat{\Delta W} \times r_n s_{n}^T
     \label{eq:flipout_main}
@@ -211,7 +211,7 @@ First proposed in \cite{hendrycks2016baseline_MSP}, uses the probability of the 
 MSP still serves as the most evaluated baseline method for OOD detection.
 Since we are the first study to perform OOD detection 3D semantic segmentation to the best of our knowledge, we wanted to incorporate this score as a baseline. 
 Here the main idea is that if a point in a point cloud is known, then it will have a higher MSP score and vice versa.
-It is calculated as a given in Equation~\ref{eq:MSP_formula}, where $y_n$ is the list of softmax probablity score for each class given as $p_1, p_2, .., p_n$.
+It is calculated as a given in Equation~\ref{eq:MSP_formula}, where $y_n$ is the list of softmax probability scores for each class given as $p_1, p_2, .., p_n$.
 $$y_n = [p_1, p_2,..,p_n]$$
 \begin{equation}
     MSP = max(y_n)
@@ -222,7 +222,7 @@ $$y_n = [p_1, p_2,..,p_n]$$
 \label{sec:meth_entropy}
 Entropy is defined by \cite{entropy_robinson} as an "ill-defined notion of chaos or uncertainty".
 Entropy has its roots in thermodynamics, and in computer science, it can be used as a measure of information content.
-In deep learning, Entropy is used as a measure for uncertainty and calculated as given in Equation~\ref{eq:ent_calc}, where $P(x_i)$ is softmax probablity for $i^{th}$ of point x.
+In deep learning, Entropy is used as a measure for uncertainty and calculated as given in Equation~\ref{eq:ent_calc}, where $P(x_i)$ is softmax probability for $i^{th}$ of point x.
 \begin{equation}
     Entropy = -\sum_i P(x_i) log P(x_i)
     \label{eq:ent_calc}
