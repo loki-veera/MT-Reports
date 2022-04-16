@@ -4,9 +4,9 @@
     \chapter{Introduction}
 
     The development of Deep Neural Networks (DNNs) made tasks such as object classification \cite{alexnet} and object detection \cite{fasterrcnn}, \cite{fastrcnn} easy to solve.
-    These DNNs has been deployed in various real world scenarios such as autonomous driving \cite{autonomousdriving}, semi-autonomous robotic surgery \cite{roboticsurgery} and also in space rovers \cite{Marsrover_1}, \cite{Marsrover_2}.
+    These DNNs have been deployed in various real-world scenarios such as autonomous driving \cite{autonomousdriving}, semi-autonomous robotic surgery \cite{roboticsurgery} and also in space rovers \cite{Marsrover_1}, \cite{Marsrover_2}.
     DNNs are majorly deployed in the perception stack in the autonomous driving pipeline. 
-    Figure~\ref{fig:Apollopipeline} depicts the pipeline of the modules present in one of the open-source autonomous driving platform called Apollo \cite{baiduapollo}.
+    Figure~\ref{fig:Apollopipeline} depicts the pipeline of the modules present in one of the open-source autonomous driving platforms called Apollo \cite{baiduapollo}.
     From this pipeline, one can infer that most of the decisions from the autonomous car's prediction and motion planning modules depend on the perception module's output.
     Since the perception module plays such significance, the developers of the perception stack must make sure the outputs are meaningful.
 \begin{figure}[h!]
@@ -16,11 +16,13 @@
     \label{fig:Apollopipeline}
 \end{figure}
 
-TThe DNNs utilized in the perception module need to be trained on the dataset, which should be similar to its deployment area.
+The DNNs utilized in the perception module need to be trained on the dataset, which should be similar to its deployment area.
 For example, an autonomous driving agent must be trained on a dataset containing roads, vehicles, vegetation and other objects found around the road.
 This closedness of the dataset, i.e., a fixed number of classes, will cause an issue when the DNN encounter an unknown object in the real world.
 This unknown object will be predicted as one of the classes in the dataset, leading to radical decisions when this error is propagated down the pipeline in Figure \ref{fig:Apollopipeline}.
-The Tesla autonomous driving platform encounters one such real-world problem.
+These unknown objects in the real world which are not present in the training dataset can be regarded as out-of-distribution (OOD) objects. 
+More discussion on the OOD is presented in Section~\ref{sec:oodvanom}.
+The Tesla autonomous driving platform encounters one such problem of misdetection of an unknown object.
 \begin{figure}[h!]
     \begin{subfigure}{0.48\textwidth}
         \centering
@@ -34,15 +36,54 @@ The Tesla autonomous driving platform encounters one such real-world problem.
         \caption{}
         \label{fig:teslafails_2}
     \end{subfigure}
-    \caption{Misdetection of OOD objects in Tesla autonomous driving platform. (a) Moon is detected as yellow signal light and (b) depicts the misdetection of burger king sign as stop traffic sign. Images taken from \cite{tesla_fails}}
+    \caption{Misdetection of OOD objects in Tesla autonomous driving platform. (a) Moon is detected as yellow signal light and (b) depicts the misdetection of Burger King sign as stop traffic sign. Images taken from \cite{tesla_fails}}
 \end{figure}
 
-Figure~\ref{fig:teslafails_1} and Figure~\ref{fig:teslafails_2} depicts the misdetections from the Tesla autonomous driving system.
-The problem in the first image is that the moon is detected as the yellow signal light and the second image has the problem of misdetection of the burger king sign as a stop signal.
-These misdetections of unknown objects in the environment might lead to fatal consequences.
-This questions the safety of the Deep Neural Networks (DNNs) predictions, and so an effort has been made in this thesis to detect these unknown objects in 3D LiDAR data using uncertainty score.
-The unknown objects in the real world which are not present in the training dataset can be regarded as out-of-distribution (OOD) objects. 
-More discussion on the OOD is presented in Section~\ref{sec:oodvanom}.
+Figure~\ref{fig:teslafails_1} and Figure~\ref{fig:teslafails_2} depict the misdetections from the Tesla autonomous driving system.
+The problem in the first image is that the moon is detected as the yellow signal light.
+The second image has the problem of misdetection of the Burger King sign as a stop signal. 
+These misdetections question the safety of the Deep Neural Networks (DNNs) predictions.
+This thesis made an effort to detect these unknown objects in 3D LiDAR data using uncertainty scores.
+We use the fact that the DNN predictions of unknown objects will have higher uncertain values.
+A detailed discussion on types of uncertainty and what type of uncertainty can be used for OOD detection is discussed in Section~\ref{sec:ue_methods}.
+
+
+\section{Problem Statement}
+This thesis studies out-of-distribution (OOD) detection over the 3D semantic
+segmentation problem. Notably, we study the 3D semantic segmentation datasets available and create a
+benchmark for the in-distribution (ID) and out-of-distribution (OOD) datasets.
+The other major issue we address in this thesis is the OOD detection methods. Existing OOD detection
+methods are tested for 2D classification and 2D semantic segmentation tasks, and the applicability of
+these methods to 3D semantic segmentation tasks is not studied. Moreover, the proposed OOD detection
+techniques are evaluated on simple datasets. The performance of these methods on complex and
+feature-rich 3D datasets is questionable. Additionally, the high dimensionality of the 3D data imposes computational constraints. In recent years, uncertainty estimation has gained prominence. Past works
+indicate that uncertainty is also an effective tool in detecting OOD (in the 2D domain). So we also research
+whether uncertainty estimation is a practical approach for OOD detection in the 3D domain.
+% \newline
+% 
+% The research questions answered by this thesis are:
+% \begin{itemize}
+%     \item[\textbf{R1}] How to create a benchmark over 3D segmentation datasets for the OOD setting?, i.e., create the in-distribution and out-distribution datasets.
+%     \item[\textbf{R2}] Are current OOD detection methods developed and evaluated for 2D tasks, effective in 3D domain?
+%     \item[\textbf{R3}] Is uncertainty quantification an effective approach to classify OOD detection in 3D semantic segmentation models?
+%     % \item[\textbf{R4}] What metrics can be applied for the OOD detection task over 3D semantic segmentation models? 
+%     \item[\textbf{R4}] How to evaluate the OOD detections over the 3D semantic segmentation task?
+% \end{itemize}
+
+\subsection{Contributions}
+The contributions made in this thesis are
+\begin{enumerate}
+    \item A complete survey of the available 3D LiDAR datasets and 3D semantic segmentation models.
+    \item Benchmarking of 3D LiDAR datasets for OOD detection. Proposed two benchmark datasets Sematic3D vs S3DIS and Semantic3D vs Semantic3D without colour, with Semantic3D being In-Distribution (ID) dataset and S3DIS and Semantic3D without colour being Out-Of-Distribution (OOD) datasets.
+    \item A survey on the uncertainty estimation methods and classical OOD methods.
+    \item An evaluation of OOD detection on benchmarked datasets over the RandLA-Net model using Deep Ensembles and Flipout.
+\end{enumerate}
+
+To summarize this chapter, we discussed the motivation behind the problem of OOD detection, like
+how errors in perception results lead to catastrophic consequences in an autonomous driving pipeline.
+Also discussed in detail what an OOD and Anomaly are, using a ship example. Finally, we
+discussed the contributions of this thesis. The following chapters include the study of the state of the art,
+experimentation details, and results and conclusion chapters.
 
 \section{OOD/Anomaly/Distributional shift}
 \label{sec:oodvanom}
@@ -90,24 +131,25 @@ More discussion on the OOD is presented in Section~\ref{sec:oodvanom}.
     \cite{titanic}, \cite{submarine}, and \cite{airship} respectively in the order they appear.}
 \end{figure}
 
-Let us time travel back to $18^{th}$ century and assume that we had implemented a DNN model to detect ships, the dataset images for training the DNN model will be similar to Figure~\ref{fig:old_ship}.
+Let us time travel back to $18^{th}$ century and assume that we had implemented a DNN model to detect ships.
+The dataset images for training the DNN model will be similar to Figure~\ref{fig:old_ship}.
 $18^{th}$ century ships as in Figure~\ref{fig:old_ship} can be defined as ``\textit{ship contains hull and sails}''.
 Fast forward to the present time, current ships are as shown in Figure \ref{fig:trian_cruiser}.
 Ship as in \ref{fig:trian_cruiser} can be defined as ``\textit{ship contains hull and passenger decks stacked upon each other}''.
-Now, if we want to deploy the old model trained with old ships to detect the present generation of ships, it is difficult because of the ship's change in definition and properties. 
+Now, suppose we want to deploy the old model trained with old ships to detect
+the present generation of ships. In that case, it is difficult because of the ship’s change in definition and properties.
 This change in data distribution over a period of time is called ``\textit{distributional shift}'' of the data.
 
-An anomaly can be defined as the patterns that do not conform to the expected training behaviour as proposed in \cite{anomaly_sec1_1}.
-By this definition, Figure \ref{fig:anom_container} and Figure \ref{fig:anom_titanic} can be considerd as anomalies.
-This is becuase Figure \ref{fig:anom_container} is a container ship looking similar to Figure \ref{fig:trian_cruiser} instead of passenger decks we have containers stacked.
-Figure \ref{fig:anom_titanic} is also an anomaly because the Titanic also has a hull, passenger decks and chimneys. 
-These additional chimnies as features deviates this image from the definition of the ship and can be considered as ``\textit{anomaly}''.
+An anomaly can be defined as the patterns that do not conform to the expected training behaviour as proposed in  \cite{anomaly_sec1_1}.
+By this definition, Figure \ref{fig:anom_container} and Figure \ref{fig:anom_titanic} can be considered anomalies.
+This is because Figure \ref{fig:anom_container} is a container ship looking similar to Figure \ref{fig:trian_cruiser}. Instead of passenger decks, we have containers stacked.
+Figure \ref{fig:anom_titanic} is also an anomaly because the Titanic also has a hull, passenger decks
+and chimneys. These additional chimnies as features deviates this image from the definition of the ship
+and can be considered an ``\textit{anomaly}''.
 
 The input for out of distribution (OOD) is drawn from an unknown distribution of unknown data, which is not near to the training distribution.
-Figure~\ref{fig:ood_submarine} and Figure~\ref{fig:ood_airship} are submarine, and an airship does not adhere to the definition of the ship by any means.
-Generally, one can argue that OOD can be defined as inputs that do not belong to any class in the training data.
-This kind of problem can also be called an Open Set Recognition (OSR) problem.
-
+Figure~\ref{fig:ood_submarine} and Figure~\ref{fig:ood_airship} are submarine, and an airship which does not adhere to the definition of the ship by any means.
+So we regard these two images (submarine and airship) as OOD objects.
 %\begin{figure}[h!]
 %    \begin{subfigure}{0.333\textwidth}
 %        \centering
@@ -131,35 +173,4 @@ This kind of problem can also be called an Open Set Recognition (OSR) problem.
 %    \ref{fig:anomaly_time} represents the anomaly in the sinusoidal wave and \ref{fig:ood_time} represents the square wave as OOD signal}
 %\end{figure}
 
-\section{Problem Statement}
-In this thesis, we study the application of out-of-distribution (OOD) detection over the 3D semantic segmentation problem in the context of autonomous driving.
-Notably, we study the 3D semantic segmentation datasets available and create a benchmark for in-distribution and out-distribution for the OOD setting.
-
-The other major issue we address in this thesis is the OOD detection methods.
-Existing OOD detection methods are developed for 2D classification and 2D semantic segmentation tasks, and the applicability of these methods to 3D semantic segmentation tasks is not studied. 
-This is also challenging because the existing OOD methods are not easily adaptable to the 3D segmentation models. After all, segmentation is multi-class classification, and the high dimensionality of the 3D data imposes computational constraints.
-\newline
-
-The research questions answered by this thesis are:
-\begin{itemize}
-    \item[\textbf{R1}] How to create a benchmark over 3D segmentation datasets for the OOD setting?, i.e., create the in-distribution and out-distribution datasets.
-    \item[\textbf{R2}] How to extend current OOD detection methods from 2D classification task to 3D semantic segmentation?
-    \item[\textbf{R3}] Is uncertainty quantification an effective approach to classify OOD detection in 3D semantic segmentation models?
-    % \item[\textbf{R4}] What metrics can be applied for the OOD detection task over 3D semantic segmentation models? 
-    \item[\textbf{R4}] How to evaluate the OOD detections over the 3D semantic segmentation task?
-\end{itemize}
-
-\subsection{Contributions}
-The contributions made in this thesis are
-\begin{enumerate}
-    \item A complete survey on the available 3D LiDAR datasets
-    \item A detailed survey on existing 3D semantic segmentation models
-    \item Benchmarking of 3D LiDAR datasets for OOD detection. Proposed two benchmark datasets Sematic3D vs S3DIS and Semantic3D vs Semantic3D without color with Semantic3D being training dataset and S3DIS and Semantic3D without color being OOD datasets.
-    \item A survey on the uncertainty estimation methods and classical OOD methods.
-    \item An evaluation of OOD on benchmarked datasets over RandLA-Net model using Deep ensemble technique for uncertainty estimation.
-\end{enumerate}
-
-To summarize this chapter, we discussed the motivation behind the problem of OOD detection like how errors in perception results lead to catastrophic consequences in an autonomous driving pipeline.
-Also discussed in detail about what an OOD and Anomaly are using a ship example and finally we discussed the contributions of this thesis.
-The following chapters include study of the state of the art, experimentation details and then followed by results and conclusion chapters.
 \end{document}
