@@ -5,6 +5,7 @@
     \label{ch:benchmark}
     This chapter discusses the training In Distribution dataset (Semantic3D) and proposes two Out Of Distribution (OOD) benchmark datasets Semantic3D vs S3DIS and Semantic3D vs Semantic3D without colour.
     \section{Semantic3D}
+    \label{sec:dataset_sem3d}
     Semantic3D is a huge 3D  point cloud benchmark classification dataset, and Semantic3D is classified as a static dataset.
     The dataset consists of nearly 4 billion points containing a variety of scenes in urban and rural settings.
     These scenes are taken in markets, dom, stations and fields collected in European streets with terrestrial lasers.
@@ -68,6 +69,7 @@ Finally, Figure~\ref{fig:sem3d_gt_vis} represents the various scenes in the Sema
 \end{figure*}
 
 \section{S3DIS}
+\label{sec:dataset_s3dis}
 S3DIS is an indoor dataset making it an ideal OOD dataset candidate because of the no class overlap with the Semantic3D dataset.
 It is only one of two datasets available in indoor LiDAR dataset candidates. 
 The other is ScanObjectNN, whose dataset is not available online.

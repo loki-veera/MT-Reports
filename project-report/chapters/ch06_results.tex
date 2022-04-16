@@ -7,7 +7,7 @@
     %The detailed description about datasets can be found in Chapter \textcolor{red}{cite here}, about RandLA-Net in Section \textcolor{red}{cite here}, and about deep ensembles and flipout in Section \textcolor{red}{cite here}
     %The list of experiments conducted to acheive OOD detection are as follows:
     This chapter discusses the experiments conducted for Out-Of-Distribution (OOD) detection on RandLA-Net using quantified uncertainty from Deep Ensembles and Flipout.
-    In a detailed discussion about RandLA-Net, Deep Ensembles and Flipout can be found in Chapter~[\$]. In this chapter, we first discuss the training results of RandLA-Net using deep ensembles and flipout on Semantic3D as an In-Distribution (ID) dataset.
+    In a detailed discussion about RandLA-Net, Deep Ensembles and Flipout can be found in Chapter~\ref{chapter:methodology}. In this chapter, we first discuss the training results of RandLA-Net using deep ensembles and flipout on Semantic3D as an In-Distribution (ID) dataset.
     Furthermore, we compare the Maximum Softmax Probability (MSP) as in \cite{hendrycks2016baseline_MSP} and entropy values for the proposed OOD benchmark datasets Semantic3D vs S3DIS and Semantic3D vs Semantic3D w/o colour.
     Finally, we visualize and evaluate the performance of OOD detection using the AUROC score.
 
@@ -15,7 +15,7 @@
     %%%%%% Deep ensmebles performance %%%%%%
     \section{Deep Ensembles-Semantic3D}
     \label{sec:deepensemble_train}
-    In this experiment, we trained 20 models of RandLA-Net over the Semantic3D dataset using random initializations with the experimental setup described in Section~[\$].
+    In this experiment, we trained 20 models of RandLA-Net over the Semantic3D dataset using random initializations with the experimental setup described in Section~\ref{sec:de_setup}.
     The predictions from these 20 individual models are then averaged to compute the final predictions.
     The evaluation results of the Deep Ensembles are described in Table~\ref{tab:ensemble_eval} using meanIoU, per-class IoU and accuracy.
     The predictions from the Deep Ensembles are depicted in Figure~\ref{fig:deepensemble_vis_sem3d} and Figure~\ref{fig:deepensemble_improv}.
@@ -86,7 +86,7 @@
     The possible explanation for these misclassifications is ambiguity in the feature vector of RandLA-Net. For example, a feature vector for the point along the lower edge of the church contains the part of ground points as the feature vector.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{Flipout-Semantic3D}
-    In this experiment, we trained a Flipout version of RandLA-Net as described in Section~[\$] over the Semantic3D dataset.
+    In this experiment, we trained a Flipout version of RandLA-Net as described in Section~\ref{sec:flipout_setup} over the Semantic3D dataset.
     Like Deep Ensembles, we performed 20 forward passes over the Flipout versioned RandLA-Net and averaged the predictions to obtain final predictions.
     Table~\ref{tab:flipout_eval} describes the performance of Flipout versioned RandLA-Net using meanIoU, per-class IoU and Accuracy.
     Figure~\ref{fig:flipout_vis_sem3d} depicts the predictions of the Flipout versioned RandLA-Net visually.
@@ -143,7 +143,7 @@
     We observe that most objects, such as ceilings and bookshelves, are labelled as buildings when using Deep Ensembles.
     We also observe that most point clouds are labelled as hardscapes class when using Flipout versioned RandLA-Net.
     The classifications on S3DIS datasets are in triangles because of the property of the scanner.
-    As discussed in Section~[\$], data collected from the Matterport scanner is represented as triangular mesh, and then a point cloud is extracted from this mesh.
+    As discussed in Section~\ref{sec:dataset_s3dis}, data collected from the Matterport scanner is represented as triangular mesh, and then a point cloud is extracted from this mesh.
 
     \begin{figure*}[h!]
         \centering
@@ -306,8 +306,8 @@
     \subsection{Entropy}
     \label{sec:ent_sem3dvs3dis}
 
-    Similar to the experiment in Section~[\$], in this experiment, we study the distribution entropy values for ID (Semantic3D) and OOD (S3DIS) datasets.
-    Entropy scores are a sum log function of softmax probabilities and detailed discussion in Section~[\$].
+    Similar to the experiment in Section~\ref{sec:prob_sem3dvs3dis}, in this experiment, we study the distribution entropy values for ID (Semantic3D) and OOD (S3DIS) datasets.
+    Entropy scores are a sum log function of softmax probabilities and detailed discussion in Section~\ref{sec:meth_entropy}.
     Figure~\ref{fig:ent_ensembles} and Figure~\ref{fig:ent_flipout} depict the mean entropy score and variance plotted as error bars for Deep Ensembles and Flipout methods.    
     Figure~\ref{fig:de_sem3d_entmap} and Figure~\ref{fig:fout_sem3d_entmap} represents the entropy map for the ID dataset generated using Deep Ensembles and Flipout.
     Similarly, Figure~\ref{fig:de_s3dis_entmap} and Figure~\ref{fig:fout_s3dis_entmap} represents the entropy map for the OOD dataset.
@@ -428,7 +428,7 @@
     Table~\ref{tab:sem3dvs3dis_auroc} summarizes the AUROC scores compared among Dropout, Flipout and Deep Ensembles techniques for multiple passes (in case of Dropout and Flipout) and ensemble size (in case of Deep Ensembles).
     Figure~\ref{fig:de_ood_auroc_sem3d_prob} and Figure~\ref{fig:fout_ood_auroc_sem3d_prob} depicts the probability map and corresponding OOD map from Deep Ensembles and Flipout for In Distribution (ID) dataset.
     We depict the OOD map in green and red points, where the green colour represents ID points, and the red colour represents OOD points.
-    We classify the OOD map based on the optimal threshold from the corresponding ROC curve depicted in Figure~[\$].
+    We classify the OOD map based on the optimal threshold from the corresponding ROC curve depicted in Section~\ref{sec:app_roc_curves}.
     Similarly Figure~\ref{fig:de_ood_auroc_sem3d_ent} and Figure~\ref{fig:fout_ood_auroc_sem3d_ent} represents the Entropy map and corresponding OOD map from Deep Ensembles and Flipout for ID dataset.
     Respectively Figures~\ref{fig:de_s3dis_oodmap_prob}, \ref{fig:fout_s3dis_oodmap_prob}, \ref{fig:de_s3dis_oodmap_ent} and \ref{fig:fout_s3dis_oodmap_ent} represents the corresponding probability map, entropy map and their corresponding OOD map for OOD dataset (S3DIS).
     

@@ -1,6 +1,7 @@
 %!TEX root = ../report.tex
 \begin{document}
 \chapter{Methodology}
+\label{chapter:methodology}
 In this chapter, we will discuss the RandlLA-Net used for 3D semantic segmentation, especially about network architecture and how it helps in better segmentation.
 We also discuss the details of the Deep Ensembles and the Flipout methods for uncertainty quantification.
 We also study the evaluation metrics for 3D semantic segmentation and OOD detection and the methods to generate OOD scores, such as Maximum Softmax Probability (MSP) as a baseline method and Entropy.
@@ -211,13 +212,15 @@ First proposed in \cite{hendrycks2016baseline_MSP}, uses the probability of the 
 MSP still serves as the most evaluated baseline method for OOD detection.
 Since we are the first study to perform OOD detection 3D semantic segmentation to the best of our knowledge, we wanted to incorporate this score as a baseline. 
 Here the main idea is that if a point in a point cloud is known, then it will have a higher MSP score and vice versa.
-It is calculated as a given in Equation~[\$], where $y_n$ is the list of softmax probablity score for each class given as $p_1, p_2, .., p_n$.
+It is calculated as a given in Equation~\ref{eq:MSP_formula}, where $y_n$ is the list of softmax probablity score for each class given as $p_1, p_2, .., p_n$.
 $$y_n = [p_1, p_2,..,p_n]$$
 \begin{equation}
     MSP = max(y_n)
+    \label{eq:MSP_formula}
 \end{equation}
 
 \subsection{Entropy}
+\label{sec:meth_entropy}
 Entropy is defined by \cite{entropy_robinson} as an "ill-defined notion of chaos or uncertainty".
 Entropy has its roots in thermodynamics, and in computer science, it can be used as a measure of information content.
 In deep learning, Entropy is used as a measure for uncertainty and calculated as given in Equation~\ref{eq:ent_calc}, where $P(x_i)$ is softmax probablity for $i^{th}$ of point x.
@@ -234,7 +237,7 @@ This section will discuss the metrics used for evaluating OOD detection. Firstly
 \subsection{Receiver Operating Characteristic Curve}
 RROC curves are typically used for selecting the best classifiers based on their performance.
 ROC curves were historically used in signal detection but later found their way into the machine learning community.
-According to \cite{}-[\$], this is because accuracy itself is a poor metric to realise the model's performance.
+According to \cite{ROC_example}, this is because accuracy itself is a poor metric to realise the model's performance.
 Also, ROC curves are insusceptible to change in class distribution, that is, the proportion of negative to positive examples.
 ROC curves are drawn based on True Positive Rate (TPR) and False Positive Rate (FPR).
 TPR is calculated as the number of positively classified samples to the total positive samples, and FPR is calculated as the number of negatively classified samples to the total number of negative samples.

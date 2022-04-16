@@ -6,12 +6,12 @@
     This chapter acts as a supplementary for the thesis.
     \section{RandLA-Net - Dropout}
     \label{sec:randladout}
-    The original architecture of the RandLA-Net has only one dropout layer at the end of the second classification layer represented as DP in Figure~[\$].
+    The original architecture of the RandLA-Net has only one dropout layer at the end of the second classification layer represented as DP in Figure~\ref{fig:networkarchitecture}.
     We also used the same setup for our dropout experiment with a dropout probability of 0.5.
     Similar to other experiments we performed 20 forward passes on the dropout, then averaged and represented every AUROC performance on every $5^{th}$ forward pass.
 
     \section{Summary of the models}
-    As the survey of existing 3D semantic segmentation models is a part of this thesis, we display a table which summarizes the performance of each model disucssed in Section~[\$].
+    As the survey of existing 3D semantic segmentation models is a part of this thesis, we display a table which summarizes the performance of each model disucssed in Section~\ref{sec:dl_approach}.
     \begin{longtable}{|p{0.15\linewidth} | p{0.59\linewidth}| p{0.06\linewidth} |p{0.09\linewidth}|}
         %\centering
         %\begin{tabular}{|p{0.15\linewidth} | p{0.6\linewidth}| p{0.06\linewidth} |p{0.08\linewidth}|}
@@ -57,7 +57,7 @@
             \hline
             %SPGraph\cite{SPGraph} & & Point & 0.25M\\
             %\hline
-            LatticeNet\cite{rosu2019latticenet}\footnote{LatticeNet has no code to calculate number of parameters} &
+            LatticeNet\cite{rosu2019latticenet}\footnote{LatticeNet has no code to calculate number of parameters.} &
             The input point cloud is projected onto d-dimensional sparse lattice and reprojection is learnt form the data by using novel proposed DeformSlice module.
             The architecture is similar to U-Net with lattice projeciton at encoder and DeformSlice at end of decoder module.
             & Point & - \\
@@ -116,7 +116,7 @@
             This is the first 3D semantic segmentation model to utlize Neural Architecture Search (NAS).
             & Point & 2.6M \\
             \hline
-            Cylinder3D\cite{zhu2020cylindrical}\footnote{Cylinder3D uses Sparse Convolutions which are not supported in Ubuntu-20 at the time of study.} &
+            Cylinder3D\cite{zhu2020cylindrical}\footnote{Cylinder3D uses Sparse Convolutions which is not supported in Ubuntu-20 at the time of study. So parameters cannot be calculated.} &
             Converts 3D cartesian coordinates to 3D cylinder coordinates then voxelizes and fed into Asymmetric Residual Block to extarct these cuboid features.
             These features are applied to 3D U-Net for segmentation.
             & Project & - \\
@@ -129,6 +129,7 @@
     \end{longtable}
     
     \section{ROC curves - Semantic3D vs S3DIS}
+    \label{sec:app_roc_curves}
     In this section, we display the ROC curves associated with the AUROC score from Table~\ref{tab:sem3dvs3dis_auroc}.
     Figure~\ref{fig:roc_msp_ood_1} represents the ROC curves generated using Maximum Softmax Probability (MSP) for Deep Ensembles, Flipout and Dropout.
     Similarly Figure~\ref{fig:roc_ent_ood_1} represents the ROC curves generated using the entropy score.
