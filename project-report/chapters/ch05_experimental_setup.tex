@@ -14,7 +14,7 @@
     We chose Semantic3D as our training set because it is a dense dataset.
     \cite{survey3d} states that Semantic3D is one of the datasets with low intraclass variability among 3D datasets.
     That is, the number of points among all the classes is nearly equal.
-    Semantic3D dataset is also one of the few datasets which come with RGB values for each point.
+    Semantic3D dataset is also one of the few datasets with RGB values for each point.
     This helps us in understanding how important is colour information in OOD detection.
     Semantic3D is an ongoing benchmark challenge, so we evaluated our trained on the validation set.
     For a sanity check, we cross-checked the performance of our trained models on this validation set with the pretrained model from the authors provided in \footnote[1]{https://github.com/QingyongHu/RandLA-Net}.
@@ -35,7 +35,7 @@
     
     \section{RandLA-Net - Deep Ensembles}
     \label{sec:de_setup}
-    FFor Deep Ensembles, we trained 20 randomly initialized instances of RandLA-Net on the Semantic3D dataset.
+    For Deep Ensembles, we trained 20 randomly initialized instances of RandLA-Net on the Semantic3D dataset.
     We used the default training parameters provided by the authors, and they are a learning rate of 0.01 with the decay of 0.95 multiplied for every epoch, batch size of 4 and trained for 100 epochs.
     We changed the pipeline to infer the whole point cloud and save the probability scores from these 20 models.
     These saved probabilities are averaged, and Maximum Softmax Probability (MSP) and Entropy are extracted.
@@ -55,5 +55,5 @@
         \caption{Flipout versioned RandLA-Net where the last three FC layers are made Flipout compatible and Dropout layer represented in figure as DP strikedout. Image updated from \cite{Hu_2020_CVPR_Randla}.}
         \label{fig:fout_randlanet}
     \end{figure}
-    The dropout version of RandLA-Net setup is described in Section~\ref{sec:randladout} as it is only used for evaluation of OOD detection more as a baseline method.
+    The dropout version of the RandLA-Net setup is described in Section~\ref{sec:randladout} as it is only used for the evaluation of OOD detection more as a baseline method.
 \end{document}
