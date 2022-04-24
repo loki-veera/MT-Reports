@@ -9,9 +9,9 @@ We also study the evaluation metrics for 3D semantic segmentation and OOD detect
 \label{sec:meth_randla}
 As stated in \cite{Hu_2020_CVPR_Randla}, it is a lightweight and efficient neural network architecture for semantic segmentation of 3D point clouds.
 From Section~\ref{sec:dl_approach}, we can observe that the RandLA-Net architecture is best performing among the point models.
-Efficient computation, memory usage and a model with direct application o 3D points are the primary motivation when developing the RandLA-Net.
+Efficient computation, memory usage and a model with direct application to 3D points are the primary motivation when developing the RandLA-Net.
 RandLA-Net employs random point sampling and the local feature aggregation module to achieve these goals.
-Authors in \cite{Hu_2020_CVPR_Randla} proved that a successive application of random point sampling along with the local feature aggregation module effective reduce and extracts the features of the large scale point clouds from a scale of $10^5$ to $10^2$.
+Authors in \cite{Hu_2020_CVPR_Randla} proved that a successive application of random point sampling along with the local feature aggregation module effectively reduce and extracts the features of the large scale point clouds from a scale of $10^5$ to $10^2$.
 
 RandLA-Net utilizes random point sampling among the other sampling methods such as Farthest Point Sampling, Inverse Density Point Sampling.
 We select K points uniformly from the original point cloud in random point sampling and have a computational complexity time of O(1).
@@ -58,7 +58,7 @@ $$
 r_i^k = MLP(p_i \oplus p_i^k \oplus (p_i - p_i^k) \oplus ||p_i-p_i^k||)
 $$
 where $r_i^k$ is the relative position of point $p_i$ with respect to $p_i^k$, here in $p_i$ and $p_i^k$ only the x,y and z positions are used.
-$\oplus$, and $||p_i-p_i^k||$ represents the concatenation operation and euclidean distance calculation between $p_i$ and $p_i^k$ respectively.
+$\oplus$, and $||p_i-p_i^k||$ represents the concatenation operation and euclidean distance between $p_i$ and $p_i^k$ respectively.
 This step 2 of relative position encoding is represented by the above part in the LocSE module in the green track in Figure \ref{fig:randlanetlfa}.
 Step 3 creates an augmented feature vector $\hat{f_i^k}$ by concatenation of relative point position ($r_i^k$) and its point features ($f_i^k$) of point $p_i^k$.
 Point features ($f_i^k$) include the R, G and B values and other features such as intensity values.
@@ -67,7 +67,7 @@ This step 3 is represented in the lower part of the LocSE module in the yellow t
 This augmented feature vector $\hat{f_i^k}$ from the LocSE module is passed through a pooling layer to extract essential features.
 Authors state that use of max and mean pooling layer leads to loss of information. Because of this, the authors made use of the attention mechanism, which helps in learning important features automatically.
 Given the feature vector $\hat{f_i^k}$, a function $g$ is learned with the help of MLP and softmax, and the resultant vector is denoted as $s_i^k$ in the pink block in Figure \ref{fig:randlanetlfa}.
-These each feature score $s_i^k$ from function $g$ is multiplied with feature vector $f_i^k$ called informative feature vector and summed up to form a unique feature vector $\tilde{f_i}$ for point $p_i$ and this operation is mathematically denoted as
+These each feature score $s_i^k$ from function $g$ is multiplied with feature vector $\hat{f_i^k}$ and the resultant is called informative feature vector and summed up to form a unique feature vector $\tilde{f_i}$ for point $p_i$ and this operation is mathematically denoted as
 $$
 \tilde{f_i}= \sum_{k=1}^K (\hat{f_i^k}.s_i^k)
 $$
@@ -106,7 +106,7 @@ We chose RandLA-Net because of the following reasons:
     \item Has fewer parameters (1.24M), making training efficient, as 3D semantic segmentation models are computationally expensive.
     \item Proven performance over various datasets such as Semantic3D and SemanticKITTI, along with ablation study of each submodule in LFA proposed in \cite{Hu_2020_CVPR_Randla}.
     \item No preprocessing such as range image representation as in \cite{Milioto2019} or farthest point sampling with a computational complexity of $O(N^2)$ as in \cite{Qi_2017_CVPR_pointnet}. RandLA-Net employs random point sampling with a computational time of $O(1)$.
-    \item State of the art performance in point-based methods, consisting of only Multi-Layer Perceptrons (MLP) and without expensive operations such as kernelization or graph construction.
+    \item State of the art performance in point-based methods, consisting of Multi-Layer Perceptrons (MLP) and without expensive operations such as kernelization or graph construction.
 \end{enumerate}
 
 \subsection{Evaluation metrics-Semantic Segmentation}
@@ -125,7 +125,7 @@ Accuracy is another widely used metric, which can be quantified as a number of p
 It can be formulated from the confusion matrix as
 $$Accuracy = \frac{TP+TN}{TP+TN+FP+FN}$$
 Where TP, TN, FP and FN are True Positives, True Negatives, False Positives and False Negatives, respectively, from the confusion matrix.
-This metric alone can be misleading in case of severe class imbalance.
+This metric alone can be misleading in case of severe class imbalance, so mIoU is used in conjecture.
 
 Here, we conclude the study of RandLA-Net, the reason for its effective performance, argue the reasons to chose RandLA-Net and briefly discuss the evaluation metrics used.
 In the following sections, we will discuss the utilized uncertainty estimation methods such as deep ensembles, Flipout and metrics used to evaluate 3D semantic segmentation and OOD detection.
@@ -136,7 +136,7 @@ Like bagging, the idea is to train the same network with the same data with rand
 These N trained models converge similarly with little difference given the same training conditions and hyperparameters.
 \begin{figure}
     \centering
-    \includegraphics[scale=0.55]{images/DE.jpg}
+    \includegraphics[scale=0.4]{images/DE.jpg}
     \caption{Illustration of test dataflow in Deep Ensembles, where input point cloud is fed into multiple randomly initialized models ($M_1-M_n$). 
     These individual predictions from each model are averaged to compute the final prediction.}
     \label{fig:deepensembles}
@@ -150,9 +150,9 @@ Deep ensembles are proven to improve the overall performance of the model as in 
 Despite their performance boosting ability, they are also used to estimate uncertainty as in \cite{lakshminarayanan2016simple}.
 \cite{lakshminarayanan2016simple} proposes that with the increase in the number of ensembles, the Negative Log-Likelihood (NLL) and Brier score goes down, suggesting the network produces well-calibrated predictions.
 \cite{lakshminarayanan2016simple} also studies the effect of entropy with out-of-distribution (OOD) classes.
-They performed the study on MNIST-NotMNIST and SVHN-CIFAR10, with the first dataset in pair being in distribution (ID) and the second dataset being the OOD dataset.
+They performed the study on MNIST-NotMNIST and SVHN-CIFAR10, with the first dataset in the pair being in distribution (ID) and the second dataset being the OOD dataset.
 The authors verified that entropy distribution on the ID dataset is peaky. Similarly, the entropy distribution on the OOD dataset is more spread across all entropy values.
-We hypothesize that similar performance is observed in 3D semantic segmentation as a task of segmentation can be treated as multi-class classification in a point cloud.
+We expect that similar performance is observed in 3D semantic segmentation also.
 Because proven ability to classify OOD on the classification task boosts the model's performance and ease of implementation makes deep ensembles an ideal candidate for OOD detection in 3D semantic segmentation.
 
 \section{Flipout}
@@ -190,7 +190,7 @@ Authors also argue that the Flipout reduces the variance in gradients when compa
 At a glance, these random weight perturbations give us slightly different output estimates for every forward pass.
 In our case, we changed the few classification layers of the network to Flipout compatible more about the setup in Section \ref{sec:flipout_setup}.
 We then compute the forward pass multiple times, and these multiple output estimates from multiple forward passes are then averaged to get the final prediction estimate.
-A representation of this operation is presented in Figure~\ref{fig:flipout_ex}, and here, $F_1$ represents the single feature extraction network, and these features are fed into multiple classification heads represented from $C_1$ to $C_N$.
+A representation of this operation is presented in Figure~\ref{fig:flipout_ex}, and here, $F_1$ represents the Flipout trained version of RandLA-Net being used for N forward passes.
 These classifications are averaged to get the final classification score.
 
 \begin{figure}
@@ -210,7 +210,7 @@ The two metrics are Maximum Softmax Probability (MSP) and Entropy.
 First proposed in \cite{hendrycks2016baseline_MSP}, uses the probability of the classification from the Softmax for OOD detection. 
 MSP still serves as the most evaluated baseline method for OOD detection.
 Since we are the first study to perform OOD detection 3D semantic segmentation to the best of our knowledge, we wanted to incorporate this score as a baseline. 
-Here the main idea is that if a point in a point cloud is known, then it will have a higher MSP score and vice versa.
+Here the main idea is that if a point in a point cloud is from ID data, then it will have a higher MSP score and vice versa.
 It is calculated as a given in Equation~\ref{eq:MSP_formula}, where $y_n$ is the list of softmax probability scores for each class given as $p_1, p_2, .., p_n$.
 $$y_n = [p_1, p_2,..,p_n]$$
 \begin{equation}
@@ -241,7 +241,7 @@ Also, ROC curves are insusceptible to change in class distribution, that is, the
 ROC curves are drawn based on True Positive Rate (TPR) and False Positive Rate (FPR).
 TPR is calculated as the number of positively classified samples to the total positive samples. FPR is calculated as the number of negatively classified samples to the total number of negative samples.
 
-A ROC curve is generated, given a set of probabilities/scores and their true labels, either positive or negative.
+A ROC curve is generated, given a set of probabilities/scores and their true labels which are either positive or negative.
 We then generate a range of threshold values from these probabilities and compute TPR and FPR for each threshold value.
 These TPR and FPR are plotted to generate a ROC curve as displayed in Figure~\ref{fig:ROC_curve_example}. 
 Figure~\ref{fig:ROC_curve_example} represents ROC curves for various classifiers, and here red line represents the roc curve for the random classifier. The green line represents the roc curve for a perfect classifier.
@@ -255,7 +255,7 @@ Since we want our classifier to perform better than a random classifier, we expe
 \end{figure}
 
 \subsection{Area Under an ROC curve}
-Since the ROC curves are a tow dimensional depiction and we need a single scalar value to compare the performance of the classifiers, we use the Area Under a ROC curve (AUROC) value.
+Since the ROC curves are a two dimensional depiction and we need a single scalar value to compare the performance of the classifiers, we use the Area Under a ROC curve (AUROC) value.
 AUROC is the area enclosed below the ROC curve, and the AUROC value ranges between 0 and 1 as the curve is plotted in a unit square.
 AUROC for a random classifier's ROC curve as depicted in red colour in Figure~\ref{fig:ROC_curve_example} is 0.5, and the perfect classifier depicted as the green line is one as its area encompasses the whole square.
 In this thesis, we use this score to evaluate and compare the performance of OOD detection between Deep Ensembles and Flipout.

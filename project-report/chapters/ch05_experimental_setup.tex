@@ -2,26 +2,19 @@
 
 \begin{document}
     \chapter{Experimental Setup}
-    This chapter explains the model for 3D semantic segmentation, dataset trained, libraries and training parameters for Deep Ensembles and Flipout.
+    This chapter details the experimental setup used to train RandLA-Net for Deep Ensembles, Flipout and Dropout.
 
     \section{Semantic segmentation model}
     In this thesis, we used the RandLA-Net model for 3D semantic segmentation proposed in \cite{Hu_2020_CVPR_Randla}.
     Section 2.1 describes the detailed working of RandLA-Net. 
 
     \section{Dataset}
-    We use Semantic3D as our training dataset, proposed in \cite{hackel2017semantic3d}.
-    More details of the Semantic3D like dataset distribution and visual images of the point cloud are represented in Section~\ref{sec:dataset_sem3d}.
-    We chose Semantic3D as our training set because it is a dense dataset.
-    \cite{survey3d} states that Semantic3D is one of the datasets with low intraclass variability among 3D datasets.
-    That is, the number of points among all the classes is nearly equal.
-    Semantic3D dataset is also one of the few datasets with RGB values for each point.
-    This helps us in understanding how important is colour information in OOD detection.
+    In this thesis, we used Semantic3D as training dataset and more about the dataset is discussed in Section~\ref{sec:dataset_sem3d}.
     Semantic3D is an ongoing benchmark challenge, so we evaluated our trained on the validation set.
     For a sanity check, we cross-checked the performance of our trained models on this validation set with the pretrained model from the authors provided in \footnote[1]{https://github.com/QingyongHu/RandLA-Net}.
 
     \section{Training parameters}
-    This section will discuss the libraries used and training parameters of the RandLA-Net for Deep Ensembles, Flipout.
-    The training and testing of Deep Neural Networks are time and resource-intensive.
+    This section will discuss the libraries used and training parameters of the RandLA-Net for Deep Ensembles, and Flipout.    The training and testing of Deep Neural Networks are time and resource-intensive.
     We used the High-Performance Computing (HPC) GPU cluster from DFKI, especially on Nvidia Titan-XP and Nvidia-Tesla V100.
     \subsection*{Libraries}
     With the purpose of reproducibility in mind, here we provide the list of major libraries used and their versions used for training.

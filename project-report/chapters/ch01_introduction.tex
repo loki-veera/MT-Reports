@@ -22,7 +22,7 @@ This closedness of the dataset, i.e., a fixed number of classes, will cause an i
 This unknown object will be predicted as one of the classes in the dataset, leading to radical decisions when this error is propagated down the pipeline in Figure \ref{fig:Apollopipeline}.
 These unknown objects in the real world which are not present in the training dataset can be regarded as out-of-distribution (OOD) objects. 
 More discussion on the OOD is presented in Section~\ref{sec:oodvanom}.
-The Tesla autonomous driving platform encounters one such problem of misdetection of an unknown object.
+The Tesla autonomous driving platform encounters one such problem of misdetection of unknown objects.
 \begin{figure}[h!]
     \begin{subfigure}{0.48\textwidth}
         \centering
@@ -36,7 +36,7 @@ The Tesla autonomous driving platform encounters one such problem of misdetectio
         \caption{}
         \label{fig:teslafails_2}
     \end{subfigure}
-    \caption{Misdetection of OOD objects in Tesla autonomous driving platform. (a) Moon is detected as yellow signal light and (b) depicts the misdetection of Burger King sign as stop traffic sign. Images taken from \cite{tesla_fails}}
+    \caption{Misdetection of OOD objects in Tesla autonomous driving platform. (a) Moon is detected as yellow signal light and (b) depicts the misdetection of Burger King sign as stop traffic sign. Images taken from \cite{tesla_fails}.}
 \end{figure}
 
 Figure~\ref{fig:teslafails_1} and Figure~\ref{fig:teslafails_2} depict the misdetections from the Tesla autonomous driving system.
@@ -51,7 +51,7 @@ A detailed discussion on types of uncertainty and what type of uncertainty can b
 \section{Problem Statement}
 This thesis studies out-of-distribution (OOD) detection over the 3D semantic
 segmentation problem. Notably, we study the 3D semantic segmentation datasets available and create a
-benchmark for the in-distribution (ID) and out-of-distribution (OOD) datasets.
+benchmark for the In-Distribution (ID) and Out-Of-Distribution (OOD) datasets.
 The other major issue we address in this thesis is the OOD detection methods. Existing OOD detection
 methods are tested for 2D classification and 2D semantic segmentation tasks, and the applicability of
 these methods to 3D semantic segmentation tasks is not studied. Moreover, the proposed OOD detection
@@ -74,7 +74,7 @@ whether uncertainty estimation is a practical approach for OOD detection in the 
 The contributions made in this thesis are
 \begin{enumerate}
     \item A complete survey of the available 3D LiDAR datasets and 3D semantic segmentation models.
-    \item Benchmarking of 3D LiDAR datasets for OOD detection. Proposed two benchmark datasets Sematic3D vs S3DIS and Semantic3D vs Semantic3D without colour, with Semantic3D being In-Distribution (ID) dataset and S3DIS and Semantic3D without colour being Out-Of-Distribution (OOD) datasets.
+    \item Benchmarking of 3D LiDAR datasets for OOD detection. Proposed two benchmark datasets Sematic3D vs S3DIS and Semantic3D vs Semantic3D without colour, with Semantic3D being In-Distribution (ID) dataset, S3DIS and Semantic3D without colour being Out-Of-Distribution (OOD) datasets.
     \item A survey on the uncertainty estimation methods and classical OOD methods.
     \item An evaluation of OOD detection on benchmarked datasets over the RandLA-Net model using Deep Ensembles and Flipout.
 \end{enumerate}
@@ -139,15 +139,16 @@ Ship as in \ref{fig:trian_cruiser} can be defined as ``\textit{ship contains hul
 Now, suppose we want to deploy the old model trained with old ships to detect
 the present generation of ships. In that case, it is difficult because of the ship’s change in definition and properties.
 This change in data distribution over a period of time is called ``\textit{distributional shift}'' of the data.
+Distributional shift can be resolved by retraining the model.
 
-An anomaly can be defined as the patterns that do not conform to the expected training behaviour as proposed in  \cite{anomaly_sec1_1}.
+Where as an anomaly can be defined as the patterns that do not conform to the expected training behaviour as proposed in  \cite{anomaly_sec1_1}.
 By this definition, Figure \ref{fig:anom_container} and Figure \ref{fig:anom_titanic} can be considered anomalies.
 This is because Figure \ref{fig:anom_container} is a container ship looking similar to Figure \ref{fig:trian_cruiser}. Instead of passenger decks, we have containers stacked.
 Figure \ref{fig:anom_titanic} is also an anomaly because the Titanic also has a hull, passenger decks
 and chimneys. These additional chimnies as features deviates this image from the definition of the ship
 and can be considered an ``\textit{anomaly}''.
 
-The input for out of distribution (OOD) is drawn from an unknown distribution of unknown data, which is not near to the training distribution.
+In the case of out of distribution (OOD), the input is drawn from an unknown distribution of unknown data, which is not near to the training distribution.
 Figure~\ref{fig:ood_submarine} and Figure~\ref{fig:ood_airship} are submarine, and an airship which does not adhere to the definition of the ship by any means.
 So we regard these two images (submarine and airship) as OOD objects.
 %\begin{figure}[h!]
