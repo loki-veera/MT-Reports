@@ -161,7 +161,7 @@ In this thesis, we also employed the Flipout version of the RandLA-Net model for
 Flipout has initially been introduced in \cite{Flipout} as an efficient method of gradient decorrelation in a mini-batch of examples.
 This effect is implemented by adding independent weight perturbations sampled from distribution for each example.
 Authors in \cite{Flipout} describe weight perturbations as methods whose weights of the neural network are sampled from distribution during training.
-In general, neural network weights are point estimates where the weight is a single scalar value. In the case of weight perturbations, they are modelled as a distribution where each weight $W=\overline{W}+\Delta W$ in which $\overline{W}$ is the mean weight and $\Delta W$ is the perturbation.
+In general, neural network weights are point estimates. In the case of weight perturbations, they are modelled as a distribution where each weight $W=\overline{W}+\Delta W$ in which $\overline{W}$ is the mean weight and $\Delta W$ is the perturbation.
 If this $\Delta W$ is sampled from a Gaussian distribution, it is called a Gaussian perturbation.
 Since the sampled weight perturbation is the same for all the examples over the mini-batch, the authors argue a correlation between the gradients.
 So authors of Flipout make two critical assumptions to deal with this problem. 
@@ -228,8 +228,8 @@ In deep learning, Entropy is used as a measure for uncertainty and calculated as
     \label{eq:ent_calc}
 \end{equation}
 In theory, following this formula, if the point in the point cloud is from In Distribution (ID), the softmax output is higher for one class, and other classes will be near zero.
-This leads to a lower entropy score for the ID point, and for the Out Of Distribution (OOD) point in the point cloud, the softmax output is spread across all the classes.
-This means that the OOD point will have a higher entropy score.
+So this point from ID has lower entropy score because the softmax probabilities are nearly zero for all the classes expect for one.
+Similarly for the OOD point, the softmax probabilities are spread across all the classes because the network doesn't know which class it belong to. So the entropy for OOD point is higher.
 
 \section{Evaluation metric-OOD detection}
 This section will discuss the metrics used for evaluating OOD detection. Firstly the Receiver Operating Characteristic (ROC) curve to extract thresholds of the score and later the Area Under the ROC curve (AUROC) for evaluation and comparison of the OOD detection performance.

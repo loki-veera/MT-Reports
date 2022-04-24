@@ -133,23 +133,22 @@
 
 \subsection{Traditional approach}
 Traditional methods involve a complex features extraction and passing these features to a classification algorithm such as Support Vector Machines or Random Forests to classify each point in the point cloud.
-Various authors developed various methods to extract the features from the input point cloud.
-Some of these methods include segmentation from edge information \cite{bhanu1986range}, construction of complex graph pyramids \cite{koster}.
+Some of the traditional methods include segmentation from edge information \cite{bhanu1986range}, construction of complex graph pyramids \cite{koster}.
 3D Hough transforms as in \cite{vosselman20013d} and application of RANSAC \cite{schnabel2007efficient} and \cite{tarsha2007hough}.
 These traditional methods are outdated as DNNs proved to be better at feature extraction.
 
 \subsection{Deep learning approach}
 \label{sec:dl_approach}
 Deep learning based models are efficient at segmentation and can be divided into three types.
-The initial type includes the point-based models where the model directly feeds on the 3D point cloud.
-Then the other type includes projection based models where the model takes in projected points into a 2D image, either a range image or a bird's eye view.
+The first type includes the point-based models where the model directly feeds on the 3D point cloud.
+Then the second type includes projection based models where the model takes in projected points into a 2D image, either a range image or a bird's eye view.
 The final type of model includes the use of graph neural networks.
 
-Let us look briefly into the point-based methods. Point-based methods majorly utilize fully connected layers or traditional convolutional layers.
-The major revolution in Deep learning based 3D semantic segmentation came after the PointNet proposed in \cite{Qi_2017_CVPR_pointnet}.
+Let us look briefly into the point-based methods. Point-based methods usually utilize fully connected layers or traditional convolutional layers.
+A major revolution in Deep learning based 3D semantic segmentation came after the PointNet proposed in \cite{Qi_2017_CVPR_pointnet}.
 Pointnet applied Multi-Layer Perceptrons (MLP) to extract a global feature vector from the unstructured point cloud and then classify it using the fully connected layers.
 Since Pointnet can only extract local features, Pointnet++ proposed in \cite{qi2017pointnet++} applies Pointnet over the point cloud iteratively to extract features at a global scale and then classifies.
-Even though the performance of Pointnet and Pointnet++ are weak, they served as a backbone for new architectures such as RandLA-Net proposed in \cite{Hu_2020_CVPR_Randla}.
+Even though the performance of Pointnet and Pointnet++ are weak in terms of segmentation, they served as a backbone for new architectures such as RandLA-Net proposed in \cite{Hu_2020_CVPR_Randla}.
 Similar to PointNet, RandLA-Net employs MLP for feature extraction. These features are passed through attention and then for classification.
  Section~\ref{sec:meth_randla} describes in detail about RandLA-Net.
 It is one of the best-performing models with lower parameters across Static and Sequential datasets.
@@ -165,11 +164,11 @@ In projection-based models, let us discuss the models that project the data onto
 The first of this kind is SqueezeSeg, proposed in \cite{Sequeseseg_2018}. It employs SqueezeNet for 2D segmentation and then reprojects the segmented range image to 3D using Recurrent Conditional Random Fields.
 Since the performance of SqueezeSeg is weak, later versions of SqueezeSeg, such as SqueezeSegV2 proposed in \cite{SqueezeSegv2} and SqueezeSegV3 as in \cite{xu2020squeezesegv3} employ Context Aggregation Module and Spatially Adaptive Convolutions respectively, to improve performance relative to SqueezeSeg.
 RangeNet proposed in \cite{Milioto2019} has three versions similar to SqueezeSeg, where the first two versions use the DarkNet21 and DarkNet53 model for 2D semantic segmentation and then reproject the data back to 3D.
-The final version uses the DarkNet53 model with kNN to reproject the 2D range image to 3D after segmentation.
+The final version uses the DarkNet53 model with K-Nearest Neighbours (KNN) to reproject the 2D range image to 3D after segmentation.
 Similarly, 3DMiniNet \cite{3Dmininet} and KPRNet \cite{kochanov2020kprnet} projects data to range image for segmentation with the  former using MiniNetV2 as the backbone model and later using ResNeXt-101 as the backbone.
 
 We now discuss the projection-based models which involve bird eye view projection.
-These models are relatively new to the field but have comparable performance to the existing models.
+These models are relatively new to the field.
 SalsaNet \cite{salsanet2020} and SalsaNext \cite{SalsaNext_2020} are the two models to employ bird eye view projection as input, and both use the ResNet
 model as a backbone.
 The latter one utilizes Lovasz-Softmax loss along with cross-entropy.
@@ -222,7 +221,7 @@ Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segm
     Existing neural networks are trained in maximum likelihood, resulting in point estimates for the weights.
     The main idea behind Bayesian neural networks is to use a distribution over the network parameters.
     Instead of a single fixed weight tensor for a layer in a neural network, a weight tensor is drawn from the distribution for each forward pass.
-    The parameters are estimated for input during training by using the Bayes rule and expressed in Equation~\ref{eq:bayes_1}.
+    The parameters are estimated for input during training by using Bayes rule and expressed in Equation~\ref{eq:bayes_1}.
     \begin{equation}
         p(\theta|x, y) = \frac{p(y|x, \theta)p(\theta)}{p(y|x)} = \frac{p(y|x, \theta)p(\theta)}{\int p(y|x, \theta) p(\theta) d\theta} \label{eq:bayes_1}
     \end{equation}
@@ -311,7 +310,7 @@ Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segm
     The Mahalanobis distance is calculated between the activation map and each class distribution represented as multivariate gaussian.
     \cite{Maha_plus_ODIN} proposed the use of Mahalanobis distance and ODIN combined for OOD detection and argued that this combination yields better detection of OOD data.
     \cite{ReAct} proposed Rectified Activations (ReAct) for OOD detection wherein applied to the final layer of the neural network before softmax application, and it suppresses the higher activations to a constant, thereby limiting the effect of noise. 
-    ReAct operation is defined in Equation~\ref{eq:react} as
+    The ReAct operation is defined in Equation~\ref{eq:react} as
     \begin{equation}
         h^{-}(x) = ReAct(h(x); c) \text{ and } ReAct(x, c) = min(x, c) \label{eq:react}
     \end{equation} 
@@ -331,7 +330,7 @@ Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segm
     
     In recent years, OOD detection for the task of 2D semantic segmentation has been getting into the limelight.
     \cite{pixel_OOD} proposes the adaption of a few above discussed OOD detection methods to the task of 2D semantic segmentation with few or no modifications.
-    \cite{pixel_OOD} also proposed benchmarked datasets for pixel-level OOD detection and introduced a novel OOD detection evaluation metric called MaxIoU.
+    \cite{pixel_OOD} also proposed benchmarked datasets for pixel-level OOD detection and introduced a novel OOD detection evaluation metric called Max Intersection-over-Union (MaxIoU).
     \cite{SemSeg_Entropy1}, and \cite{SemSeg_Entropy2} proposed using the entropy values for OOD detection in the 2D semantic segmentation task.
     \cite{MetaSeg} proposed a small fully connected neural network called \textit{MetaSeg} with inputs being the metrics such as entropy, probability margin, meanIoU and variation ratio to classify ID and OOD samples.
     \cite{uncertianty_distillation} proposed uncertainty distillation to compute uncertainty estimates similar to knowledge distillation and argues these uncertainty estimates can be efficiently used for OOD detection.
