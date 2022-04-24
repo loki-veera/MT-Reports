@@ -68,7 +68,7 @@
 \usepackage{multirow} % Required to enable merging of columns/rows in a table
 \usepackage{rotating} % Required to display sideways tables/figures
 \usepackage[hyphens]{url}
-\usepackage{hyperref} % Enable hyperlinks
+\usepackage[colorlinks]{hyperref} % Enable hyperlinks
 \usepackage{titling}
 \usepackage[section]{placeins}
 \usepackage{lipsum} % Used to test
