@@ -21,8 +21,8 @@ For example, an autonomous driving agent must be trained on a dataset containing
 This closedness of the dataset, i.e., a fixed number of classes, will cause an issue when the DNN encounter an unknown object in the real world.
 This unknown object will be predicted as one of the classes in the dataset, leading to radical decisions when this error is propagated down the pipeline in Figure \ref{fig:Apollopipeline}.
 These unknown objects in the real world which are not present in the training dataset can be regarded as Out-of-Distribution (OOD) objects and the trained dataset is called In Distribution (ID) dataset. 
-More discussion on the OOD is presented in Section~\ref{sec:oodvanom}.
-The Tesla autonomous driving platform encounters one such problem of misdetection of unknown objects.
+More discussion on the OOD and difference between OOD and Anomaly is presented as an example in Section~\ref{sec:oodvanom}.
+The Tesla autonomous driving platform encounters one such problem of misdetection of unknown objects when deployed in real world.
 \begin{figure}[h!]
     \begin{subfigure}{0.48\textwidth}
         \centering

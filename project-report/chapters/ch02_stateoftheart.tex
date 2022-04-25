@@ -12,11 +12,21 @@
     %Second reason is the development of huge public benchmark datasets such as Imagenet \cite{imagenet}, Pascal VOC \cite{pascalvoc} and COCO \cite{coco} datasets
     %Although deep convolutional networks are huge success in image analysis tasks, they perform poorly on 3D point cloud data.
     This section will discuss the available LiDAR datasets for the 3D semantic segmentation task and classify the datasets based on acquisition methods as in \cite{survey3d}.
-    \cite{survey3d} classifies the available public datasets into three classes based on the data acquisition process.
+    Before the survey on available datasets, we would like to introduce LiDAR and types of LiDAR.
+    LiDAR is a time of flight (ToF)sensor where an optical pulse is emitted by the source and the reflected pulse is detected back the source.
+    The time between the emission and detection is used to calculate the distance of the object.
+    There are two types of LiDAR based steering of beams.
+    First type are the mechanical LiDARs where an optical assembly is set over a gear operated rotating device and pulses are constantly emitted and detected.
+    Mechanical LiDARs provide $360^{\circ}$ field of view.
+    Second type are the solid state LiDARs where the no rotating devices are present and have very limited field of view. 
+    A detailed analysis about LiDARs is presented in \cite{lidar}.
+
+
+    Among 3D LiDAR datasets, \cite{survey3d} classifies the available public datasets into three classes based on the data acquisition process.
     They are \textit{sequential}, \textit{static} and \textit{synthetic} datasets.
     For a sequential dataset, the data is collected as a sequence of frames with a mechanical LiDAR mounted on top of an autonomous driving platform, as depicted in Figure \ref{fig:seq_data_lyft}.
     Figure~\ref{fig:example_sequential} represents an example point cloud from a sequential dataset.
-    Most of the popular autonomous driving datasets are sequential. However, these datasets come with a drawback of sparse points than other datasets.
+    Most of the popular autonomous driving datasets are sequential. However, the sequential datasets come with a drawback of sparse points than static or synthetic datasets.
     \begin{figure}[h!]
         \begin{subfigure}{0.45\textwidth}
             \centering
@@ -32,7 +42,6 @@
         \end{subfigure}
         \caption{Image (a) depicting the LiDAR mounted on a vehicle to collect sequential data for the Lyft L5 dataset and 
         (b) depicts an example of sequential data from the SemanticKITTI dataset. Images are from \cite{Lyftl5} and \cite{Hu_2020_CVPR_Randla} respectively.}
-        
     \end{figure}
     
     
