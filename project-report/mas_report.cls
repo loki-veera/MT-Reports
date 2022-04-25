@@ -73,6 +73,7 @@
 \usepackage[section]{placeins}
 \usepackage{lipsum} % Used to test
 \usepackage{lmodern}%
+\usepackage{xcolor}
 
 \onehalfspacing
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

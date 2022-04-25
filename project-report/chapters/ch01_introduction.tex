@@ -20,7 +20,7 @@ The DNNs utilized in the perception module need to be trained on the dataset, wh
 For example, an autonomous driving agent must be trained on a dataset containing roads, vehicles, vegetation and other objects found around the road.
 This closedness of the dataset, i.e., a fixed number of classes, will cause an issue when the DNN encounter an unknown object in the real world.
 This unknown object will be predicted as one of the classes in the dataset, leading to radical decisions when this error is propagated down the pipeline in Figure \ref{fig:Apollopipeline}.
-These unknown objects in the real world which are not present in the training dataset can be regarded as out-of-distribution (OOD) objects. 
+These unknown objects in the real world which are not present in the training dataset can be regarded as Out-of-Distribution (OOD) objects. 
 More discussion on the OOD is presented in Section~\ref{sec:oodvanom}.
 The Tesla autonomous driving platform encounters one such problem of misdetection of unknown objects.
 \begin{figure}[h!]
@@ -43,15 +43,37 @@ Figure~\ref{fig:teslafails_1} and Figure~\ref{fig:teslafails_2} depict the misde
 The problem in the first image is that the moon is detected as the yellow signal light.
 The second image has the problem of misdetection of the Burger King sign as a stop signal. 
 These misdetections question the safety of the Deep Neural Networks (DNNs) predictions.
-This thesis made an effort to detect these unknown objects in 3D LiDAR data using uncertainty scores.
+This thesis made an effort to detect these unknown objects in 3D LiDAR data using uncertainty scores for the task of 3D semantic segmentation.
 We use the fact that the DNN predictions of unknown objects will have higher uncertain values.
 A detailed discussion on types of uncertainty and what type of uncertainty can be used for OOD detection is discussed in Section~\ref{sec:ue_methods}.
+Further in this chapter, we will discuss the task of 3D semantic segmentation, the problem statement and concludes with the contributions of this thesis.
 
+\section{3D Semantic Segmentation}
+Semantic segmentation is an important task in computer vision.
+This is because of its widespread use in scene understanding which further helps in navigation and planning for autonomous robots.
+The objective in semantic segmentation is to assign each point in the point cloud (each pixel in case of an image) a specific class.
+In recent years, works such as \textcolor{red}{fill authors} studied the task of semantic segmentation for images and has made advancements in terms of performance.
+But with the limitations caused in images by uneven illumination and occlusion are a problem for semantic segmentation.
+So researchers have turned towards alternatives like 3D point cloud or RGBD image.
+In this thesis, we chose to utilize 3D point cloud generated from 3D LiDAR becuase, point clouds are unsuceptible to illumination and provides rich geometric information of a scene.
+Typically, a point in the 3D point cloud is represented using spatial coordinates (XYZ) and along with the spatial information, other features such as colour (RGB), intensity and surface normals are also utilized.
+Figure~\ref{fig:semseg_vis} represents the point cloud of a street scene collected from a 3D LiDAR and its respective semantic map.
+Because of the above advantages with the 3D point cloud, LiDAR has been one of the central component in the sensor suite for SLAM systems in robotic applications \cite{thrun2006stanley}, \cite{patz2008practical}, \cite{hess20162dSLAM} and autonomous driving \cite{li2016vehicle}.
+Also to the best of our knowledge current State-Of-The-Art (SOTA) 3D semantic segmentation models were developed to use 3D point cloud data, and these SOTA models were studied in this thesis and discussed in Section~\ref{sec:dl_approach}.
+\begin{figure}
+    \centering
+    \begin{tabular}{cc}
+        \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/sem3d_data/3.pdf} & 
+        \includegraphics[width=0.35\textwidth, height=0.15\textheight]{images/sem3d_data/3_gt.pdf}\\
+        \includegraphics[scale=0.45]{images/legend.png}
+    \caption{Illustration of the Semantic3D point clouds in training and validation set with first column representing the point cloud 
+    and second column their repective ground truth with legend for ground truth given in last image.}
+    \label{fig:semseg_vis}
+\end{figure}
 
 \section{Problem Statement}
-This thesis studies out-of-distribution (OOD) detection over the 3D semantic
-segmentation problem. Notably, we study the 3D semantic segmentation datasets available and create a
-benchmark for the In-Distribution (ID) and Out-Of-Distribution (OOD) datasets.
+This thesis studies OOD detection over the task of 3D semantic segmentation.
+Notably, we study the 3D semantic segmentation datasets available and create a benchmark for the In-Distribution (ID) and OOD datasets.
 The other major issue we address in this thesis is the OOD detection methods. Existing OOD detection
 methods are tested for 2D classification and 2D semantic segmentation tasks, and the applicability of
 these methods to 3D semantic segmentation tasks is not studied. Moreover, the proposed OOD detection
@@ -70,11 +92,11 @@ whether uncertainty estimation is a practical approach for OOD detection in the 
 %     \item[\textbf{R4}] How to evaluate the OOD detections over the 3D semantic segmentation task?
 % \end{itemize}
 
-\subsection{Contributions}
+\section{Contributions}
 The contributions made in this thesis are
 \begin{enumerate}
     \item A complete survey of the available 3D LiDAR datasets and 3D semantic segmentation models.
-    \item Benchmarking of 3D LiDAR datasets for OOD detection. Proposed two benchmark datasets Sematic3D vs S3DIS and Semantic3D vs Semantic3D without colour, with Semantic3D being In-Distribution (ID) dataset, S3DIS and Semantic3D without colour being Out-Of-Distribution (OOD) datasets.
+    \item Benchmarking of 3D LiDAR datasets for OOD detection. We proposed two benchmark datasets Sematic3D vs S3DIS and Semantic3D vs Semantic3D without colour, with Semantic3D being In-Distribution (ID) dataset, S3DIS and Semantic3D without colour being Out-Of-Distribution (OOD) datasets.
     \item A survey on the uncertainty estimation methods and classical OOD methods.
     \item An evaluation of OOD detection on benchmarked datasets over the RandLA-Net model using Deep Ensembles and Flipout.
 \end{enumerate}
