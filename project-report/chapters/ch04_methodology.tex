@@ -2,19 +2,19 @@
 \begin{document}
 \chapter{Methodology}
 \label{chapter:methodology}
-This chapter will discuss the RandlLA-Net used for 3D semantic segmentation, especially network architecture and how it helps segmentation. 
-We also discuss the details of the Deep Ensembles and the Flipout methods for uncertainty quantification.
-We also study the evaluation metrics for 3D semantic segmentation and OOD detection and the methods to generate OOD scores, such as Maximum Softmax Probability (MSP) as a baseline method and Entropy.
+This chapter will discuss the RandlLA-Net used for 3D semantic segmentation, especially its network architecture and how it helps in effective segmentation. 
+We also discuss the details of Deep Ensembles and Flipout methods for uncertainty quantification.
+We study the evaluation metrics for 3D semantic segmentation and OOD detection and the methods to generate OOD scores, such as Maximum Softmax Probability (MSP) as a baseline method and Entropy.
 \section{RandLA-Net}
 \label{sec:meth_randla}
 As stated in \cite{Hu_2020_CVPR_Randla}, it is a lightweight and efficient neural network architecture for semantic segmentation of 3D point clouds.
 From Section~\ref{sec:dl_approach}, we can observe that the RandLA-Net architecture is best performing among the point models.
 Efficient computation, memory usage and a model with direct application to 3D points are the primary motivation when developing the RandLA-Net.
 RandLA-Net employs random point sampling and the local feature aggregation module to achieve these goals.
-Authors in \cite{Hu_2020_CVPR_Randla} proved that a successive application of random point sampling along with the local feature aggregation module effectively reduce and extracts the features of the large scale point clouds from a scale of $10^5$ to $10^2$.
+Authors in \cite{Hu_2020_CVPR_Randla} proved that a successive application of random point sampling along with the local feature aggregation module effectively reduces and extracts the features of the large scale point clouds from a scale of $10^5$ to $10^2$.
+Random point sampling is only applied during the preprocessing of the dataset bz subsampling the point cloud by a factor of \textcolor{red}{check the code}.
 
-RandLA-Net utilizes random point sampling among the other sampling methods such as Farthest Point Sampling, Inverse Density Point Sampling.
-We select K points uniformly from the original point cloud in random point sampling and have a computational complexity time of O(1).
+In random point sampling, We select K points uniformly from the original point cloud in random point sampling and have a computational complexity time of O(1).
 Random point sampling has the lowest computational complexity and computation time independent of the number of points compared with other point sampling methods.
 Random point sampling has a significant disadvantage of dropping essential points despite these advantages.
 To overcome this, the authors of RandLA-Net proposed a local feature aggregation module for the progressive capture of complex features on these selected points.
@@ -52,25 +52,29 @@ This module works in three steps:
     \item Feature augmentation
 \end{enumerate}
 
-In step 1, neighbour points for point ($p_i$) are collected using the euclidean distance-based K-nearest neighbour (KNN) algorithm.
+In step 1, neighbour points for point ($p_i$) are collected using the Euclidean distance-based K-nearest neighbour (KNN) algorithm.
 Step 2 encodes these collected K-points for point ($p_i$) using a Multi-Layer Perceptron (MLP) into relative point position. The encoding formula is given by
 $$
 r_i^k = MLP(p_i \oplus p_i^k \oplus (p_i - p_i^k) \oplus ||p_i-p_i^k||)
 $$
 where $r_i^k$ is the relative position of point $p_i$ with respect to $p_i^k$, here in $p_i$ and $p_i^k$ only the x,y and z positions are used.
-$\oplus$, and $||p_i-p_i^k||$ represents the concatenation operation and euclidean distance between $p_i$ and $p_i^k$ respectively.
+$\oplus$, and $||p_i-p_i^k||$ represents the concatenation operation and Euclidean distance between $p_i$ and $p_i^k$ respectively.
 This step 2 of relative position encoding is represented by the above part in the LocSE module in the green track in Figure \ref{fig:randlanetlfa}.
 Step 3 creates an augmented feature vector $\hat{f_i^k}$ by concatenation of relative point position ($r_i^k$) and its point features ($f_i^k$) of point $p_i^k$.
 Point features ($f_i^k$) include the R, G and B values and other features such as intensity values.
 This step 3 is represented in the lower part of the LocSE module in the yellow track in Figure \ref{fig:randlanetlfa}.
 \subsection{Attentive Pooling}
 This augmented feature vector $\hat{f_i^k}$ from the LocSE module is passed through a pooling layer to extract essential features.
-Authors state that use of max and mean pooling layer leads to loss of information. Because of this, the authors made use of the attention mechanism, which helps in learning important features automatically.
+Authors state that the use of max-pooling and mean-pooling layers leads to loss of information. Because of this, the authors made use of the attention mechanism, which helps in learning important features automatically.
 Given the feature vector $\hat{f_i^k}$, a function $g$ is learned with the help of MLP and softmax, and the resultant vector is denoted as $s_i^k$ in the pink block in Figure \ref{fig:randlanetlfa}.
-These each feature score $s_i^k$ from function $g$ is multiplied with feature vector $\hat{f_i^k}$ and the resultant is called informative feature vector and summed up to form a unique feature vector $\tilde{f_i}$ for point $p_i$ and this operation is mathematically denoted as
+Scores $s_i^k$ calculated from function $g$, is multiplied with feature vector $\hat{f_i^k}$ and the resultant is called informative feature vector and summed up to form a unique feature vector $\tilde{f_i}$ for point $p_i$ and this operation is mathematically denoted as
+$$
+s_i^k = g(f_i^k, W)
+$$
 $$
 \tilde{f_i}= \sum_{k=1}^K (\hat{f_i^k}.s_i^k)
 $$
+Where $g$ is the softmax function and $W$ is the attention weights, $\hat{f_i^k}$ is the input feature vector to the attentive pooling module, $s_i^k$ is the attention scores and finally $\tilde{f_i}$ is the output feature vector from the attentive pooling module.
 
 \subsection{Dilated Residual Block}
 Dilated Residual Block is a ResNet inspired module claimed by authors and represented as a blue colour module in Figure \ref{fig:randlanetlfa}.
@@ -78,7 +82,7 @@ This module combines multiple LocSE, Attentive Polling, and a skip connection th
 \begin{figure}
     \centering
     \includegraphics[scale=0.5]{images/dilatedresidualblock.png}
-    \caption{Image depicting the working of Dilated residual block with each circle representing the receptive field of the block for feature extraction. Image taken from \cite{Hu_2020_CVPR_Randla}.}
+    \caption{Image depicting the working of Dilated residual block with each circle representing the receptive field of the block for feature extraction. LA represents the combination of Local Spatial Encoding and Attentive Pooling modules combined. Image taken from \cite{Hu_2020_CVPR_Randla}.}
     \label{fig:dilatedresidualblock}
 \end{figure}
 Let us consider a red point in Figure \ref{fig:dilatedresidualblock}. After applying the first LocSE and Attentive Pooling module, it observes that K neighbours are represented in the red circle.
@@ -103,13 +107,13 @@ The detailed network architecture is illustrated in Figure \ref{fig:networkarchi
 We chose RandLA-Net because of the following reasons:
 \begin{enumerate}
     \item Efficient extraction of complex structures progressively using Local Feature Aggregation (LFA) module.
-    \item Has fewer parameters (1.24M), making training efficient, as 3D semantic segmentation models are computationally expensive.
+    \item Fewer parameters (1.24M) compared to other SOTA 3D semantic segmentation models, making training efficient, as 3D semantic segmentation models are computationally expensive.
     \item Proven performance over various datasets such as Semantic3D and SemanticKITTI, along with ablation study of each submodule in LFA proposed in \cite{Hu_2020_CVPR_Randla}.
     \item No preprocessing such as range image representation as in \cite{Milioto2019} or farthest point sampling with a computational complexity of $O(N^2)$ as in \cite{Qi_2017_CVPR_pointnet}. RandLA-Net employs random point sampling with a computational time of $O(1)$.
     \item State of the art performance in point-based methods, consisting of Multi-Layer Perceptrons (MLP) and without expensive operations such as kernelization or graph construction.
 \end{enumerate}
 
-\subsection{Evaluation metrics-Semantic Segmentation}
+\subsection{3D Semantic Segmentation Evaluation Metrics}
 To evaluate the performance of RandLA-Net over the training dataset (Semantic3D in our case), we chose two metrics.
 They are Mean Intersection-over-Union (mIoU) and Accuracy.
 
@@ -148,12 +152,14 @@ The combination is done by averaging over all the predictions of N models to get
 Deep ensembles are proven to improve the overall performance of the model as in \cite{bhandary2020evaluating}, and we also expect the same behaviour in our case.
 
 Despite their performance boosting ability, they are also used to estimate uncertainty as in \cite{lakshminarayanan2016simple}.
-\cite{lakshminarayanan2016simple} proposes that with the increase in the number of ensembles, the Negative Log-Likelihood (NLL) and Brier score goes down, suggesting the network produces well-calibrated predictions.
+\cite{lakshminarayanan2016simple} proposes that with the increase in the number of ensembles, the Negative Log-Likelihood (NLL) and Brier Score (BS) goes down, suggesting the network produces well-calibrated predictions.
+Apart from use of entropy for measuring uncertainty, NLL and BS are two other popular uncertainty quantification methods.
+For a perfectly trained and calibrated network we expect all the entropy, NLL and BS to be as low as possible.
 \cite{lakshminarayanan2016simple} also studies the effect of entropy with out-of-distribution (OOD) classes.
-They performed the study on MNIST-NotMNIST and SVHN-CIFAR10, with the first dataset in the pair being in distribution (ID) and the second dataset being the OOD dataset.
+They performed the study on MNIST-NotMNIST and SVHN-CIFAR10, with the first dataset in the pair being ID and the second dataset being the OOD dataset.
 The authors verified that entropy distribution on the ID dataset is peaky. Similarly, the entropy distribution on the OOD dataset is more spread across all entropy values.
 We expect that similar performance is observed in 3D semantic segmentation also.
-Because proven ability to classify OOD on the classification task boosts the model's performance and ease of implementation makes deep ensembles an ideal candidate for OOD detection in 3D semantic segmentation.
+Because their proven ability to classify OOD on the classification task boosts the model's performance and their ease of implementation makes deep ensembles an ideal candidate for OOD detection in 3D semantic segmentation.
 
 \section{Flipout}
 \label{sec:meth_flipout}
@@ -164,26 +170,27 @@ Authors in \cite{Flipout} describe weight perturbations as methods whose weights
 In general, neural network weights are point estimates. In the case of weight perturbations, they are modelled as a distribution where each weight $W=\overline{W}+\Delta W$ in which $\overline{W}$ is the mean weight and $\Delta W$ is the perturbation.
 If this $\Delta W$ is sampled from a Gaussian distribution, it is called a Gaussian perturbation.
 Since the sampled weight perturbation is the same for all the examples over the mini-batch, the authors argue a correlation between the gradients.
-So authors of Flipout make two critical assumptions to deal with this problem. 
-They are a perturbation of different weights should be different, and the distribution of perturbation should be symmetric around zero.
+So athe uthors of Flipout make two critical assumptions to deal with this problem:
+They are, perturbation of different weights should be different, and the distribution of perturbation should be symmetric around zero.
 So under these assumptions, the authors observed that the perturbation distribution is invariant to element-wise multiplication of the random sign matrix.
-Here random sign matrix is defined as a matrix whose elements are randomly sampled uniformly from $\pm 1$. 
-So the weight perturbation is modelled as Equation~\ref{eq:flipout_main} where $\widehat{\Delta W}$ is the base perturbation which is the same for all weights, $\times$ represents element-wise multiplication, $r_n, s_n$ represent the randomly signed vectors of ($\pm 1$) and $\Delta W_n$ is the perturbation of $n^{th}$ weight.
+Here the random sign matrix is defined as a matrix whose elements are randomly sampled uniformly from $\pm 1$. 
+So the weight perturbation is modelled as Equation~\ref{eq:flipout_main} where $\widehat{\Delta W}$ is the base perturbation which is the same for all weights, $\circ$ represents element-wise multiplication, $r_n, s_n$ represent the randomly signed vectors of ($\pm 1$) and $\Delta W_n$ is the perturbation of $n^{th}$ weight.
 \begin{equation}
-    \Delta W_n = \widehat{\Delta W} \times r_n s_{n}^T
+    \Delta W_n = \widehat{\Delta W} \circ r_n s_{n}^T
     \label{eq:flipout_main}
 \end{equation}
 So the node output of the neural network is modified as 
 $$y_n = \phi(W^T x_n) $$
-$$y_n = \phi((\overline{W}+\widehat{\Delta W} \times r_n s_{n}^T)^Tx_n)$$
-$$y_n = \phi(\overline{W} x_n+(\widehat{\Delta W}^T (x_n\times s_{n}))\times r_n)$$
+$$y_n = \phi((\overline{W}+\widehat{\Delta W} \circ r_n s_{n}^T)^Tx_n)$$
+%$$y_n = \phi(\overline{W} x_n+(\widehat{\Delta W}^T (x_n\times s_{n}))\times r_n)$$
 Here $\phi$ is the activation function, and $x_n$ is the $n^{th}$ input example in the mini batch.
-This whole operation is vectorized and is stated as a matrix multiplication in Equation~\ref{eq:fowpass_flipout} where $R$ and $S$ consist of rows of $r_n$ and $s_n$.
-Here $R$ and $S$ are independent of $\overline{W}$ and $\widehat{\Delta W}$ which does not add any additional terms in backpropagation.
-\begin{equation}
-    Y = \phi(X\overline{W}+((X\times S)\widehat{\Delta W})\times R)
-    \label{eq:fowpass_flipout}
-\end{equation}
+Also the vectors $r_n$ and $s_n$ are independent of $\overline{W}$ and $\widehat{\Delta W}$ which does not add any additional terms in backpropagation.
+%This whole operation is vectorized and is stated as a matrix multiplication in Equation~\ref{eq:fowpass_flipout} where $R$ and $S$ consist of rows of $r_n$ and $s_n$.
+%Here $R$ and $S$ are independent of $\overline{W}$ and $\widehat{\Delta W}$ which does not add any additional terms in backpropagation.
+% \begin{equation}
+%     Y = \phi(X\overline{W}+((X\times S)\widehat{\Delta W})\times R)
+%     \label{eq:fowpass_flipout}
+% \end{equation}
 Authors also argue that the Flipout reduces the variance in gradients when compared to shared perturbation but has a slightly higher variance than independent perturbations along with the mathematical proof produced in \cite{Flipout}.
 
 
@@ -196,7 +203,7 @@ These classifications are averaged to get the final classification score.
 \begin{figure}
     \centering
     \includegraphics[scale=0.5]{images/flipout.jpg}
-    \caption{Illustration of test dataflow in Flipout. Here $F_1$ represents the flipout trained model and we compute n forward passes of the same point cloud on $F_1$.
+    \caption{Illustration of test dataflow in Flipout. Here $F_1$ represents the flipout trained model and we compute $n$ forward passes of the same point cloud on $F_1$.
     These individual predictions are averaged to compute the final predictions.}
     \label{fig:flipout_ex}
 \end{figure}
@@ -207,7 +214,7 @@ In this section, we discuss the two methods used to generate the OOD score for c
 The two metrics are Maximum Softmax Probability (MSP) and Entropy.
 
 \subsection{Maximum Softmax Probability}
-First proposed in \cite{hendrycks2016baseline_MSP}, uses the probability of the classification from the Softmax for OOD detection. 
+First proposed in \cite{hendrycks2016baseline_MSP}, Maximum Softmax Probability (MSP) uses the probability of the classification from the Softmax for OOD detection. 
 MSP still serves as the most evaluated baseline method for OOD detection.
 Since we are the first study to perform OOD detection 3D semantic segmentation to the best of our knowledge, we wanted to incorporate this score as a baseline. 
 Here the main idea is that if a point in a point cloud is from ID data, then it will have a higher MSP score and vice versa.
@@ -222,16 +229,16 @@ $$y_n = [p_1, p_2,..,p_n]$$
 \label{sec:meth_entropy}
 Entropy is defined by \cite{entropy_robinson} as an "ill-defined notion of chaos or uncertainty".
 Entropy has its roots in thermodynamics, and in computer science, it can be used as a measure of information content.
-In deep learning, Entropy is used as a measure for uncertainty and calculated as given in Equation~\ref{eq:ent_calc}, where $P(x_i)$ is softmax probability for $i^{th}$ of point x.
+In deep learning, entropy is used as a measure for uncertainty and calculated as given in Equation~\ref{eq:ent_calc}, where $P(x_i)$ is softmax probability for $i^{th}$ of point x.
 \begin{equation}
     Entropy = -\sum_i P(x_i) log P(x_i)
     \label{eq:ent_calc}
 \end{equation}
-In theory, following this formula, if the point in the point cloud is from In Distribution (ID), the softmax output is higher for one class, and other classes will be near zero.
+In theory, following this formula, if the point in the point cloud is from In-Distribution (ID), the softmax output is higher for one class, and other classes will be near zero.
 So this point from ID has lower entropy score because the softmax probabilities are nearly zero for all the classes expect for one.
 Similarly for the OOD point, the softmax probabilities are spread across all the classes because the network doesn't know which class it belong to. So the entropy for OOD point is higher.
 
-\section{Evaluation metric-OOD detection}
+\section{OOD Detection Evaluation Metrics}
 This section will discuss the metrics used for evaluating OOD detection. Firstly the Receiver Operating Characteristic (ROC) curve to extract thresholds of the score and later the Area Under the ROC curve (AUROC) for evaluation and comparison of the OOD detection performance.
 \subsection{Receiver Operating Characteristic Curve}
 ROC curves are typically used for selecting the best classifiers based on their performance.
@@ -244,7 +251,7 @@ TPR is calculated as the number of positively classified samples to the total po
 A ROC curve is generated, given a set of probabilities/scores and their true labels which are either positive or negative.
 We then generate a range of threshold values from these probabilities and compute TPR and FPR for each threshold value.
 These TPR and FPR are plotted to generate a ROC curve as displayed in Figure~\ref{fig:ROC_curve_example}. 
-Figure~\ref{fig:ROC_curve_example} represents ROC curves for various classifiers, and here red line represents the roc curve for the random classifier. The green line represents the roc curve for a perfect classifier.
+Figure~\ref{fig:ROC_curve_example} represents ROC curves for various classifiers, and here the red line represents the ROC curve for the random classifier. The green line represents the roc curve for a perfect classifier.
 Since we want our classifier to perform better than a random classifier, we expect our ROC curve to be in the blue region.
 \begin{figure}[!ht]
     \centering
@@ -255,9 +262,9 @@ Since we want our classifier to perform better than a random classifier, we expe
 \end{figure}
 
 \subsection{Area Under an ROC curve}
-Since the ROC curves are a two dimensional depiction and we need a single scalar value to compare the performance of the classifiers, we use the Area Under a ROC curve (AUROC) value.
+Since the ROC curves are a two dimensional depictions and we need a single scalar value to compare the performance of the classifiers, we use the Area Under a ROC curve (AUROC) value.
 AUROC is the area enclosed below the ROC curve, and the AUROC value ranges between 0 and 1 as the curve is plotted in a unit square.
-AUROC for a random classifier's ROC curve as depicted in red colour in Figure~\ref{fig:ROC_curve_example} is 0.5, and the perfect classifier depicted as the green line is one as its area encompasses the whole square.
+AUROC for a random classifier's ROC curve as depicted in red colour in Figure~\ref{fig:ROC_curve_example} is 0.5, and for the perfect classifier depicted as the green line is one, because its area encompasses the whole square.
 In this thesis, we use this score to evaluate and compare the performance of OOD detection between Deep Ensembles and Flipout.
 
 \end{document}
