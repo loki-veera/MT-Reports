@@ -278,6 +278,75 @@ Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segm
     
     
     \section{Out-of-distribution (OOD) detection methods}
+
+    \subsection{OOD/Anomaly/Distributional shift}
+\label{sec:oodvanom}
+\begin{figure}[h!]
+    \begin{subfigure}{0.333\textwidth}
+        \centering
+        \includegraphics[height=0.15\textheight,width=0.95\textwidth]{images/intro_ood_anomaly/old_ship.jpg}
+        \caption{}
+        \label{fig:old_ship}
+    \end{subfigure}
+    \begin{subfigure}{0.333\textwidth}
+        \centering
+        \includegraphics[height=0.15\textheight,width=0.95\textwidth]{images/intro_ood_anomaly/Trainer_cruiser.jpeg}
+        \caption{}
+        \label{fig:trian_cruiser}
+    \end{subfigure}
+%\end{figure}
+%\begin{figure}[h!]
+    \begin{subfigure}{0.333\textwidth}
+        \centering
+        \includegraphics[height=0.15\textheight,width=0.95\textwidth]{images/intro_ood_anomaly/Anomaly_container.jpg}
+        \caption{}
+        \label{fig:anom_container}
+    \end{subfigure}
+    \begin{subfigure}{0.333\textwidth}
+        \centering
+        \includegraphics[height=0.15\textheight,width=0.95\textwidth]{images/intro_ood_anomaly/Anomaly_titanic.jpg}
+        \caption{}
+        \label{fig:anom_titanic}
+    \end{subfigure}
+    \begin{subfigure}{0.333\textwidth}
+        \centering
+        \includegraphics[height=0.15\textheight,width=0.95\textwidth]{images/intro_ood_anomaly/ood_submarine.jpg}
+        \caption{}
+        \label{fig:ood_submarine}
+    \end{subfigure}
+    \begin{subfigure}{0.333\textwidth}
+        \centering
+        \includegraphics[height=0.15\textheight,width=0.95\textwidth]{images/intro_ood_anomaly/ood_airship.jpg}
+        \caption{}
+        \label{fig:ood_airship}
+    \end{subfigure}
+    \caption{Illustration of distributional shift, anomaly and out of distribution examples using various kind of ships. (a) represents the sail ship during 18th century. (b) depicts the current training data.
+    (c), and (d) represents the anamolous ship data and (e), and (f) represents the OOD data. Images are taken from \cite{old_ship}, \cite{train_cruiser}, \cite{container},
+    \cite{titanic}, \cite{submarine}, and \cite{airship} respectively in the order they appear.}
+\end{figure}
+
+Let us time travel back to $18^{th}$ century and assume that we had implemented a DNN model to detect ships.
+The dataset images for training the DNN model will be similar to Figure~\ref{fig:old_ship}.
+$18^{th}$ century ships as in Figure~\ref{fig:old_ship} can be defined as ``\textit{ship contains hull and sails}''.
+Fast forward to the present time, current ships are as shown in Figure \ref{fig:trian_cruiser}.
+Ship as in \ref{fig:trian_cruiser} can be defined as ``\textit{ship contains hull and passenger decks stacked upon each other}''.
+Now, suppose we want to deploy the old model trained with old ships to detect
+the present generation of ships. In that case, it is difficult because of the ship’s change in definition and properties.
+This change in data distribution over a period of time is called ``\textit{distributional shift}'' of the data.
+Distributional shift can be resolved by retraining the model.
+
+Where as an anomaly can be defined as the patterns that do not conform to the expected training behaviour as proposed in  \cite{anomaly_sec1_1}.
+By this definition, Figure \ref{fig:anom_container} and Figure \ref{fig:anom_titanic} can be considered anomalies.
+This is because Figure \ref{fig:anom_container} is a container ship looking similar to Figure \ref{fig:trian_cruiser}. Instead of passenger decks, we have containers stacked.
+Figure \ref{fig:anom_titanic} is also an anomaly because the Titanic also has a hull, passenger decks
+and chimneys. These additional chimnies as features deviates this image from the definition of the ship
+and can be considered an ``\textit{anomaly}''.
+
+In the case of OOD, the input is drawn from an unknown distribution of unknown data, which is not near to the training distribution.
+Figure~\ref{fig:ood_submarine} and Figure~\ref{fig:ood_airship} are submarine, and an airship which does not adhere to the definition of the ship by any means.
+So we regard these two images (submarine and airship) as OOD objects.
+
+
     This section will discuss the existing OOD detection methods for 2D classification and 2D semantic segmentation tasks.
     To the best of our knowledge, ours is the first work to study OOD detection for the task of 3D semantic segmentation.
 
