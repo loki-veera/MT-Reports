@@ -18,7 +18,7 @@
     There are two types of LiDAR based steering of beams.
     First type are the mechanical LiDARs where an optical assembly is set over a gear operated rotating device and pulses are constantly emitted and detected.
     Mechanical LiDARs provide $360^{\circ}$ field of view.
-    Second type are the solid state LiDARs where the no rotating devices are present and have very limited field of view. 
+    Second type are the solid state LiDARs where no rotating devices are present and have very limited field of view. 
     A detailed analysis about LiDARs is presented in \cite{lidar}.
 
 
@@ -46,9 +46,9 @@
     
     
     Static datasets consist of data collected from a stationary viewpoint by a terrestrial laser scanner.
-    This kind of dataset captures the static information of the real world where as, the sequential datasets also capture the dynamic movements of the surrounding objects.
+    This kind of dataset captures the static information of the real world where as sequential datasets also capture the dynamic movements of the surrounding objects.
     Static datasets find their way into urban planning, augmented reality, and robotics applications. 
-    Figure \ref{fig:tls} depicts a terrestrial laser scanner used to capture the static point cloud of an industrial environment, and Figure~\ref{fig:static_scan} represents an example point cloud for a static dataset.
+    Figure \ref{fig:tls} depicts a terrestrial laser scanner used to capture the static point cloud of an industrial environment, and Figure~\ref{fig:static_scan} represent an example point cloud for a static dataset.
     \begin{figure}[h!]
         \centering
         \begin{subfigure}{0.45\textwidth}
@@ -67,12 +67,12 @@
         (b) represents the scene of static data from the Semantic3D dataset. The first image is taken from \cite{tls}.}
        
     \end{figure}
-    Static datasets are advantageous because they can produce highly dense point clouds leading to rich geometric representations.
+    Typically static datasets produce highly dense point clouds leading to rich geometric representations.
     
     The last type of 3D LiDAR dataset is the synthetic dataset. 
     As the name suggests, these datasets are generated from computer simulation. 
     Figure \ref{fig:synthetic} depicts a simulated point cloud in a synthetic dataset called SynthCity.
-    Even though synthetic datasets can be generated on a large scale at a cheap cost, they lack more accuracy in detail than the point clouds generated from the real world.
+    Even though synthetic datasets can be generated on a large scale at a low cost, they lack detail over point clouds recorded from the real world.
     \begin{figure}[h!]
         \centering
         \includegraphics[scale=0.5]{images/synthcity.png}
@@ -97,7 +97,7 @@
         \begin{tabular}{c|c|c|c|c|c}%|c}
             \hline
             % acquisition type, dataset, frames, #points, classes, I/O, year
-            acquisition mode & dataset & frames & points (in million) & classes & scene type \\  % & pub. year \\
+            acquisition mode & dataset & frames & total points (in million) & classes & scene type \\  % & pub. year \\
             \hline
             \multirow{7}{*}{static} & Oakland\cite{oakland} & 17 & 1.6 &  44 & outdoor \\ % & 2009 \\ 
                                     & Paris-lille-3D\cite{roynard2018paris} & 3 & 143 & 50 & outdoor \\ % & 2018 \\
@@ -131,36 +131,38 @@
     S3DIS is chosen as an out-of-distribution (OOD) dataset as S3DIS is much different from Semantic3D.
     Chapter~\ref{ch:benchmark} represents the detailed discussion on datasets and benchmarking.
 
-    \section{3D semantic segmentation models}
+    \section{3D Semantic Segmentation Models}
 
     This section will discuss the methods available for 3D semantic segmentation.
     The discussion includes a brief peek into traditional 3D semantic segmentation methods and the study of deep learning methods for 3D point cloud segmentation.
 
 \subsection{Traditional approach}
-Traditional methods involve a complex features extraction and passing these features to a classification algorithm such as Support Vector Machines or Random Forests to classify each point in the point cloud.
+Traditional methods involve a complex feature extraction and passing these features to a classification algorithm such as Support Vector Machines or Random Forests to classify each point in the point cloud.
 Some of the traditional methods include segmentation from edge information \cite{bhanu1986range}, construction of complex graph pyramids \cite{koster}.
 3D Hough transforms as in \cite{vosselman20013d} and application of RANSAC \cite{schnabel2007efficient} and \cite{tarsha2007hough}.
-These traditional methods are outdated as DNNs proved to be better at feature extraction.
+The performance of traditional methods is far less compared to the performance of DNNs.
+This is because the DNN's are large and extract better features on their own.
+%These traditional methods are outdated as DNNs proved to be better at feature extraction.
 
 \subsection{Deep learning approach}
 \label{sec:dl_approach}
-Deep learning based models are efficient at segmentation and can be divided into three types.
+Deep learning-based models are efficient at segmentation and can be divided into three types.
 The first type includes the point-based models where the model directly feeds on the 3D point cloud.
-Then the second type includes projection based models where the model takes in projected points into a 2D image, either a range image or a bird's eye view.
+Then the second type includes projection-based models where the model takes in projected points into a 2D image, either a range image or a bird's eye view.
 The final type of model includes the use of graph neural networks.
 
 Let us look briefly into the point-based methods. Point-based methods usually utilize fully connected layers or traditional convolutional layers.
-A major revolution in Deep learning based 3D semantic segmentation came after the PointNet proposed in \cite{Qi_2017_CVPR_pointnet}.
-Pointnet applied Multi-Layer Perceptrons (MLP) to extract a global feature vector from the unstructured point cloud and then classify it using the fully connected layers.
+A major revolution in Deep learning based 3D semantic segmentation came after PointNet proposed in \cite{Qi_2017_CVPR_pointnet}.
+Pointnet applied Multi-Layer Perceptrons (MLP) to extract a global feature vector from the unstructured point cloud and then classify it using fully connected layers.
 Since Pointnet can only extract local features, Pointnet++ proposed in \cite{qi2017pointnet++} applies Pointnet over the point cloud iteratively to extract features at a global scale and then classifies.
 Even though the performance of Pointnet and Pointnet++ are weak in terms of segmentation, they served as a backbone for new architectures such as RandLA-Net proposed in \cite{Hu_2020_CVPR_Randla}.
-Similar to PointNet, RandLA-Net employs MLP for feature extraction. These features are passed through attention and then for classification.
- Section~\ref{sec:meth_randla} describes in detail about RandLA-Net.
-It is one of the best-performing models with lower parameters across Static and Sequential datasets.
+Similar to PointNet, RandLA-Net employs MLP for feature extraction. These features are passed through attention pooling layer and then ouput of attention pooling to classification layers.
+ Section~\ref{sec:meth_randla} describes in detail RandLA-Net.
+It is one of the best-performing model with few parameters across Static and Sequential datasets.
 
 The other flavours of point-based methods include projection onto a d-dimensional lattice or making the point cloud structured.
-SPLATNet \cite{Su_2018_CVPR_splatnet} utilizes the Bilateral Convolutional layers to project data on a d-dimensional lattice and then classify it.
-Whereas LatticeNet proposed in \cite{rosu2019latticenet} projects the data onto sparse lattice, then classified and learns the reprojection to 3D using a novel DeformSlice module.
+SPLATNet \cite{Su_2018_CVPR_splatnet} utilizes Bilateral Convolutional layers to project data on a d-dimensional lattice and then classify it.
+Whereas LatticeNet proposed in \cite{rosu2019latticenet} projects the data onto sparse lattice, then classifies and learns the reprojection to 3D using a novel DeformSlice module.
 Even though SPLATNet and LatticeNet use projection; they are grouped under point-based models because the model learns these projections.
 \cite{spvnas} proposed SPVNAS where the point cloud is voxelized, classified, and devoxelized.
 Finally, \cite{Tatarchenko_2018_CVPR_tangconv} proposed Tangent Convolution similar to standard convolutions but with extra multiplications.
@@ -188,15 +190,17 @@ Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segm
     \label{sec:ue_methods}
     This section will discuss existing methods to estimate uncertainty in deep neural networks.
     Here we divide the uncertainty estimation methods into ensemble methods and Bayesian methods.
-    The methods discussed here primarily estimate epistemic uncertainty. Only test time augmentation and gaussian density models estimate aleatoric uncertainty.
+    The methods discussed here primarily estimate epistemic uncertainty. Only test time augmentation and Gaussian density models estimate aleatoric uncertainty.
 
     \cite{matias_uncertainty} argues that there are two kinds of uncertainties, they are epistemic and aleatoric uncertainty.
     Epistemic uncertainty is uncertainty in the model because of the lack of adequate training data or a proper model specification.
     \cite{matias_uncertainty} also argues that epistemic uncertainty is most helpful in OOD detection.
     This is because, during the training, model parameters train to a particular distribution of data and
     must produce high uncertainty estimates when they observe data from a different distribution.
-    Aleatoric uncertainty is irreducible and as it is a property of the data like measurement noise.
-    An example of aleatoric uncertainty in point cloud can be incorrect data from the LiDAR scanner collected on a foggy day, as fog reflects most of the laser rays creating disturbances in the scan and limiting the range.
+    Aleatoric uncertainty is the uncertainty in the data like measurement noise.
+    An example of aleatoric uncertainty in point cloud can be incorrect data fro the LiDAR scanner collected on a foggy or rainy day, as fog or rain reflects most of the laser rays creating disturbances in the scan and limiting the range.
+    Epistemic uncertainty can be reduced by increasing the size of training data or finding the proper model.
+    Aleatoric uncertainty cannot be reduced as noise is the inherent property of the data.
     \subsection{Ensemble methods}
     First proposed in \cite{lakshminarayanan2016simple}, deep ensembles are the most prominently used method for uncertainty estimation.
     They exploit the combinatory power of multiple models.
@@ -214,7 +218,7 @@ Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segm
     Masksembles proposed in \cite{masksembles} are relatively new and combine deep ensembles with MC-Dropout.
     Masksembles also propose a predefined mask is stated for each layer, and only those specific neurons are dropped every time.
 
-    Other methods include snapshot ensembles \cite{snapshot_ensembles} which iterate over the multiple local optima in the optimization landscape using a cyclic learning rate. 
+    Other methods include snapshot ensembles \cite{snapshot_ensembles} which iterate over multiple local optima in the optimization landscape using a cyclic learning rate. 
     The model parameters are saved at each of the local optima. 
     All these flavours of deep ensembles are proposed to reduce the effect on time.
     The other problem with snapshot ensembles is that the optimization landscape in deep neural networks is poorly studied, so one cannot say with certainty that the model saved at two local minima is uncorrelated.
@@ -236,15 +240,15 @@ Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segm
         p(y_t|x_t, x, y) = \int p(y_t|x_t, \theta)p(\theta|x, y)d\theta \label{eq:bayes_2}  
     \end{equation}
     Here $\theta$ represents trained network parameters, x and y represent the training set, and $x_t$ and $y_t$ represent the test set.
-    The integrals in Equations~\ref{eq:bayes_1} and \ref{eq:bayes_2} cannot be computed because $\theta$ is the continuous space and so iterating over all possible values of $\theta$ are not feasible.
+    The integrals in Equations~\ref{eq:bayes_1} and \ref{eq:bayes_2} cannot be computed because $\theta$ is the continuous space and so iterating over all possible values of $\theta$ is not feasible.
     So to achieve tractable $\theta$, various approximation methods exist, such as Variational Inference (VI), Laplace approximation and Monte Carlo sampling.
 
     VI is an approximation method where the posterior probability $p(\theta|x, y)$ is approximated by specific distributions represented by $q(\theta)$.
     Kullback-Liebler Divergence (KLD) is used as a measure to calculate the difference between the two distributions. 
     Since KLD cannot be optimized directly because of the posterior distribution, a function called Evidence Lower BOund (ELBO) similar to KLD is proposed.
-    \cite{Gaussian_Priors} represents the $q(\theta)$ as a Gaussian approximation and \cite{weight_uncertainty} proposed Bayes by backprop to extend stochastic VI for non-gaussian priors.
-    \cite{Non_Gaussian_Priors} provides a stochastic variational inference that is ELBO loss over mini-batch of data and assumed the network parameter priors are gaussian.
-    \cite{Flipout} makes use of the reparameterization trick for the reduction in variance in gradients. The Reparameterization trick led to the reformulation of ELBO loss which made it compatible with standard backpropagation.
+    \cite{Gaussian_Priors} represents $q(\theta)$ as a Gaussian approximation and \cite{weight_uncertainty} proposed Bayes by backprop to extend stochastic VI for non-gaussian priors.
+    \cite{Non_Gaussian_Priors} provides a stochastic variational inference using ELBO loss over mini-batch of data and assumed the network parameter priors are Gaussian.
+    \cite{Flipout} makes use of the Reparameterization trick for the reduction of variance in gradients. The Reparameterization trick led to the reformulation of ELBO loss which made it compatible with standard backpropagation.
 
     Another widely known example for VI is Monte Carlo Dropout (MC-Dropout), in which the dropout layers are reformulated as random variables with Bernoulli distribution.
     As in \cite{bhandary2020evaluating} and \cite{gawlikowski2021survey} training with dropout layers and predictive uncertainty can be calculated by applying MC-Dropout during inference..
@@ -269,8 +273,8 @@ Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segm
             \label{fig:SOTA_Dconnect}
         \end{subfigure}
         \caption{Figure (a) depicting the connections of the regular fully connected layers with nodes and connections between them,
-        (b) representing the MC-Dropout where few nodes are dropped randomly and 
-        (c) representing the MC-Dropconnect where the weight connections are dropped randomly. All the images are taken from \cite{UQ_Survey}.}
+        (b) representing MC-Dropout where few nodes are dropped randomly and 
+        (c) representing MC-Dropconnect where the weight connections are dropped randomly. All the images are taken from \cite{UQ_Survey}.}
         \label{fig:Dropout_Connect}
     \end{figure}
     Another method for estimating uncertainty is Flipout, as proposed in \cite{Flipout}.
@@ -286,7 +290,8 @@ Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segm
     
     
     
-    \section{Out-of-distribution (OOD) detection methods}
+    \section{Out-of-distribution (OOD) detection}
+    This section will disucss the difference between OOD, Anomaly using an example and then we continue with the existing OOD detection methods.
 
     \subsection{OOD/Anomaly/Distributional shift}
 \label{sec:oodvanom}
@@ -336,15 +341,15 @@ Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segm
 
 Let us time travel back to $18^{th}$ century and assume that we had implemented a DNN model to detect ships.
 The dataset images for training the DNN model will be similar to Figure~\ref{fig:old_ship}.
-$18^{th}$ century ships as in Figure~\ref{fig:old_ship} can be defined as ``\textit{ship contains hull and sails}''.
+$18^{th}$ century ships as in Figure~\ref{fig:old_ship} can be defined as ``\textit{ships contain hull and sails}''.
 Fast forward to the present time, current ships are as shown in Figure \ref{fig:trian_cruiser}.
-Ship as in \ref{fig:trian_cruiser} can be defined as ``\textit{ship contains hull and passenger decks stacked upon each other}''.
+Ship as in \ref{fig:trian_cruiser} can be defined as ``\textit{ships contain hull and passenger decks stacked upon each other}''.
 Now, suppose we want to deploy the old model trained with old ships to detect
-the present generation of ships. In that case, it is difficult because of the ship’s change in definition and properties.
+the present generation of ships. In that case, it is difficult because of the way we define ships.
 This change in data distribution over a period of time is called ``\textit{distributional shift}'' of the data.
 Distributional shift can be resolved by retraining the model.
 
-Where as an anomaly can be defined as the patterns that do not conform to the expected training behaviour as proposed in  \cite{anomaly_sec1_1}.
+An anomaly can be defined as the patterns that do not conform to the expected training behaviour as proposed in  \cite{anomaly_sec1_1}.
 By this definition, Figure \ref{fig:anom_container} and Figure \ref{fig:anom_titanic} can be considered anomalies.
 This is because Figure \ref{fig:anom_container} is a container ship looking similar to Figure \ref{fig:trian_cruiser}. Instead of passenger decks, we have containers stacked.
 Figure \ref{fig:anom_titanic} is also an anomaly because the Titanic also has a hull, passenger decks
@@ -356,14 +361,15 @@ Figure~\ref{fig:ood_submarine} and Figure~\ref{fig:ood_airship} are submarine, a
 So we regard these two images (submarine and airship) as OOD objects.
 
 
-    This section will discuss the existing OOD detection methods for 2D classification and 2D semantic segmentation tasks.
+    \subsection{OOD detection methods}
+    This subsection will discuss the existing OOD detection methods for 2D classification and 2D semantic segmentation tasks.
     To the best of our knowledge, ours is the first work to study OOD detection for the task of 3D semantic segmentation.
 
     The most widely used benchmark datasets for 2D classification are CIFAR-10 vs SVHN \cite{liang2017enhancing_ODIN}, CIFAR-10 vs LSUN \cite{hendrycks2016baseline_MSP}, and MNIST vs not-MNIST \cite{hendrycks2016baseline_MSP}. 
     Most of the proposed methods for OOD detection in classification tasks are threshold-based methods which are posthoc methods.
-    These methods employ a threshold-based detector and do not see the OOD data during the training.
+    These methods employ a threshold-based detector and do not see the OOD data during training.
     The baseline method for threshold-based methods is proposed in \cite{hendrycks2016baseline_MSP}.
-    \cite{hendrycks2016baseline_MSP} uses Maximum Softmax Probability (MSP) and argues that in distribution dataset has a higher softmax score, and the out of distribution dataset has a lower softmax score and computed as in Equation~\ref{eq:SMSP} where $f_i(x)$ is the output of the neural network.
+    \cite{hendrycks2016baseline_MSP} uses Maximum Softmax Probability (MSP) and argues that in-distribution dataset has a higher softmax score, and the out-of-distribution dataset has a lower softmax score.
     Since the softmax scores can be overconfident, \cite{liang2017enhancing_ODIN} proposed Out of DIstribution detector for Neural networks (ODIN), which makes use of calibrated softmax score by addition of temperature constant to softmax scores and computed as in Equation~\ref{eq:SODIN} where $f_i(x)$ is the output of the neural network and $T$ is the temperature constant for calibrated softmax scores.
     In addition to calibrated softmax scores, ODIN also adds noise perturbations to the input making the training adversarial.
     ODIN needs access to the OOD samples because the finetuning of perturbation magnitude is based on these samples.
@@ -381,7 +387,7 @@ So we regard these two images (submarine and airship) as OOD objects.
     % \end{equation}
     \cite{lee2018simple_mahalanobis} has proposed a threshold-based OOD detection method using the Mahalanobis distance as a confidence score.
     The Mahalanobis distance is calculated for every activation map of each layer of the network, and these individual Mahalanobis scores are combined to get a confidence score.
-    The Mahalanobis distance is calculated between the activation map and each class distribution represented as multivariate gaussian.
+    The Mahalanobis distance is calculated between the activation map and each class distribution represented as multivariate Gaussian.
     \cite{Maha_plus_ODIN} proposed the use of Mahalanobis distance and ODIN combined for OOD detection and argued that this combination yields better detection of OOD data.
     \cite{ReAct} proposed Rectified Activations (ReAct) for OOD detection wherein applied to the final layer of the neural network before softmax application, and it suppresses the higher activations to a constant, thereby limiting the effect of noise. 
     The ReAct operation is defined in Equation~\ref{eq:react} as
@@ -402,8 +408,8 @@ So we regard these two images (submarine and airship) as OOD objects.
     \cite{Grad_UOOD} proposes the calculation of gradients during the inference and computes uncertainty using the calculated gradients, and argues that this approach is also comparably effective for OOD detection.
     \cite{UOOD_RL1} and \cite{UOOD_RL2} applies uncertainty to detect OOD data samples for the task of Deep Reinforcement Learning.
     
-    In recent years, OOD detection for the task of 2D semantic segmentation has been getting into the limelight.
-    \cite{pixel_OOD} proposes the adaption of a few above discussed OOD detection methods to the task of 2D semantic segmentation with few or no modifications.
+    In recent years, OOD detection for the task of 2D semantic segmentation has been in limelight.
+    \cite{pixel_OOD} proposes the adaption of a few aforementioned OOD detection methods to the task of 2D semantic segmentation with few or no modifications.
     \cite{pixel_OOD} also proposed benchmarked datasets for pixel-level OOD detection and introduced a novel OOD detection evaluation metric called Max Intersection-over-Union (MaxIoU).
     \cite{SemSeg_Entropy1}, and \cite{SemSeg_Entropy2} proposed using the entropy values for OOD detection in the 2D semantic segmentation task.
     \cite{MetaSeg} proposed a small fully connected neural network called \textit{MetaSeg} with inputs being the metrics such as entropy, probability margin, meanIoU and variation ratio to classify ID and OOD samples.
