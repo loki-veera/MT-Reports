@@ -3,12 +3,12 @@
 \begin{document}
     \chapter{Datasets and Benchmarking}
     \label{ch:benchmark}
-    This chapter discusses the training In Distribution dataset (Semantic3D) and proposes two Out Of Distribution (OOD) benchmark datasets Semantic3D vs S3DIS and Semantic3D vs Semantic3D without colour.
+    This chapter discusses training ID dataset (Semantic3D) and proposes two OOD benchmark datasets Semantic3D-vs-S3DIS and Semantic3D-vs-Semantic3D without colour.
     \section{Semantic3D}
     \label{sec:dataset_sem3d}
     Semantic3D is a huge 3D  point cloud benchmark classification dataset, and Semantic3D is classified as a static dataset.
     The dataset consists of nearly 4 billion points containing a variety of scenes in urban and rural settings.
-    These scenes are taken in markets, dom, stations and fields collected in European streets with terrestrial lasers.
+    These scenes are taken in markets, dom (church), stations and fields collected in European streets with terrestrial lasers.
     Each point in the point cloud consists of geometric positions (x, y, and z), colour (R, G, and B) and intensity values as features.
     Example point cloud scenes are provided in Figure \ref{fig:sem3d_gt_vis}. 
     
@@ -34,7 +34,7 @@ Because of these reasons, we considered using the Semantic3D dataset as In Distr
 The dataset is available to download on \footnote[1]{http://www.semantic3d.net/}. 
 As this is an ongoing benchmark challenge, the labels for the testing data are not available.
 We used a validation set for evaluation purposes, a subset of the training set.
-Finally, Figure~\ref{fig:sem3d_gt_vis} represents the various scenes in the Semantic3D dataset, with the first column the point cloud and ground truth as the second column.
+Figure~\ref{fig:sem3d_gt_vis} represents the various scenes in the Semantic3D dataset, with the first column the point cloud and ground truth as the second column.
 \begin{figure}[h!]
     \centering
     \includestandalone[width=0.6\linewidth]{images/Sem3d_points}
@@ -65,13 +65,13 @@ Finally, Figure~\ref{fig:sem3d_gt_vis} represents the various scenes in the Sema
     \end{tabular}
     \includegraphics[scale=0.45]{images/legend.png}
     \caption{Illustration of the Semantic3D point clouds in training and validation set with first column representing the point cloud 
-    and second column their repective ground truth with legend for ground truth given in last image.}
+    and second column their repective ground truth (semantic labels) with legend for ground truth given in last image.}
     \label{fig:sem3d_gt_vis}
 \end{figure*}
 
 \section{S3DIS}
 \label{sec:dataset_s3dis}
-S3DIS is an indoor dataset with scans from three different buildings covering 6020 square meters.
+S3DIS is an indoor dataset with scans from three different buildings covering 6,020 square meters.
 These scans include personal offices, restrooms, open spaces, lobbies and hallways.
 The scans are generated using a Matterport 3D scanner as a triangular mesh shown in Figure~\ref{fig:how_matterport_works} and then the point cloud is extracted.
 S3DIS dataset is divided into 12 classes, further divided into two subclasses.
@@ -106,22 +106,39 @@ Along with the ShapeNet dataset \cite{chang2015shapenet}, S3DIS is also one of t
     \label{fig:how_matterport_works}
 \end{figure}
 \section{OOD Benchmarking}
-This section discusses benchmarked datasets and argues why they are chosen as benchmarking datasets.
-We provided two benchmark datasets, one being Semantic3D vs S3DIS and Semantic3D vs Semantic3D without colour.
+This section discusses benchmark datasets and argues why these datasets are chosen.
+We provided two benchmark datasets, one being Semantic3D-vs-S3DIS and Semantic3D-vs-Semantic3D without colour.
+In addition to this section, Table~\ref{tab:OOD_reasons} represents the benchmark datasets and the reasons for choosing the OOD dataset.
 
 \subsection{Semantic3D vs S3DIS}
 We chose Semantic3D as the training (In-Distribution (ID)) dataset for the following reasons.
 Semantic3D is a static dataset which means the high density of points in a scan compared to sequential datasets.
-Semantic3D also has RGB colours as input features and XYZ and intensity values.
-Having RGB in the dataset helps differentiate the Out-Of-Distribution (OOD) points from ID points.
+Semantic3D also has RGB colours as input features apart from XYZ and intensity values.
+Having RGB in the dataset helps differentiate the Out-of-Distribution (OOD) points from ID points.
 Semantic3D has only eight training classes with outdoor scenes, and this helps in better understanding the predictions on the OOD dataset.
+Semantic3D is an ongoing benchmark challenge, so we evaluated our trained on the validation set.
+For a sanity check, we cross-checked the performance of our trained models on this validation set with the pretrained model from the authors provided in \footnote[1]{https://github.com/QingyongHu/RandLA-Net}.
+
 S3DIS is an indoor dataset with scans generated in a building.
 This difference in scenes (outdoor vs indoor) makes it an ideal dataset benchmark to study.
-We expect the Semantic3D trained model to detect OOD (S3DIS) dataset with relative ease and high confidence because of the enormous difference in structural similarity between the datasets and different colour values.
+We expect the Semantic3D trained model to detect the S3DIS dataset as OOD with relative ease and high confidence because of the enormous difference in structural similarity between the datasets and different colour values.
 
 \subsection{Semantic3D vs Semantic3D without color}
 Our hypothesis is that the colour information plays a major role in defining OOD objects.
-To ensure the structural similarity between the objects being intact and having different colors, we decided to use Semantic3D without colour as OOD dataset.
+To ensure, the structural similarity between the objects being intact and having different colors, we decided to use Semantic3D without colour as OOD dataset.
 For this we coloured the Semantic3D point cloud with uniform gray color and fed to the model for inference.
 We expect the OOD detection performance to struggle in this case, as the data is similar to the training data.
+
+\begin{table}[h!]
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{cccc}
+    ID dataset                   & OOD dataset          &  OOD detection difficulty  & Summary                                                                                                                                                                             \\ \hline
+    \multirow{2}{*}{Semantic 3D} & S3DIS                & Easy    & \multicolumn{1}{l}{\begin{tabular}[c]{@{}l@{}}1. No class overlap\\ 2. Less structural similarity\\ 3. Different domain(outdoor vs indoor)\end{tabular}} \\ \cline{2-4} 
+                                 & Semantic3D without color & Hard & \multicolumn{1}{l}{\begin{tabular}[c]{@{}l@{}}1. Same structural properties\\ 2. Difference in RGB values\\ 3. Same domain as ID dataset\\ 4. Same classes\end{tabular}}     \\ \hline
+                                                                                                                                                                                   
+    \end{tabular}
+    }
+    \caption{Table representing the ID dataset and corresponding OOD datasets, Difficulty in OOD detection and the summary of reasons to chose this OOD dataset.}
+    \label{tab:OOD_reasons}
+    \end{table}
 \end{document}
