@@ -27,19 +27,31 @@
     \begin{enumerate}
         \item Training and evaluation of 3D DNNs are time-consuming and resource-intensive. Even a single forward pass on the test set takes around 4 hours.
         \item LiDAR datasets have huge memory requirements even for preprocessing or computing metrics.
-        \item With this level of requirements, finding a proper prior for Flipout layers is hard. In turn, this makes the tuning of the Flipout versioned network hard.
+        \item With this level of requirements, finding a proper prior for Flipout layers is hard. In turn, this makes the tuning of the Flipout-versioned network hard.
         \item Picking the suitable candidates for the OOD benchmark requires in depth analysis of datasets like structural similarities and colour spectrum.
-        \item Because the DNN is not perfect, few points in the training dataset are classified as OOD points. These points have a lower probability score. So to get a perfect classification, post-hoc methods like MSP or entropy are of little use.
+        \item We observe few points in the training (ID) dataset are classified as OOD points. These points have a lower probability score. So to get a perfect classification, post-hoc methods like MSP or entropy are of little use.
     \end{enumerate}
 
     \section{Future work}
-    The following are the ways this study can be further extended.
-    \begin{enumerate}
-        \item Since this study is performed on the point-based model, this can be extended to a projection based model like RangeNet++ \cite{Hu_2020_CVPR_Randla} or SalsaNext \cite{SalsaNext_2020}.
-        \item From the survey, we observe that the current 3D model's performance is not like its counterparts in 2D semantic segmentation. There is still a need for better performing model with lower parameters.
-        \item The OOD datasets proposed in this dataset are static datatype which has a higher point density. It would be interesting to see sequential data as an OOD candidate as they have a lower point density.
-        \item We observed another potential candidate for the OOD dataset, and it is the Toronto3D dataset. The Toronto3D dataset is an outdoor dataset, but objects such as buildings and trees are more American than the European setting in Semantic3D. Also, the size of the Toronto3D dataset is small compared to other datasets.
-        \item The adverse weather conditions to the training dataset can be applied as \cite{fogsim} proposed LiDAR fog injection module, and this can be another possible way to create an OOD dataset from the training set.
-        \item This study can be extended to apply non post-hoc methods such as Mahalanobis distance-based OOD \cite{lee2018simple_mahalanobis} or MetaSeg \cite{MetaSeg}.
-    \end{enumerate}
+    
+    We found three major ways to extend this thesis. 
+    First one is regarding the 3D semantic segmentation models.
+    We discussed three types of models point-based, projection-based and graph-based models.
+    OOD detection in this thesis is limited to point-based model (RandLA-Net), in future this can be exteneded to other two types of models.
+    Also the surveyed point-based and projection-based models have high number of parameters and in future, there is a scope for a model with better performance along with lower parameters.
+
+    Second way to extend this thesis is with the OOD datasets.
+    We grouped datasets into three kinds static, sequential and synthetic.
+    The benchmark dataset proposed in this thesis is limited to static dataset and in future, benchmark datasets can include datasets from other types.
+    Finally, the OOD detection methods are limited to post-hoc threshold methods on MSP and entropy scores in this thesis.
+    So this can be extended to other OOD methods like Mahalanobis distance-based OOD \cite{lee2018simple_mahalanobis} or MetaSeg \cite{MetaSeg}.
+    %The following are the ways this study can be further extended.
+    %\begin{enumerate}
+    %    \item Since this study is performed on the point-based model, this can be extended to a projection based model like RangeNet++ \cite{Hu_2020_CVPR_Randla} or SalsaNext \cite{SalsaNext_2020}.
+    %    \item From the survey, we observe that the current 3D model's performance is not like its counterparts in 2D semantic segmentation. There is still a need for better performing model with lower parameters.
+    %    \item The OOD datasets proposed in this dataset are static datatype which has a higher point density. It would be interesting to see sequential data as an OOD candidate as they have a lower point density.
+    %    \item We observed another potential candidate for the OOD dataset, and it is the Toronto3D dataset. The Toronto3D dataset is an outdoor dataset, but objects such as buildings and trees are more American than the European setting in Semantic3D. Also, the size of the Toronto3D dataset is small compared to other datasets.
+    %    \item The adverse weather conditions to the training dataset can be applied as \cite{fogsim} proposed LiDAR fog injection module, and this can be another possible way to create an OOD dataset from the training set.
+    %    \item This study can be extended to apply non post-hoc methods such as Mahalanobis distance-based OOD \cite{lee2018simple_mahalanobis} or MetaSeg \cite{MetaSeg}.
+    %\end{enumerate}
 \end{document}
