@@ -2,25 +2,25 @@
 
 \begin{document}
     \chapter{Conclusions}
-    Advancements in Deep learning pushed the Deep Neural Networks (DNN) to industry-ready.
-    Nevertheless, they still suffer from the problem of misdetecting new objects in the environment.
+    Advancements in Deep learning made the Deep Neural Networks (DNN) ready to deploy in real world.
+    Nevertheless, they still suffer from the problem of misdetecting unknown objects in the environment.
     This is a significant problem to deal with in safety-critical applications.
-    This thesis focuses on finding the objects (Out Of Distribution) different from the training set in the 3D semantic segmentation setting.
+    This thesis focuses on finding the objects (Out-of-Distribution) different from the training set in the 3D semantic segmentation setting.
     In this thesis, we surveyed the publicly available 3D LiDAR datasets.
     A survey on the state-of-the-art models for 3D semantic segmentation was also made, and chose RandLA-Net as the network of interest.
     Deep Ensembles and Flipout are used to estimate uncertainty, especially the entropy. 
-    We propose two benchmark datasets for OOD detection, one being Semantic3D vs S3DIS (Outdoor vs Indoor) and Semantic3D vs Semantic3D without colour (colour vs no colour)
+    We propose two benchmark datasets for OOD detection, one being Semantic3D-vs-S3DIS (Outdoor vs Indoor) and Semantic3D-vs-Semantic3D without colour (colour vs no colour).
     The objects in the first OOD benchmark (S3DIS) are structurally different from the training dataset (Semantic3D).
-    In the case of the second OOD benchmark (Semantic3D without colour), the colour feature is removed but structurally equal to Semantic3D.
-    This thesis defines a point in the point cloud as an OOD point or not based on the Maximum Softmax Probability (MSP) or entropy.
-    We observe that the OOD dataset has higher entropy scores and lower probability scores and vice-versa in the case of the training dataset.
-    The difference in MSP and entropy is high in the case of S3DIS as the environment is very different from the training environment.
-    In the case of the Semantic3D without colour, the difference to the training dataset is thin, but the spread of probability and entropy values are higher for OOD.
-    We used the AUROC score to evaluate the model's performance of OOD detection with Deep Ensembles and Flipout for multiple ensembles and forward passes, respectively.
-    Overall, the performance of OOD detection is better with Deep Ensembles than with Flipout or Dropout.
+    In the case of the second OOD benchmark (Semantic3D without colour), the colour feature is removed but the point geometry remains.
+    This thesis predicts a point in the point cloud as an OOD point or not based on the Maximum Softmax Probability (MSP) or entropy.
+    We observe that the both the OOD datasets has higher entropy scores and lower probability scores and vice-versa in the case of the training dataset.
+    The difference in MSP and entropy between ID and OOD is high in the case of S3DIS, as the environment is very different from the training environment.
+    In the case of the Semantic3D without colour, the difference in MSP and entropy to the ID dataset is thin, but the spread of probability and entropy values are higher for OOD dataset.
+    We calculated the ROC curve between all the points in ID and OOD datasets, and generated the AUROC score to evaluate the model's performance of OOD detection with Deep Ensembles, Flipout and Dropout for multiple ensembles and forward passes, respectively.
+    Overall, the performance of OOD detection is better with Deep Ensembles than with Flipout or Dropout in both the OOD datasets.
     This result complies with the results from OOD detection for the 2D classification task in \cite{lakshminarayanan2016simple}.
-    Overall, we can conclude that the OOD detection in the case of new objects is possible with MSP or Entropy.
-    Whereas in the case of an OOD object having a similar structure to an object in the training set but with a difference in other attributes such as colour, the detection of OOD is challenging.
+    Overall, we can conclude that the OOD detection in the case of unknown objects is possible with MSP or entropy.
+    Whereas in the case of an OOD object having a similar structure to an object in the training set but with a difference in other attributes such as colour, the detection of OOD is challenging as the RandLA-Net model hugely rely on point geometry.
     
     \section{Lessons learned}
     The following are the lessons learned during the duration of the thesis

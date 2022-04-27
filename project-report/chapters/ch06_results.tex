@@ -6,7 +6,7 @@
     %These experiments were conducted on Semantic3D dataset as training in-distribution (ID) dataset and two datasets particularly S3DIS and Toronto3D are used as OOD datasets. 
     %The detailed description about datasets can be found in Chapter \textcolour{red}{cite here}, about RandLA-Net in Section \textcolour{red}{cite here}, and about deep ensembles and flipout in Section \textcolour{red}{cite here}
     %The list of experiments conducted to acheive OOD detection are as follows:
-    This chapter discusses the experiments conducted for Out-Of-Distribution (OOD) detection on RandLA-Net using quantified uncertainty from Deep Ensembles and Flipout.
+    This chapter discusses the experiments conducted for Out-of-Distribution (OOD) detection on RandLA-Net using quantified uncertainty from Deep Ensembles and Flipout.
     A detailed discussion about RandLA-Net, Deep Ensembles and Flipout can be found in Chapter~\ref{chapter:methodology}. In this chapter, we first discuss the training results of RandLA-Net using deep ensembles and flipout on Semantic3D as an In-Distribution (ID) dataset.
     Furthermore, we compare the Maximum Softmax Probability (MSP) as in \cite{hendrycks2016baseline_MSP} and entropy values for the proposed OOD benchmark datasets Semantic3D vs S3DIS and Semantic3D vs Semantic3D without colour.
     Finally, we visualize and evaluate the performance of OOD detection using the AUROC score.
@@ -135,7 +135,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \section{OOD benchmark - Semantic3D vs S3DIS}
     In the previous section, we studied the performance of the Deep Ensembles and Flipout over the Semantic3D (In-Distribution) dataset.
-    In this section, we study the predictions of the RandLA-Net model on the S3DIS (Out-Of-Distribution) dataset using Deep Ensembles and Flipout.
+    In this section, we study the predictions of the RandLA-Net model on the S3DIS (Out-of-Distribution) dataset using Deep Ensembles and Flipout.
     We also compare the distribution of Maximum Softmax Probability (MSP) and entropy scores for Semantic3D and S3DIS datasets.
 
     Figure~\ref{fig:de_s3dis_vis} depict the predictions of the RandLA-Net model and Flipout-versioned RandLA-Net.
@@ -148,21 +148,21 @@
         \centering
         \begin{tabular}{ccc}
             Point Cloud & Deep Ensembles & Flipout \\
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_1_RGB.pdf} &
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_1_Pred.pdf} &
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/office_3.pdf} \\
+            \includegraphics[width=0.33\textwidth, height=0.16\textheight]{images/seg_output/s3dis_DE/S3DIS_1_RGB.pdf} &
+            \includegraphics[width=0.33\textwidth, height=0.16\textheight]{images/seg_output/s3dis_DE/S3DIS_1_Pred.pdf} &
+            \includegraphics[width=0.33\textwidth, height=0.16\textheight]{images/seg_output/s3dis_DE/office_3.pdf} \\
 
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_2_RGB.pdf} &
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_2_Pred.pdf}&
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/ocroom_1.pdf} \\
+            \includegraphics[width=0.33\textwidth, height=0.16\textheight]{images/seg_output/s3dis_DE/S3DIS_2_RGB.pdf} &
+            \includegraphics[width=0.33\textwidth, height=0.16\textheight]{images/seg_output/s3dis_DE/S3DIS_2_Pred.pdf}&
+            \includegraphics[width=0.33\textwidth, height=0.16\textheight]{images/seg_output/s3dis_DE/ocroom_1.pdf} \\
             
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_3_RGB.pdf} &
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_3_Pred.pdf}&
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/opantry_1.pdf} \\
+            \includegraphics[width=0.33\textwidth, height=0.16\textheight]{images/seg_output/s3dis_DE/S3DIS_3_RGB.pdf} &
+            \includegraphics[width=0.33\textwidth, height=0.16\textheight]{images/seg_output/s3dis_DE/S3DIS_3_Pred.pdf}&
+            \includegraphics[width=0.33\textwidth, height=0.16\textheight]{images/seg_output/s3dis_DE/opantry_1.pdf} \\
 
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_4_RGB.pdf} &
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/S3DIS_4_Pred.pdf}&
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/seg_output/s3dis_DE/office_42.pdf} \\
+            \includegraphics[width=0.33\textwidth, height=0.16\textheight]{images/seg_output/s3dis_DE/S3DIS_4_RGB.pdf} &
+            \includegraphics[width=0.33\textwidth, height=0.16\textheight]{images/seg_output/s3dis_DE/S3DIS_4_Pred.pdf}&
+            \includegraphics[width=0.33\textwidth, height=0.16\textheight]{images/seg_output/s3dis_DE/office_42.pdf} \\
         \end{tabular}
         \includegraphics[scale=0.45]{images/legend.png}
         \caption{Predictions of RandLA-Net on S3DIS (OOD) dataset. First column representing the point cloud, second column presenting the predictions of Deep Ensembles and final column represents the results from Flipout model.
@@ -200,6 +200,7 @@
     In the case of the OOD (S3DIS) dataset, we observe a decrement in mean probability value and then remain the same after an ensemble size of 5 with a larger variance.
     With the increase in ensemble size, we also observe that the overlap in the variance of ID and OOD is getting lower.
     This smaller overlap in higher ensemble sizes should result in higher OOD detection performance.
+    
     In the case of Flipout, as in Figure~\ref{fig:msp_flipout} the mean probability and variance remain mostly the same for the ID dataset.
     With the OOD dataset, we observed a reduction in the mean probability value in the case of multiple passes.
     The variance from the Flipout is higher than the Deep Ensembles for the ID dataset.
@@ -211,7 +212,9 @@
     On visual inspection of Figure~\ref{fig:de_sem3d_probmap} and Figure~\ref{fig:fout_sem3d_probmap}, we observed that the probability scores are low for points that are misclassified for ID dataset.
     The points which lie on the edge of the structures are low scored.
     This effect is profound near the edges of the church and the edges of the walls.
+    
     In the case of the OOD dataset presented in Figure~\ref{fig:de_s3dis_probmap} and Figure~\ref{fig:fout_s3dis_probmap}, the overall probability scores are low, as the whole point cloud has a greener shade than the ID dataset probability map represented in a yellow shade.
+    Since the S3DIS dataset is extracted from a triangular mesh, we observe that each triangle has different probability score resulting in traingular effect in Probability maps of S3DIS dataset.
 
     \begin{figure*}[h!]
         \centering
@@ -314,16 +317,20 @@
     Similarly, Figure~\ref{fig:de_s3dis_entmap} and Figure~\ref{fig:fout_s3dis_entmap} represent the entropy map for the OOD dataset.
 
     From Figure~\ref{fig:ent_ensembles} and Figure~\ref{fig:ent_flipout}, we observe that the entropy for the ID dataset is lower because the softmax values are not highly distributed across all the classes.
-    Whereas in the case OOD dataset, the softmax probabilities are highly distributed across all the classes, so we observe a higher entropy score.
+    Whereas in the case OOD dataset, the softmax probabilities are highly distributed across all the classes, so we observe a higher entropy score.    
     Similar to the probability score, we also observe a decrement in the variance of entropy score until the ensemble size of 10 and then stabilizes out.
+
     Also, we infer that there is a lesser overlap between the error bars of OOD and ID datasets in the case of Deep Ensembles than the Flipout.
     So in both cases of MSP and entropy, we expect the Deep Ensembles to detect OOD objects better than the Flipout.
 
     On carefully observing Figure~\ref{fig:de_sem3d_entmap} and Figure~\ref{fig:fout_sem3d_entmap}, we infer that the overall entropy map is bluish in the shade representing the lower entropy scores.
     A higher entropy (yellow) is observed at the points of misclassifications and along the edges (similar to the case of the probability map in Figures ~\ref{fig:de_sem3d_probmap}, \ref{fig:fout_sem3d_probmap}).
     An example of misclassified points having higher entropy is observed in Figure~\ref{fig:fout_sem3d_entmap}, where the misclassified top of the church is greener on the entropy map than the rest of the church building.
-    Visually observation of entropy maps for the OOD dataset in Figure~\ref{fig:de_s3dis_entmap} and Figure~\ref{fig:fout_s3dis_entmap} reveals the colours at the higher end of the entropy scale resulting in a more yellowish shade in the case of both Flipout and Deep Ensembles.
-
+    
+    Visual observation of entropy maps for the OOD dataset in Figure~\ref{fig:de_s3dis_entmap} and Figure~\ref{fig:fout_s3dis_entmap} reveals the colours to be at the higher end of the entropy scale resulting in a more yellowish shade in the case of both Flipout and Deep Ensembles.
+    Even in the case of entropy map for S3DIS, we observe similar triangular effect as in Probability map of the dataset.
+    Since this triangular effect is present in predictions, Probability map and entropy map.
+    This confirms that these triangles are inherent property of the data and this will not be observed when we recollect the scenes from a different LiDAR.
     \begin{figure}[!ht]
         \begin{subfigure}{0.98\textwidth}
             \centering
@@ -424,15 +431,24 @@
         \label{fig:fout_s3dis_entmap}
     \end{figure*}
     \FloatBarrier
-    \section{OOD detection evaluation - Semantic3D vs S3DIS}
-    In this experiment, we evaluate the performance of the OOD detection using the AUROC scores generated using Maximum Softmax Probability (MSP) and Entropy.
+    \section{OOD detection evaluation - Semantic3D-vs-S3DIS}
+    In this experiment, we evaluate the performance of the OOD detection on Semantic3D-vs-S3DIS using the AUROC scores generated using Maximum Softmax Probability (MSP) and Entropy.
     Table~\ref{tab:sem3dvs3dis_auroc} summarizes the AUROC scores compared among Dropout, Flipout and Deep Ensembles techniques for multiple passes (in case of Dropout and Flipout) and ensemble size (in case of Deep Ensembles).
-    Figure~\ref{fig:de_ood_auroc_sem3d_prob} and Figure~\ref{fig:fout_ood_auroc_sem3d_prob} depicts the probability map and corresponding OOD map from Deep Ensembles and Flipout for In Distribution (ID) dataset.
-    We depict the OOD map in green and red points, where the green colour represents ID points and the red colour represents OOD points.
-    We classify the OOD map based on the optimal threshold from the corresponding ROC curve depicted in Figures~\ref{fig:roc_msp_ood_1} and \ref{fig:roc_ent_ood_1} in Section~\ref{sec:app_roc_curves}.
+    Figure~\ref{fig:de_ood_auroc_sem3d_prob} and Figure~\ref{fig:fout_ood_auroc_sem3d_prob} depicts the probability map and corresponding binary ID-OOD map from Deep Ensembles and Flipout for In Distribution (ID) dataset.
+    
+    The binary ID-OOD map is generated as follows. We calculate the optimal threshold from the ROC curve, by taking the threshold nearest to the (0,1) point in the ROC curve.
+    Using this threshold, we classify each point in Semantic3D and S3DIS dataset into set of ID and OOD points.
+    If the MSP or entropy value for the point is greater than threshold then it is considered as ID point else as OOD point.
+    Here green points represent that the point belongs to Semantic3D (ID) dataset and red points mean the particular point belongs to S3DIS (OOD) dataset.
+    %We depict the binary ID-OOD map in green and red points, where the green colour represents ID points and the red colour represents OOD points.
+    %We classify the binary ID-OOD map based on the optimal threshold from the corresponding ROC curve depicted in Figures~\ref{fig:roc_msp_ood_1} and \ref{fig:roc_ent_ood_1} in Section~\ref{sec:app_roc_curves}.
+    
+    Figures~\ref{fig:roc_msp_10_ood_1} and \ref{fig:roc_ent_10_ood_1} represent the ROC curve for Deep Ensembles, Flipout and Dropout using MSP and entropy.
     The threshold values for Semantic3D vs S3DIS are depicted in the first row of Table~\ref{tab:thresholds} for both MSP and entropy.
-    Similarly, Figure~\ref{fig:de_ood_auroc_sem3d_ent} and Figure~\ref{fig:fout_ood_auroc_sem3d_ent} represent the Entropy map and corresponding OOD map from Deep Ensembles and Flipout for the ID dataset.
-    Respectively, Figures~\ref{fig:de_s3dis_oodmap_prob}, \ref{fig:fout_s3dis_oodmap_prob}, \ref{fig:de_s3dis_oodmap_ent} and \ref{fig:fout_s3dis_oodmap_ent} represents the corresponding probability map, entropy map, and OOD map for the OOD dataset (S3DIS).
+    %Since here we represent ROC curves for ensemble size of 10 and 10 forward passes (Flipout and Dropout), the other ROC curves were represented in Figures~\ref{fig:roc_msp_ood_2} and \ref{fig:roc_ent_ood_2}.
+    Figure~\ref{fig:de_ood_auroc_sem3d_prob} and Figure~\ref{fig:fout_ood_auroc_sem3d_prob} represent the Probability map and corresponding binary ID-OOD map from Deep Ensembles and Flipout for the ID dataset (Semantic3D).
+    Similarly, Figure~\ref{fig:de_ood_auroc_sem3d_ent} and Figure~\ref{fig:fout_ood_auroc_sem3d_ent} represent the Entropy map and corresponding binary ID-OOD map from Deep Ensembles and Flipout for the ID dataset (Semantic3D).
+    Respectively, Figures~\ref{fig:de_s3dis_oodmap_prob}, \ref{fig:fout_s3dis_oodmap_prob}, \ref{fig:de_s3dis_oodmap_ent} and \ref{fig:fout_s3dis_oodmap_ent} represent the corresponding probability map, entropy map, and binary ID-OOD map for the OOD dataset (S3DIS).
     
     \begin{table}[h!]
         \centering
@@ -456,23 +472,55 @@
                                 & Flipout              & 0.77331          & 0.77237          \\
                                 & Deep Ensembles       & \textbf{0.89338} & \textbf{0.89052} \\ \hline
         \end{tabular}
-        \caption{AUROC scores in the case of Semantic3D and S3DIS for Dropout, Flipout, and  Deep Ensembles generated using MSP and Entropy values for various ensemble sizes and forward passes.}
+        \caption{AUROC scores calculated for all the points in the test sets of Semantic3D and S3DIS for Dropout, Flipout, and  Deep Ensembles generated using MSP and Entropy values for various ensemble sizes and forward passes.}
         \label{tab:sem3dvs3dis_auroc}
+    \end{table}
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{cccc}
+            \hline
+            OOD Benchmark                                           & Method    & MSP   & Entropy \\ \hline
+            \multirow{2}{*}{Semantic3D vs S3DIS}                    & Ensembles & 0.755 & 0.386   \\
+                                                                    & Flipout   & 0.717 & 0.439   \\ \hline
+           % \multirow{2}{*}{Semantic3D vs Semantic3D without colour} & Ensembles & 0.790 & 0.323   \\ 
+           %                                                         & Flipout   & 0.796 & 0.131   \\ \hline
+        \end{tabular}
+        \caption{MSP threshold and entropy threshold generated from the corresponding ROC curves for Semantic3D-vs-S3DIS datasets for MSP and entropy methods.}
+        \label{tab:thresholds}
     \end{table}
     From Table~\ref{tab:sem3dvs3dis_auroc}, we can observe that Deep Ensembles outperform the other methods in classifying ID (Semantic3D) and OOD (S3DIS) datasets among all the uncertainty methods used.
     Dropout performs worse among the three uncertainty methods, with Flipout in between Dropout and Deep Ensembles.
     From Table~\ref{tab:sem3dvs3dis_auroc} we also observe that MSP and Entropy scores have similar AUROC scores as entropy is the function of Probability.
     We also observe that the AUROC maxes out at ten passes for Dropout and Flipout.
     In the case of Deep Ensembles, after the ensemble size of 10, the gains in AUROC scores are minimal.
+    So all the binary ID-OOD maps are represented for ensmeble size of 10 and 10 Flipout forward passes  from here on.
 
     In Figures~\ref{fig:de_ood_auroc_sem3d_prob}, and \ref{fig:fout_ood_auroc_sem3d_prob}, we infer that points with lower probability scores are classified as OOD points for the ID (Semantic3D) dataset.
     In the event of OOD detection using entropy score for the ID dataset, as depicted in Figures~\ref{fig:de_ood_auroc_sem3d_ent}, and \ref{fig:fout_ood_auroc_sem3d_ent}, higher entropy score points are classified as OOD points.
-    Whereas in the OOD (S3DIS) dataset, most points are classified as OOD points as the OOD dataset has a lower probability score and higher entropy overall.
+    We also observe the misclassified points to be classified as OOD points, because the misclassified points have lower probability and higher entropy.
+    Whereas in the OOD (S3DIS) dataset, most points are classified as OOD points (red colour) as the OOD dataset has a lower probability score and higher entropy overall.
+    \begin{figure}[h!]
+        \begin{subfigure}{0.49\textwidth}
+            %\centering
+            %\includegraphics[width = 0.98\textwidth, height= 0.35\textheight]{images/AUROC/MSP_10.pdf}
+            \includegraphics[scale=0.36]{images/AUROC/MSP_10.pdf}
+            \caption{}
+            \label{fig:roc_msp_10_ood_1}
+        \end{subfigure}
+        \begin{subfigure}{0.495\textwidth}
+            %\centering
+            \includegraphics[scale=0.36]{images/AUROC/Entropy_10.pdf}
+            \caption{}
+            \label{fig:roc_ent_10_ood_1}
+        \end{subfigure}
+        ROC curves of Semantic3D-vs-S3DIS for 10 Ensembles, 10 forward passes for Flipout and Dropout. (a) representing the ROC curve from MSP and (b) representing the ROC curve from the entropy score.
+    \end{figure}
+    
     \begin{figure*}[h!]
         \centering
         \begin{tabular}{cc}
             % Prediction-Deep Ensembles & 
-            Probability map-Deep Ensembles & OOD map-Deep Ensembles \\
+            Probability map-Deep Ensembles & binary ID-OOD map-Deep Ensembles \\
             % \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_1.pdf} &
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_prob_10_1.pdf}& 
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_ood_auroc_1.pdf}\\
@@ -487,14 +535,14 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/prob_legend.pdf}
         % \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Representation of probability map and its legend in first column and OOD map in second column generated using Deep Ensembles (ensmeble size of 10) for Semantic3D (ID) dataset. In OOD map green represents ID points and red represents OOD points.}
+        \caption{Representation of probability map and its legend in first column and binary ID-OOD map in second column generated using Deep Ensembles (ensmeble size of 10) for Semantic3D (ID) dataset. In binary ID-OOD map green represents ID points and red represents OOD points.}
         \label{fig:de_ood_auroc_sem3d_prob}
     \end{figure*}
     \begin{figure*}[h!]
         \centering
         \begin{tabular}{cc}
             % Prediction-Flipout & 
-            Probability map-Flipout & OOD map-Flipout \\
+            Probability map-Flipout & binary ID-OOD map-Flipout \\
             % \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_1.pdf} &
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_prob_1.pdf}& 
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_ood_auroc_1.pdf}\\
@@ -509,13 +557,13 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/prob_legend.pdf}
         % \includegraphics[scale=0.65]{images/legend.pdf}
-        \caption{Representation of probability map and its legend in first column and OOD map in second column generated using Flipout (forward passes of 10) for Semantic3D (ID) dataset. In OOD map green represents ID points and red represents OOD points.}
+        \caption{Representation of probability map and its legend in first column and binary ID-OOD map in second column generated using Flipout (forward passes of 10) for Semantic3D (ID) dataset. In binary ID-OOD map green represents ID points and red represents OOD points.}
         \label{fig:fout_ood_auroc_sem3d_prob}
     \end{figure*}
     \begin{figure*}[h!]
         \centering
         \begin{tabular}{cc}
-            Entropy map-Deep Ensembles & OOD map-Deep Ensembles \\
+            Entropy map-Deep Ensembles & binary ID-OOD map-Deep Ensembles \\
             % \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_1.pdf} &
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_ent_10_1.pdf}& 
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_ent_ood_auroc_1.pdf}\\
@@ -530,15 +578,15 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/ent_legend.pdf}
         % \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Representation of entropy map and its legend in first column and OOD map in second column generated using Deep Ensembles (ensmeble size of 10) for Semantic3D (ID) dataset. In OOD map green represents ID points and red represents OOD points.}
+        \caption{Representation of entropy map and its legend in first column and binary ID-OOD map in second column generated using Deep Ensembles (ensmeble size of 10) for Semantic3D (ID) dataset. In binary ID-OOD map green represents ID points and red represents OOD points.}
         \label{fig:de_ood_auroc_sem3d_ent}
     \end{figure*}
     \begin{figure*}[h!]
         \centering
         % \begin{tabular}{ccc}
         \begin{tabular}{cc}
-            % Prediction-Flipout & Entropy map-Flipout & OOD map-Flipout \\
-            Entropy map-Flipout & OOD map-Flipout \\
+            % Prediction-Flipout & Entropy map-Flipout & binary ID-OOD map-Flipout \\
+            Entropy map-Flipout & binary ID-OOD map-Flipout \\
             % \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_1.pdf} &
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_ent_1.pdf}& 
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_ent_ood_auroc_1.pdf}\\
@@ -553,14 +601,14 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/ent_legend.pdf}
         % \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Representation of entropy map and its legend in first column and OOD map in second column generated using Flipout (forward passes of 10) for Semantic3D (ID) dataset. In OOD map green represents ID points and red represents OOD points.}
+        \caption{Representation of entropy map and its legend in first column and binary ID-OOD map in second column generated using Flipout (forward passes of 10) for Semantic3D (ID) dataset. In binary ID-OOD map green represents ID points and red represents OOD points.}
         \label{fig:fout_ood_auroc_sem3d_ent}
     \end{figure*}
 
     \begin{figure*}[h!]
         \centering
         \begin{tabular}{cc}
-            Probability map-Deep Ensembles & OOD map-Deep Ensembles \\
+            Probability map-Deep Ensembles & binary ID-OOD map-Deep Ensembles \\
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/ofc_3_de_prob.pdf}& 
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/de_prob_2.pdf}\\
 
@@ -575,13 +623,13 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/prob_legend.pdf}
         % \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Representation of probability map and its legend in first column and OOD map in second column generated using Deep Ensembles (ensmeble size of 10) for S3DIS (OOD) dataset. In OOD map green represents ID points and red represents OOD points.}
+        \caption{Representation of probability map and its legend in first column and binary ID-OOD map in second column generated using Deep Ensembles (ensmeble size of 10) for S3DIS (OOD) dataset. In binary ID-OOD map green represents ID points and red represents OOD points.}
         \label{fig:de_s3dis_oodmap_prob}
     \end{figure*}
     \begin{figure*}[h!]
         \centering
         \begin{tabular}{cc}
-            Probability map-Flipout & OOD map-Flipout \\
+            Probability map-Flipout & binary ID-OOD map-Flipout \\
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/ofc_3_fout_prob.pdf}& 
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/fout_prob_2.pdf}\\
 
@@ -596,7 +644,7 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/prob_legend.pdf}
         % \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Representation of probability map and its legend in first column and OOD map in second column generated using Flipout (forward passes of 10) for S3DIS (OOD) dataset. In OOD map green represents ID points and red represents OOD points.}
+        \caption{Representation of probability map and its legend in first column and binary ID-OOD map in second column generated using Flipout (forward passes of 10) for S3DIS (OOD) dataset. In binary ID-OOD map green represents ID points and red represents OOD points.}
         \label{fig:fout_s3dis_oodmap_prob}
     \end{figure*}
 
@@ -604,7 +652,7 @@
     \begin{figure*}[h!]
         \centering
         \begin{tabular}{cc}
-            Entropy map-Deep Ensembles & OOD map-Deep Ensembles \\
+            Entropy map-Deep Ensembles & binary ID-OOD map-Deep Ensembles \\
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/ofc_3_de_ent.pdf}& 
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_s3dis/de_ent_2.pdf}\\
 
@@ -619,13 +667,13 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/ent_legend.pdf}
         % \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Representation of entropy map and its legend in first column and OOD map in second column generated using Deep Ensembles (Ensemble size of 10) for S3DIS (OOD) dataset. In OOD map green represents ID points and red represents OOD points.}
+        \caption{Representation of entropy map and its legend in first column and binary ID-OOD map in second column generated using Deep Ensembles (Ensemble size of 10) for S3DIS (OOD) dataset. In binary ID-OOD map green represents ID points and red represents OOD points.}
         \label{fig:de_s3dis_oodmap_ent}
     \end{figure*}
     \begin{figure*}[h!]
         \centering
         \begin{tabular}{cc}
-            Entropy map-Flipout & OOD map-Flipout \\
+            Entropy map-Flipout & binary ID-OOD map-Flipout \\
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/ofc_3_fout_ent.pdf}& 
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_s3dis/fout_ent_2.pdf}\\
 
@@ -640,7 +688,7 @@
         \end{tabular}
         \includegraphics[scale=0.45]{images/ent_legend.pdf}
         % \includegraphics[scale=0.45]{images/legend.png}
-        \caption{Representation of entropy map and its legend in first column and OOD map in second column generated using Flipout (forward passes of 10) for S3DIS (OOD) dataset. In OOD map green represents ID points and red represents OOD points.}
+        \caption{Representation of entropy map and its legend in first column and binary ID-OOD map in second column generated using Flipout (forward passes of 10) for S3DIS (OOD) dataset. In binary ID-OOD map green represents ID points and red represents OOD points.}
         \label{fig:fout_s3dis_oodmap_ent}
     \end{figure*}
     \FloatBarrier
@@ -655,7 +703,7 @@
     Overall this section summarises the study of the performance of the Deep Ensembles and Flipout model on Semantic3D without colour dataset.
     Furthermore, we analyse and compare the probabilities and entropy scores of the new OOD and Semantic3D dataset.
     Finally, we visualise and evaluate the performance of OOD detection using the AUROC score as the evaluation metric.
-    \subsection{Deep ensembles}
+    \subsection{Deep Ensembles}
     % \begin{table}[h!]
     %     \resizebox{\textwidth}{!}{%
     %     \begin{tabular}{c|c|cccccccc|c}
@@ -702,14 +750,14 @@
         \centering
         \begin{tabular}{cc}
             Prediction(Semantic3D) & Prediction(Semantic3D without colour)\\
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_1.pdf}&
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/de_sem3d_of_1.pdf}\\
+            \includegraphics[width=0.33\textwidth, height=0.175\textheight]{images/ood_imgs/de_sem3d/de_class_prob_1.pdf}&
+            \includegraphics[width=0.33\textwidth, height=0.175\textheight]{images/sem3d_of/de_sem3d_of_1.pdf}\\
 
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_2.pdf}&
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/de_sem3d_of_2.pdf}\\
+            \includegraphics[width=0.33\textwidth, height=0.175\textheight]{images/ood_imgs/de_sem3d/de_class_prob_2.pdf}&
+            \includegraphics[width=0.33\textwidth, height=0.175\textheight]{images/sem3d_of/de_sem3d_of_2.pdf}\\
 
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_class_prob_3.pdf}&
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/de_sem3d_of_3.pdf}\\
+            \includegraphics[width=0.33\textwidth, height=0.175\textheight]{images/ood_imgs/de_sem3d/de_class_prob_3.pdf}&
+            \includegraphics[width=0.33\textwidth, height=0.175\textheight]{images/sem3d_of/de_sem3d_of_3.pdf}\\
         \end{tabular}
         \includegraphics[scale=0.45]{images/legend.png}
         \caption{Output predictions of the RandLA-Net over the Semantic3D dataset and Semantic3D without colour
@@ -772,12 +820,14 @@
 
     From the plots represented in Figure~\ref{fig:msp_ensembles_ood_2}, we observe that ID has a higher mean probability with lower variance decreasing until ensemble size of 10 and then stabilizing.
     Whereas for the OOD dataset represented in red lines, we observe a bit lower mean probability and higher variance with much overlap with the ID probability values.
+    
     A plot for Flipout represented in Figure~\ref{fig:msp_flipout_ood_2} has a similar distribution of probability values.
     The difference in mean probability between ID and OOD for Flipout is slight and similar variance.
     This gives us the intuition that Deep Ensembles performs better at OOD detection than Flipout in the scenario where the OOD object has structural similarities but less rich features as differences such as colour. The AUROC score confirms this intuition.
+    
     The study of Figure~\ref{fig:de_probmap_vis_sem3d_OF} suggests that the Semantic3D (ID) probabilities are higher than the OOD probabilities, which are darker in the shade in the case of Deep Ensembles.
     Similar conclusions can be drawn for the Flipout probability map represented in Figure~\ref{fig:de_probmap_vis_sem3d_OF}.
-    In both Flipout and Deep Ensembles, classes that suffer majorly with low probability scores are Naturalterrain and Hardscapes (fences, traffic signs). These classes have lower IoU scores in both Deep Ensembles and Flipout cases.
+    In both Flipout and Deep Ensembles, classes that suffer majorly with low probability scores are ``Natural terrain'' and ``Hardscapes'' (fences, traffic signs). These classes have lower IoU scores in both Deep Ensembles and Flipout cases.
     \begin{figure}[!ht]
         \centering
         \begin{subfigure}{0.98\textwidth}
@@ -839,20 +889,21 @@
     Similar conclusions to the MSP experiment can be drawn as entropy values for the ID dataset are lower with lower variance and higher mean entropy with more considerable variance for the OOD dataset.
     Whereas variance of ID dataset entropy values is increasing overall.
     In the case of Flipout, we observe that differences in mean probability for ID and OOD datasets are small and with a large overlap in the variance between the two.
+    
     In the entropy map, we observe that the OOD dataset has a higher entropy score compared to the ID dataset's entropy score.
-    This effect is profound for the classes such as Naturalterrain and Hardscapes (fences and traffic signs).
+    This effect is profound for the classes such as ``Natural terrain'' (grass) and ``Hardscapes'' (fences and traffic signs).
     With these observations of entropy scores, we expect a similar performance of OOD detection using entropy scores compared to MSP.
-    \begin{figure}[!ht]
+    \begin{figure}[h!]
         \centering
         \begin{subfigure}{0.98\textwidth}
             \centering
-        \includegraphics[scale=0.5]{images/MSP/Ensembles_ENT_semvsemwoc.pdf}
+        \includegraphics[scale=0.4]{images/MSP/Ensembles_ENT_semvsemwoc.pdf}
         \caption{}
         \label{fig:ent_ensembles_ood_2}
-        \end{subfigure}
+        \end{subfigure}    
         \begin{subfigure}{0.98\textwidth}
             \centering
-        \includegraphics[scale=0.5]{images/MSP/Flipout_ENT_semvsemwoc.pdf}
+        \includegraphics[scale=0.4]{images/MSP/Flipout_ENT_semvsemwoc.pdf}
         \caption{}
         \label{fig:ent_flipout_ood_2}
         \end{subfigure}
@@ -868,8 +919,8 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_ent_10_2.pdf}&
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/de_ent_sem3d_of_2.pdf}\\
 
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/de_sem3d/de_ent_10_3.pdf}&
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/de_ent_sem3d_of_3.pdf}\\
+            \includegraphics[width=0.33\textwidth, height=0.22\textheight]{images/ood_imgs/de_sem3d/de_ent_10_3.pdf}&
+            \includegraphics[width=0.33\textwidth, height=0.22\textheight]{images/sem3d_of/de_ent_sem3d_of_3.pdf}\\
         \end{tabular}
         \includegraphics[scale=0.45]{images/ent_legend.pdf}
         \caption{Per point entropy comparison between Semantic3D (ID) and Semantic3D without colour (OOD) dataset estimated using Deep Ensembles (Ensemble size of 10)}
@@ -885,8 +936,8 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_ent_2.pdf}&
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/fout_ent_sem3d_of_2.pdf}\\
 
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/fout_sem3d/fout_ent_3.pdf}&
-            \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/sem3d_of/fout_ent_sem3d_of_3.pdf}\\
+            \includegraphics[width=0.33\textwidth, height=0.22\textheight]{images/ood_imgs/fout_sem3d/fout_ent_3.pdf}&
+            \includegraphics[width=0.33\textwidth, height=0.22\textheight]{images/sem3d_of/fout_ent_sem3d_of_3.pdf}\\
         \end{tabular}
         \includegraphics[scale=0.45]{images/ent_legend.pdf}
         \caption{Per point entropy comparison between Semantic3D (ID) and Semantic3D without colour (OOD) dataset estimated using Flipout (forward passes of 10)}
@@ -896,13 +947,16 @@
 
 
     \section{OOD detection evaluation -  Semantic3D vs Semantic3D without colour}
-    This section concludes the evaluation of OOD performance using AUROC scores and visual comparisons of the OOD maps.
-    Similar to evaluation of OOD detection in Semantic3D vs S3DIS, we provide the performance evaluation of OOD detection for Dropout, Flipout and Deep Ensembles.
-    The ROC curves for MSP and entropy are depicted in Figures~\ref{fig:roc_msp_ood_2} and \ref{fig:roc_ent_ood_2}, and the thresholds for OOD maps are represented in the second row of Table~\ref{tab:thresholds}.
+    This section concludes the evaluation of OOD performance using AUROC scores and visual comparisons of the binary ID-OOD maps.
+    Similar to evaluation of OOD detection in Semantic3D vs S3DIS, we provide the performance evaluation of OOD detection for Dropout, Flipout and Deep Ensembles for Semantic3D-vs-Semantic3D wihtout colour.
+    
+    The ROC curves for MSP and entropy are depicted in Figures~\ref{fig:roc_msp_10_ood_2} and \ref{fig:roc_ent_10_ood_2}, and the thresholds for binary ID-OOD maps are represented in the second row of Table~\ref{tab:thresholds}.
     We also evaluate these methods over multiple ensemble sizes for Deep Ensembles and multiple passes for others.
     Table~\ref{tab:auroc_ood_2} compares the AUROC scores generated from MSP and Entropy between these three methods.
-    Figures~\ref{fig:de_oodmap_sem3d_OF_prob}, \ref{fig:fout_oodmap_sem3d_OF_prob} represent the side by side comparison of OOD map generated from probability scores with thresholds from the ROC curves.
-    Similarly, Figures~\ref{fig:de_oodmap_sem3d_OF_ent}, \ref{fig:fout_oodmap_sem3d_OF_ent} represent the OOD maps generated from entropy scores with thresholds from the ROC curves.
+    
+    Figures~\ref{fig:de_oodmap_sem3d_OF_prob}, \ref{fig:fout_oodmap_sem3d_OF_prob} represent the side by side comparison of binary ID-OOD map generated from MSP score with thresholds from the ROC curve depicted in third column in Table~\ref{tab:thresholds_2}.
+    Similarly, Figures~\ref{fig:de_oodmap_sem3d_OF_ent}, \ref{fig:fout_oodmap_sem3d_OF_ent} represent the binary ID-OOD maps generated from entropy scores with thresholds from the ROC curve depicted in last column in Table~\ref{tab:thresholds_2}.
+    Since here we represent ROC curves for ensemble size of 10 and 10 forward passes (Flipout and Dropout), the other ROC curves were represented in Figures~\ref{fig:roc_msp_ood_2} and \ref{fig:roc_ent_ood_2}.
 
     \begin{table}[h!]
         \centering
@@ -929,16 +983,45 @@
         \caption{AUROC scores in case of Semantic3D vs Semantic3D without colour for Dropout, Flipout, and  Deep Ensembles generated using MSP and Entropy values for various ensemble sizes and forward passes.}
         \label{tab:auroc_ood_2}
     \end{table}
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{cccc}
+            \hline
+            OOD Benchmark                                           & Method    & MSP   & Entropy \\ \hline
+            %\multirow{2}{*}{Semantic3D vs S3DIS}                    & Ensembles & 0.755 & 0.386   \\
+            %                                                        & Flipout   & 0.717 & 0.439   \\ \hline
+           \multirow{2}{*}{Semantic3D vs Semantic3D without colour} & Ensembles & 0.790 & 0.323   \\ 
+                                                                   & Flipout   & 0.796 & 0.131   \\ \hline
+        \end{tabular}
+        \caption{MSP threshold and entropy threshold generated from the corresponding ROC curves for Semantic3D-vs-Semantic3D without color datasets for MSP and entropy methods.}
+        \label{tab:thresholds_2}
+    \end{table}
     From Table~\ref{tab:auroc_ood_2}, we can infer that Deep Ensembles perform better than all other uncertainty techniques, with Dropout performing slightly better than Flipout.
     AUROC scores for Deep Ensembles increased until the ensemble size of 10 and then decreased.
     Also, the AUROC scores for entropy are slightly better than the AUROC scores from MSP values.
-    A typical inference from the OOD maps is that the classes of Naturalterrain and Hardscapes (fences and traffic signs) are labelled as OOD points in the OOD dataset.
-    In the case of OOD labelled points in the ID dataset, the misclassifications and edges of buildings and fences are labelled as OOD points.
-    A study of OOD maps for Semantic3D without colour from Deep Ensembles represented in Figures~\ref{fig:de_oodmap_sem3d_OF_prob} and \ref{fig:de_oodmap_sem3d_OF_ent} for both probability and entropy scores reveal that buildings and large trees are classified as ID objects.
+    A typical inference from the binary ID-OOD maps is that the classes of Naturalterrain (grass) and Hardscapes (fences and traffic signs) are labelled as OOD points in the OOD dataset.
+    In the case of OOD points in the ID dataset, the misclassifications and edges of buildings and fences are labelled as OOD points.
+    A study of binary ID-OOD maps for Semantic3D without colour (OOD) from Deep Ensembles represented in Figures~\ref{fig:de_oodmap_sem3d_OF_prob} and \ref{fig:de_oodmap_sem3d_OF_ent} for both probability and entropy scores reveal that buildings and large trees are classified as ID objects.
+    \begin{figure}[h!]
+        \begin{subfigure}{0.49\textwidth}
+            %\centering
+            %\includegraphics[width = 0.98\textwidth, height= 0.35\textheight]{images/AUROC/MSP_10.pdf}
+            \includegraphics[scale=0.36]{images/AUROC/MSP_cnc_10.pdf}
+            \caption{}
+            \label{fig:roc_msp_10_ood_2}
+        \end{subfigure}
+        \begin{subfigure}{0.495\textwidth}
+            %\centering
+            \includegraphics[scale=0.36]{images/AUROC/Entropy_cnc_10.pdf}
+            \caption{}
+            \label{fig:roc_ent_10_ood_2}
+        \end{subfigure}
+        \caption{ROC curves of Semantic3D-vs-Semantic3D without colour for 10 ensembles, 10 forward passes for Flipout and Dropout. (a) representing the ROC curve from MSP and (b) representing the ROC curve from the entropy score.}
+    \end{figure}
     \begin{figure*}[h!]
         \centering
         \begin{tabular}{cc}
-            OOD map-Semantic3D & OOD map-Semantic3D without colour \\
+            binary ID-OOD map-Semantic3D & binary ID-OOD map-Semantic3D without colour \\
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/sem3d_of/prob/de_sem3d_OOD_1.pdf}&
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/sem3d_of/prob/de_sem3d_of_OOD_1.pdf}\\
 
@@ -949,14 +1032,14 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/sem3d_of/prob/de_sem3d_of_OOD_3.pdf}\\
         \end{tabular}
         % \includegraphics[scale=0.45]{images/prob_legend.pdf}
-        \caption{OOD maps for Semantic3D (ID) dataset in first column and Semantic3D without colour (OOD) in second column estimated using probability map from Deep Ensembles (Ensemble size of 10).}
+        \caption{binary ID-OOD maps for Semantic3D (ID) dataset in first column and Semantic3D without colour (OOD) in second column estimated using probability map from Deep Ensembles (Ensemble size of 10).}
         \label{fig:de_oodmap_sem3d_OF_prob}
     \end{figure*}
 
     \begin{figure*}[h!]
         \centering
         \begin{tabular}{cc}
-            OOD map-Semantic3D & OOD map-Semantic3D without colour \\
+            binary ID-OOD map-Semantic3D & binary ID-OOD map-Semantic3D without colour \\
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/sem3d_of/prob/fout_sem3d_OOD_1.pdf}&
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/sem3d_of/prob/fout_sem3d_of_OOD_1.pdf}\\
 
@@ -967,14 +1050,14 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/sem3d_of/prob/fout_sem3d_of_OOD_3.pdf}\\
         \end{tabular}
         % \includegraphics[scale=0.45]{images/prob_legend.pdf}
-        \caption{OOD maps for Semantic3D (ID) dataset in first column and Semantic3D without colour (OOD) in second column estimated using probability map from Flipout (forward passes of 10).}
+        \caption{binary ID-OOD maps for Semantic3D (ID) dataset in first column and Semantic3D without colour (OOD) in second column estimated using probability map from Flipout (forward passes of 10).}
         \label{fig:fout_oodmap_sem3d_OF_prob}
     \end{figure*} 
 
     \begin{figure*}[h!]
         \centering
         \begin{tabular}{cc}
-            OOD map-Semantic3D & OOD map-Semantic3D without colour \\
+            binary ID-OOD map-Semantic3D & binary ID-OOD map-Semantic3D without colour \\
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/sem3d_of/ent/de_sem3d_OOD_1.pdf}&
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/sem3d_of/ent/de_sem3d_of_OOD_1.pdf}\\
 
@@ -985,14 +1068,14 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/sem3d_of/ent/de_sem3d_of_OOD_3.pdf}\\
         \end{tabular}
         % \includegraphics[scale=0.45]{images/prob_legend.pdf}
-        \caption{OOD maps for Semantic3D (ID) dataset in first column and Semantic3D without colour (OOD) in second column estimated using entropy map from Deep Ensembles (Ensemble size of 10).}
+        \caption{binary ID-OOD maps for Semantic3D (ID) dataset in first column and Semantic3D without colour (OOD) in second column estimated using entropy map from Deep Ensembles (Ensemble size of 10).}
         \label{fig:de_oodmap_sem3d_OF_ent}
     \end{figure*}
 
     \begin{figure*}[h!]
         \centering
         \begin{tabular}{cc}
-            OOD map-Semantic3D & OOD map-Semantic3D without colour \\
+            binary ID-OOD map-Semantic3D & binary ID-OOD map-Semantic3D without colour \\
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/sem3d_of/ent/fout_sem3d_OOD_1.pdf}&
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/sem3d_of/ent/fout_sem3d_of_OOD_1.pdf}\\
 
@@ -1003,7 +1086,7 @@
             \includegraphics[width=0.33\textwidth, height=0.18\textheight]{images/ood_imgs/sem3d_of/ent/fout_sem3d_of_OOD_3.pdf}\\
         \end{tabular}
         % \includegraphics[scale=0.45]{images/prob_legend.pdf}
-        \caption{OOD maps for Semantic3D (ID) dataset in first column and Semantic3D without colour (OOD) in second column estimated using entropy map from Flipout (forward passes of 10).}
+        \caption{binary ID-OOD maps for Semantic3D (ID) dataset in first column and Semantic3D without colour (OOD) in second column estimated using entropy map from Flipout (forward passes of 10).}
         \label{fig:fout_oodmap_sem3d_OF_ent}
     \end{figure*} 
     \FloatBarrier
