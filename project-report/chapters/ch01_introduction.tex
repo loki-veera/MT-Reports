@@ -21,8 +21,8 @@ For example, an autonomous driving agent must be trained on a dataset containing
 This closedness of the dataset, i.e., a fixed number of classes, will cause an issue when the DNN encounter an unknown object in the real world.
 This unknown object will be predicted as one of the classes in the dataset, leading to radical decisions when this error is propagated down the pipeline in Figure \ref{fig:Apollopipeline}.
 These unknown objects in the real world which are not present in the training dataset can be regarded as Out-of-Distribution (OOD) objects and the trained dataset is called In Distribution (ID) dataset. 
-More discussion on the OOD and difference between OOD and Anomaly is presented as an example in Section~\ref{sec:oodvanom}.
-The Tesla autonomous driving platform encounters one such problem of misdetection of unknown objects when deployed in real world.
+More discussion on the OOD and the difference between OOD and Anomaly is presented as an example in Section~\ref{sec:oodvanom}.
+The Tesla autonomous driving platform encounters one such problem of misdetection of unknown objects when deployed in the real world.
 \begin{figure}[h!]
     \begin{subfigure}{0.48\textwidth}
         \centering
@@ -36,7 +36,7 @@ The Tesla autonomous driving platform encounters one such problem of misdetectio
         \caption{}
         \label{fig:teslafails_2}
     \end{subfigure}
-    \caption{Misdetection of OOD objects in Tesla autonomous driving platform. (a) Moon is detected as yellow signal light and (b) depicts the misdetection of Burger King sign as stop traffic sign. Images taken from \cite{tesla_fails}.}
+    \caption{Misdetection of OOD objects in Tesla autonomous driving platform. (a) Moon is detected as yellow signal light and (b) depicts the misdetection of the Burger King sign as a stop traffic sign. Images were taken from \cite{tesla_fails}.}
 \end{figure}
 
 Figure~\ref{fig:teslafails_1} and Figure~\ref{fig:teslafails_2} depict the misdetections from the Tesla autonomous driving system.
@@ -51,24 +51,25 @@ Further in this chapter, we will discuss the task of 3D semantic segmentation, t
 \section{3D Semantic Segmentation}
 Semantic segmentation is an important task in computer vision.
 This is because of its widespread use in scene understanding which further helps in navigation and planning for autonomous robots.
-The objective in semantic segmentation is to assign each point in the point cloud (each pixel in case of an image) a specific class.
-In recent years, works such as \cite{spatialpyramidpool}, \cite{deeplabv3} and \cite{fcn} studied the task of semantic segmentation for images and has made advancements in terms of performance.
+The objective of semantic segmentation is to assign each point in the point cloud (each pixel in the case of an image) a specific class.
+In recent years, works such as \cite{spatialpyramidpool}, \cite{deeplabv3} and \cite{fcn} studied the task of semantic segmentation for images and have made advancements in terms of performance.
 But with the limitations caused in images by uneven illumination and occlusion are a problem for semantic segmentation.
 So researchers have turned towards alternatives like 3D point cloud or RGBD image.
-In this thesis, we chose to utilize 3D point cloud generated from 3D LiDAR becuase, point clouds are unsuceptible to illumination and provides rich geometric information of a scene.
+In this thesis, we chose to utilize 3D point cloud generated from 3D LiDAR because point clouds are unsusceptible to illumination and provide rich geometric information about the scene.
 Typically, a point in the 3D point cloud is represented using spatial coordinates (XYZ) and along with the spatial information, other features such as colour (RGB), intensity and surface normals are also utilized.
 Figure~\ref{fig:sem3d_gt_vis} represents the point cloud of a street scene collected from a 3D LiDAR and its respective semantic map.
-Because of the above advantages with the 3D point cloud, LiDAR has been one of the central component in the sensor suite for SLAM systems in robotic applications \cite{thrun2006stanley}, \cite{patz2008practical}, \cite{hess20162dSLAM} and autonomous driving \cite{li2016vehicle}.
-Also to the best of our knowledge current State-Of-The-Art (SOTA) 3D semantic segmentation models were developed to use 3D point cloud data, and these SOTA models were studied in this thesis and discussed in Section~\ref{sec:dl_approach}.
+Because of the above advantages of the 3D point cloud, LiDAR has been one of the central components in the sensor suite for SLAM systems in robotic applications \cite{thrun2006stanley}, \cite{patz2008practical}, \cite{hess20162dSLAM} and autonomous driving \cite{li2016vehicle}.
+Also to the best of our knowledge current State-Of-The-Art (SOTA) 3D semantic segmentation models were developed to use 3D point cloud data and these SOTA models were studied in this thesis and discussed in Section~\ref{sec:dl_approach}.
 
 \section{Problem Statement}
 This thesis studies OOD detection over the task of 3D semantic segmentation.
 Notably, we study the 3D semantic segmentation datasets available and create a benchmark for the ID and OOD datasets.
 Similar to \cite{Cao}, we define the OOD data based on two categories.
 In the first case, we define a point in the point cloud as OOD if the point is from an unknown class which is not present in the training set.
-As an example, \cite{liang2017enhancing_ODIN} uses CIFAR-10 vs SVHN. Where CIFAR-10 consits of outdoor objects like airplane, automobile and SVHN consist of images with digits.
+As an example, \cite{liang2017enhancing_ODIN} uses CIFAR-10 vs SVHN.
+Where CIFAR-10 consists of outdoor objects like aeroplanes, automobile and SVHN consist of images with digits.
 In the second category, we define a point in the point cloud as OOD if the features of the point are of inferior quality.
-An example for this category, can be LiDAR data collected on a foggy day, as fog causes noise in the data.
+An example of this category can be LiDAR data collected on a foggy day, as fog causes noise in the data.
 
 
 The other major issue we address in this thesis is the OOD detection methods. 
@@ -100,8 +101,8 @@ The contributions made in this thesis are
 
 To summarize this chapter, we discussed the motivation behind the problem of OOD detection, like
 how errors in perception module results lead to catastrophic consequences in an autonomous driving pipeline.
-We also discussed this problem in a real world example of Tesla autonomous driving platform.
-This is followed by discussion on 3D semantic segmentation and LiDAR point clouds.
+We also discussed this problem in a real-world example of the Tesla autonomous driving platform.
+This is followed by a discussion on 3D semantic segmentation and LiDAR point clouds.
 Finally, we discussed the problem statement and concluded with the contributions of this thesis.
 The following chapters include the study of the state-of-the-art, experimentation details like methodology and setup, results and conclusion chapters.
 

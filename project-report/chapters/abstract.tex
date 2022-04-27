@@ -2,6 +2,25 @@
 
 \begin{document}
     \begin{abstract}
-        Your abstract
+        Many safety-critical applications like autonomous driving use Deep Neural Networks (DNNs) for object detection and segmentation.
+        These DNNs are trained on a dataset with a limited number of classes. 
+        This closedness of the dataset will lead to misdetection when the trained DNN encounter unknown data in the real world.
+        Typically, this unknown data is called as Out-of-Distribution (OOD) data.
+        When the autonomous driving agent encounters the OOD data, these misdetections might lead to catastrophic consequences.
+        So it is predominantly important to detect the OOD data.
+
+        Existing OOD detection methods have been extensively studied in the image domain and have not been explored much in the 3D domain.
+        In this thesis, we proposed two 3D benchmark datasets, adapt and evaluate the OOD detection methods on the proposed benchmark datasets.
+        So, we performed a state-of-the-art analysis on 3D datasets and 3D semantic segmentation models.
+        From the analysis, we proposed two 3D benchmark datasets for OOD detection.
+        First one is Semantic3D-vs-S3DIS (outdoor-vs-indoor) with Semantic3D as the In-Distribution (ID) dataset and S3DIS as the OOD dataset.
+        The second benchmark dataset is Semantic3D-vs-Semantic3D without colour with Semantic3D without colour being OOD dataset.
+        We used Maximum Softmax Probability (MSP) and Uncertainty (entropy) based OOD detection methods for this study.
+        For Uncertainty quantification, we used Deep Ensembles, Flipout and Dropout on the RandLA-Net model for 3D semantic segmentation.
+
+        We observe that Deep Ensembles outperform other methods in OOD detection with AUROC scores of 0.879 and 0.778 using MSP in both the 3D benchmark datasets respectively.
+        Both the MSP and entropy scores from Deep Ensembles were able to detect OOD with high AUROC scores for the first benchmark dataset (Semantic3D-vs-S3DIS), this is because of the huge differnces in point geometry between both the datasets.
+        Whereas in the case of the second benchmark dataset (Semantic3D-vs-Semantic3D without colour), MSP and entropy scores from Deep Ensembles struggle to detect OOD data.
+        This is because both the Semantic3D and Semantic3D without colour datasets have the same point geometry but different colour values.
     \end{abstract}
 \end{document}

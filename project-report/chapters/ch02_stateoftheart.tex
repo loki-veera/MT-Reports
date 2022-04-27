@@ -3,7 +3,7 @@
 \begin{document}
     \chapter{State of the Art}
     This chapter will discuss the 3D LiDAR datasets available and classify them based on the type of acquisition.
-    Also, we will discuss the existing 3D semantic segmentation models, uncertainty estimation methods and Out Of Distribution (OOD) detection methods available.
+    Also, we will discuss the existing 3D semantic segmentation models, uncertainty estimation methods and Out-of-Distribution (OOD) detection methods available.
     \section{3D LiDAR Datasets}
     %Since the advent of AlexNet \cite{alexnet}, deeplearning has been in the rise. 
     %Deep convolutional neural networks are the desired option for image analysis tasks such as classification, detection and segmentation.
@@ -12,14 +12,14 @@
     %Second reason is the development of huge public benchmark datasets such as Imagenet \cite{imagenet}, Pascal VOC \cite{pascalvoc} and COCO \cite{coco} datasets
     %Although deep convolutional networks are huge success in image analysis tasks, they perform poorly on 3D point cloud data.
     This section will discuss the available LiDAR datasets for the 3D semantic segmentation task and classify the datasets based on acquisition methods as in \cite{survey3d}.
-    Before the survey on available datasets, we would like to introduce LiDAR and types of LiDAR.
-    LiDAR is a time of flight (ToF)sensor where an optical pulse is emitted by the source and the reflected pulse is detected back the source.
+    Before the survey on available datasets, we would like to introduce LiDAR and the types of LiDAR.
+    LiDAR is a time of flight (ToF) sensor where an optical pulse is emitted by the source and the reflected pulse is detected back by the source.
     The time between the emission and detection is used to calculate the distance of the object.
-    There are two types of LiDAR based steering of beams.
-    First type are the mechanical LiDARs where an optical assembly is set over a gear operated rotating device and pulses are constantly emitted and detected.
+    There are two types of LiDAR-based steering of beams.
+    The first type is the mechanical LiDARs where an optical assembly is set over a gear operated rotating device and pulses are constantly emitted and detected.
     Mechanical LiDARs provide $360^{\circ}$ field of view.
-    Second type are the solid state LiDARs where no rotating devices are present and have very limited field of view. 
-    A detailed analysis about LiDARs is presented in \cite{lidar}.
+    The second type is the solid-state LiDARs where no rotating devices are present and have a very limited field of view. 
+    A detailed analysis of LiDARs is presented in \cite{lidar}.
 
 
     Among 3D LiDAR datasets, \cite{survey3d} classifies the available public datasets into three classes based on the data acquisition process.
@@ -46,9 +46,9 @@
     
     
     Static datasets consist of data collected from a stationary viewpoint by a terrestrial laser scanner.
-    This kind of dataset captures the static information of the real world where as sequential datasets also capture the dynamic movements of the surrounding objects.
+    This kind of dataset captures the static information of the real world whereas sequential datasets also capture the dynamic movements of the surrounding objects.
     Static datasets find their way into urban planning, augmented reality, and robotics applications. 
-    Figure \ref{fig:tls} depicts a terrestrial laser scanner used to capture the static point cloud of an industrial environment, and Figure~\ref{fig:static_scan} represent an example point cloud for a static dataset.
+    Figure \ref{fig:tls} depicts a terrestrial laser scanner used to capture the static point cloud of an industrial environment, and Figure~\ref{fig:static_scan} represents an example point cloud for a static dataset.
     \begin{figure}[h!]
         \centering
         \begin{subfigure}{0.45\textwidth}
@@ -128,7 +128,7 @@
     \end{table}
     
     We chose the Semantic3D dataset as the in-distribution (ID) training dataset from the available datasets. 
-    S3DIS is chosen as an out-of-distribution (OOD) dataset as S3DIS is much different from Semantic3D.
+    S3DIS is chosen as an out-of-distribution (OOD) dataset.
     Chapter~\ref{ch:benchmark} represents the detailed discussion on datasets and benchmarking.
 
     \section{3D Semantic Segmentation Models}
@@ -198,7 +198,7 @@ Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segm
     This is because, during the training, model parameters train to a particular distribution of data and
     must produce high uncertainty estimates when they observe data from a different distribution.
     Aleatoric uncertainty is the uncertainty in the data like measurement noise.
-    An example of aleatoric uncertainty in point cloud can be incorrect data fro the LiDAR scanner collected on a foggy or rainy day, as fog or rain reflects most of the laser rays creating disturbances in the scan and limiting the range.
+    An example of aleatoric uncertainty in point cloud can be incorrect data from the LiDAR scanner collected on a foggy or rainy day, as fog or rain reflects most of the laser rays creating disturbances in the scan and limiting the range.
     Epistemic uncertainty can be reduced by increasing the size of training data or finding the proper model.
     Aleatoric uncertainty cannot be reduced as noise is the inherent property of the data.
     \subsection{Ensemble methods}
@@ -291,7 +291,7 @@ Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segm
     
     
     \section{Out-of-distribution (OOD) detection}
-    This section will disucss the difference between OOD, Anomaly using an example and then we continue with the existing OOD detection methods.
+    This section will discuss the difference between OOD, Anomaly using an example and then we continue with the existing OOD detection methods.
 
     \subsection{OOD/Anomaly/Distributional shift}
 \label{sec:oodvanom}
