@@ -12,7 +12,7 @@ From Section~\ref{sec:dl_approach}, we can observe that the RandLA-Net architect
 Efficient computation, memory usage and a model with direct application to 3D points are the primary motivation when developing the RandLA-Net.
 RandLA-Net employs random point sampling and the local feature aggregation module to achieve these goals.
 Authors in \cite{Hu_2020_CVPR_Randla} proved that a successive application of random point sampling along with the local feature aggregation module effectively reduces and extracts the features of the large scale point clouds from a scale of $10^5$ to $10^2$.
-Random point sampling is only applied during the preprocessing of the dataset bz subsampling the point cloud by a factor of \textcolor{red}{check the code}.
+Random point sampling is only applied during the preprocessing of the dataset by subsampling the point cloud by a factor of 0.6.
 
 In random point sampling, We select K points uniformly from the original point cloud in random point sampling and have a computational complexity time of O(1).
 Random point sampling has the lowest computational complexity and computation time independent of the number of points compared with other point sampling methods.
