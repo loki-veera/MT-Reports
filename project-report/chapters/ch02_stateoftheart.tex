@@ -15,7 +15,7 @@
     Before the survey on available datasets, we would like to introduce LiDAR and the types of LiDAR.
     LiDAR is a time of flight (ToF) sensor where an optical pulse is emitted by the source and the reflected pulse is detected back by the source.
     The time between the emission and detection is used to calculate the distance of the object.
-    There are two types of LiDAR-based steering of beams.
+    There are two types of LiDAR, based on steering of beams.
     The first type is the mechanical LiDARs where an optical assembly is set over a gear operated rotating device and pulses are constantly emitted and detected.
     Mechanical LiDARs provide $360^{\circ}$ field of view.
     The second type is the solid-state LiDARs where no rotating devices are present and have a very limited field of view. 
@@ -25,6 +25,7 @@
     Among 3D LiDAR datasets, \cite{survey3d} classifies the available public datasets into three classes based on the data acquisition process.
     They are \textit{sequential}, \textit{static} and \textit{synthetic} datasets.
     For a sequential dataset, the data is collected as a sequence of frames with a mechanical LiDAR mounted on top of an autonomous driving platform, as depicted in Figure \ref{fig:seq_data_lyft}.
+    Sequential datasets can be defined as a collection of point cloud scans over a period of time.
     Figure~\ref{fig:example_sequential} represents an example point cloud from a sequential dataset.
     Most of the popular autonomous driving datasets are sequential. However, the sequential datasets come with a drawback of sparse points than static or synthetic datasets.
     \begin{figure}[h!]
@@ -46,7 +47,7 @@
     
     
     Static datasets consist of data collected from a stationary viewpoint by a terrestrial laser scanner.
-    This kind of dataset captures the static information of the real world whereas sequential datasets also capture the dynamic movements of the surrounding objects.
+    This kind of dataset captures the static information of the real world.
     Static datasets find their way into urban planning, augmented reality, and robotics applications. 
     Figure \ref{fig:tls} depicts a terrestrial laser scanner used to capture the static point cloud of an industrial environment, and Figure~\ref{fig:static_scan} represents an example point cloud for a static dataset.
     \begin{figure}[h!]
@@ -136,7 +137,7 @@
     This section will discuss the methods available for 3D semantic segmentation.
     The discussion includes a brief peek into traditional 3D semantic segmentation methods and the study of deep learning methods for 3D point cloud segmentation.
 
-\subsection{Traditional approach}
+\subsection{Traditional Approach}
 Traditional methods involve a complex feature extraction and passing these features to a classification algorithm such as Support Vector Machines or Random Forests to classify each point in the point cloud.
 Some of the traditional methods include segmentation from edge information \cite{bhanu1986range}, construction of complex graph pyramids \cite{koster}.
 3D Hough transforms as in \cite{vosselman20013d} and application of RANSAC \cite{schnabel2007efficient} and \cite{tarsha2007hough}.
@@ -144,7 +145,7 @@ The performance of traditional methods is far less compared to the performance o
 This is because the DNN's are large and extract better features on their own.
 %These traditional methods are outdated as DNNs proved to be better at feature extraction.
 
-\subsection{Deep learning approach}
+\subsection{Deep Learning Approach}
 \label{sec:dl_approach}
 Deep learning-based models are efficient at segmentation and can be divided into three types.
 The first type includes the point-based models where the model directly feeds on the 3D point cloud.
@@ -186,7 +187,7 @@ The projections, such as 2D range image and bird's eye view projection, are perf
 Table \ref{tab:model_relatedwork} illustrates the detailed summary of each model and the number of parameters.
 Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segmentation results. However, this study is limited to standard deep learning models, so this study does not include graph neural networks.
 
-    \section{Uncertainty estimation methods}
+    \section{Uncertainty Estimation Methods}
     \label{sec:ue_methods}
     This section will discuss existing methods to estimate uncertainty in deep neural networks.
     Here we divide the uncertainty estimation methods into ensemble methods and Bayesian methods.
@@ -201,32 +202,32 @@ Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segm
     An example of aleatoric uncertainty in point cloud can be incorrect data from the LiDAR scanner collected on a foggy or rainy day, as fog or rain reflects most of the laser rays creating disturbances in the scan and limiting the range.
     Epistemic uncertainty can be reduced by increasing the size of training data or finding the proper model.
     Aleatoric uncertainty cannot be reduced as noise is the inherent property of the data.
-    \subsection{Ensemble methods}
-    First proposed in \cite{lakshminarayanan2016simple}, deep ensembles are the most prominently used method for uncertainty estimation.
+    \subsection{Ensemble Methods}
+    First proposed in \cite{lakshminarayanan2016simple}, Deep Ensembles are the most prominently used method for uncertainty estimation.
     They exploit the combinatory power of multiple models.
     Multiple model instances are initialized randomly, and the same input is fed into all the instances.
     The random initialization leads to slightly different optimization for each model instance. The final output scores from each model are combined by simple averaging.
-    Deep ensembles are known to improve the model's overall performance but come with a cost of computational complexity and resource intensiveness.
-    Another advantage of using deep ensembles is the lowest correlation between the model instances as the training of the instances is done differently.
+    Deep Ensembles are known to improve the model's overall performance but come with a cost of computational complexity and resource intensiveness.
+    Another advantage of using Deep Ensembles is the lowest correlation between the model instances as the training of the instances is done differently.
     These lower correlation figures lead to the diverse predictions from each model instance.
-    A detailed explanation of deep ensembles can be found in Section~\ref{sec:meth_deepensembles}.
+    A detailed explanation of Deep Ensembles can be found in Section~\ref{sec:meth_deepensembles}.
 
-    Because of the higher computational complexity and resource intensiveness, there exist multiple flavours of the deep ensembles, such as deep sub-ensembles \cite{deep_subensembles} and masksembles \cite{masksembles}.
+    Because of the higher computational complexity and resource intensiveness, there exist multiple flavours of Deep Ensembles, such as deep sub-ensembles \cite{deep_subensembles} and masksembles \cite{masksembles}.
     Deep sub-ensembles divide the network into trunk and head.
     The main idea here is to train multiple instances of the head with the same trunk. For example, a trunk can be feature extraction layers in a deep classification network, and the head can be the classification layers.
-    Since the primary motivation of the subensembles is to improve the training speed, there is a minute drop in performance compared to deep ensembles as it is a tradeoff between the computational time and quality of uncertainty.
-    Masksembles proposed in \cite{masksembles} are relatively new and combine deep ensembles with MC-Dropout.
+    Since the primary motivation of the subensembles is to improve the training speed, there is a minute drop in performance compared to Deep Ensembles as it is a tradeoff between the computational time and quality of uncertainty.
+    Masksembles proposed in \cite{masksembles} are relatively new and combine Deep Ensembles with MC-Dropout.
     Masksembles also propose a predefined mask is stated for each layer, and only those specific neurons are dropped every time.
 
     Other methods include snapshot ensembles \cite{snapshot_ensembles} which iterate over multiple local optima in the optimization landscape using a cyclic learning rate. 
     The model parameters are saved at each of the local optima. 
-    All these flavours of deep ensembles are proposed to reduce the effect on time.
+    All these flavours of Deep Ensembles are proposed to reduce the effect on time.
     The other problem with snapshot ensembles is that the optimization landscape in deep neural networks is poorly studied, so one cannot say with certainty that the model saved at two local minima is uncorrelated.
-    A neural ensemble search also exists \cite{NAS_Ensembles}, where the neural architecture search is applied over the ensembles.
+    A neural ensemble search also exists \cite{NAS_Ensembles}, where the neural architecture search is applied over the Ensembles.
     Instead of using various instances of the same model, authors in \cite{NAS_Ensembles} use various instances of various models in the architecture search space.
-    In this thesis, we chose to use deep ensembles because of ease of implementation and deep ensembles also act as a baseline comparison for other ensembles methods in the future.
+    In this thesis, we chose to use Deep Ensembles because of ease of implementation and Deep Ensembles also act as a baseline comparison for other ensemble methods in the future.
 
-    \subsection{Bayesian methods}
+    \subsection{Bayesian Methods}
     Existing neural networks are trained in maximum likelihood, resulting in point estimates for the weights.
     The main idea behind Bayesian neural networks is to use a distribution over the network parameters.
     Instead of a single fixed weight tensor for a layer in a neural network, a weight tensor is drawn from the distribution for each forward pass.
@@ -290,7 +291,7 @@ Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segm
     
     
     
-    \section{Out-of-distribution (OOD) detection}
+    \section{Out-of-Distribution detection}
     This section will discuss the difference between OOD, Anomaly using an example and then we continue with the existing OOD detection methods.
 
     \subsection{OOD/Anomaly/Distributional shift}
@@ -334,7 +335,7 @@ Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segm
         \caption{}
         \label{fig:ood_airship}
     \end{subfigure}
-    \caption{Illustration of distributional shift, anomaly and out of distribution examples using various kind of ships. (a) represents the sail ship during 18th century. (b) depicts the current training data.
+    \caption{Illustration of Distributional Shift, Anomaly and Out-of-Distribution examples using various kind of ships. (a) represents the sail ship during 18th century. (b) depicts the current training data.
     (c), and (d) represents the anamolous ship data and (e), and (f) represents the OOD data. Images are taken from \cite{old_ship}, \cite{train_cruiser}, \cite{container},
     \cite{titanic}, \cite{submarine}, and \cite{airship} respectively in the order they appear.}
 \end{figure}
@@ -346,26 +347,26 @@ Fast forward to the present time, current ships are as shown in Figure \ref{fig:
 Ship as in \ref{fig:trian_cruiser} can be defined as ``\textit{ships contain hull and passenger decks stacked upon each other}''.
 Now, suppose we want to deploy the old model trained with old ships to detect
 the present generation of ships. In that case, it is difficult because of the way we define ships.
-This change in data distribution over a period of time is called ``\textit{distributional shift}'' of the data.
-Distributional shift can be resolved by retraining the model.
+This change in data distribution over a period of time is called ``\textit{Distributional Shift}'' of the data.
+Distributional Shift can be resolved by retraining the model.
 
-An anomaly can be defined as the patterns that do not conform to the expected training behaviour as proposed in  \cite{anomaly_sec1_1}.
+An Anomaly can be defined as the patterns that do not conform to the expected training behaviour as proposed in  \cite{anomaly_sec1_1}.
 By this definition, Figure \ref{fig:anom_container} and Figure \ref{fig:anom_titanic} can be considered anomalies.
 This is because Figure \ref{fig:anom_container} is a container ship looking similar to Figure \ref{fig:trian_cruiser}. Instead of passenger decks, we have containers stacked.
-Figure \ref{fig:anom_titanic} is also an anomaly because the Titanic also has a hull, passenger decks
+Figure \ref{fig:anom_titanic} is also an Anomaly because the Titanic also has a hull, passenger decks
 and chimneys. These additional chimnies as features deviates this image from the definition of the ship
-and can be considered an ``\textit{anomaly}''.
+and can be considered an ``\textit{Anomaly}''.
 
 In the case of OOD, the input is drawn from an unknown distribution of unknown data, which is not near to the training distribution.
 Figure~\ref{fig:ood_submarine} and Figure~\ref{fig:ood_airship} are submarine, and an airship which does not adhere to the definition of the ship by any means.
 So we regard these two images (submarine and airship) as OOD objects.
 
 
-    \subsection{OOD detection methods}
+    \subsection{OOD Detection Methods}
     This subsection will discuss the existing OOD detection methods for 2D classification and 2D semantic segmentation tasks.
     To the best of our knowledge, ours is the first work to study OOD detection for the task of 3D semantic segmentation.
 
-    The most widely used benchmark datasets for 2D classification are CIFAR-10 vs SVHN \cite{liang2017enhancing_ODIN}, CIFAR-10 vs LSUN \cite{hendrycks2016baseline_MSP}, and MNIST vs not-MNIST \cite{hendrycks2016baseline_MSP}. 
+    The most widely used benchmark datasets for 2D classification are CIFAR10-vs-SVHN \cite{liang2017enhancing_ODIN}, CIFAR10-vs-LSUN \cite{hendrycks2016baseline_MSP}, and MNIST-vs-notMNIST \cite{hendrycks2016baseline_MSP}. 
     Most of the proposed methods for OOD detection in classification tasks are threshold-based methods which are posthoc methods.
     These methods employ a threshold-based detector and do not see the OOD data during training.
     The baseline method for threshold-based methods is proposed in \cite{hendrycks2016baseline_MSP}.
@@ -400,7 +401,7 @@ So we regard these two images (submarine and airship) as OOD objects.
     These energy scores are expected to be low for the In-Distribution (ID) dataset and vice versa for OOD datasets.
 
     The OOD data samples have higher uncertainty than ID samples, allowing us to use the uncertainty estimation methods for OOD detection.
-    \cite{lakshminarayanan2016simple} proposes the deep ensembles to estimate epistemic uncertainty and utilizes this entropy from deep ensembles to classify ID vs OOD datasets.
+    \cite{lakshminarayanan2016simple} proposes the Deep Ensembles to estimate epistemic uncertainty and utilizes this entropy from Deep Ensembles to classify ID-vs-OOD datasets.
     Similarly, \cite{JAmersfoot_RBF} proposed using the radial basis function to calculate the epistemic uncertainty and applied threshold over the epistemic uncertainty to classify OOD data.
     \cite{UOOD_BNN} proposes using the uncertainty estimated from Bayesian Neural Networks (BNNs) to detect OOD.
     It also argues that the choice of prior weights significantly affects the OOD performance.

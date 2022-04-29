@@ -2,15 +2,10 @@
 
 \begin{document}
 
-    \chapter{Supplementary}
-    This chapter acts as a supplementary for the thesis.
-    \section{RandLA-Net - Dropout}
-    \label{sec:randladout}
-    The original architecture of the RandLA-Net has only one dropout layer at the end of the second classification layer, represented as DP in Figure~\ref{fig:networkarchitecture}.
-    We also used the same setup for our dropout experiment with a dropout probability of 0.5.
-    Similar to other experiments, we performed 20 forward passes on the dropout, then averaged and represented every AUROC performance on every $5^{th}$ forward pass.
-    \section{Summary of the models}
-    As the survey of existing 3D semantic segmentation models is a part of this thesis, we display a table that summarizes the performance of each model discussed in Section~\ref{sec:dl_approach}.
+    \chapter{Model Summary}
+    In this chapter, we will summarize the each 3D semantic segmentation model discussed in Section~\ref{sec:dl_approach} as a table.
+
+     %we display a table that summarizes the performance of each model discussed in Section~\ref{sec:dl_approach}.
     \begin{longtable}{|p{0.15\linewidth} | p{0.59\linewidth}| p{0.06\linewidth} |p{0.09\linewidth}|}
         %\centering
         %\begin{tabular}{|p{0.15\linewidth} | p{0.6\linewidth}| p{0.06\linewidth} |p{0.08\linewidth}|}
@@ -127,9 +122,10 @@
         %\end{tabular}
     \end{longtable}
     
-    \section{ROC curves}
+    \chapter{ROC curves}
     \label{sec:app_roc_curves}
-    In this section, we display the ROC curves associated with the AUROC score from Table~\ref{tab:sem3dvs3dis_auroc}.
+    In this chapter, we display the ROC curves associated with the AUROC score from Tables~\ref{tab:sem3dvs3dis_auroc} and \ref{tab:auroc_ood_2}.
+    Here, we depict the ROC curves for every $5^{th}$ Ensemble/forward pass except for the Ensemble size of 10 and Flipout forward pass of 10.
     Figure~\ref{fig:roc_msp_ood_1} represents the ROC curves generated using Maximum Softmax Probability (MSP) for Deep Ensembles, Flipout and Dropout.
     Similarly Figure~\ref{fig:roc_ent_ood_1} represents the ROC curves generated using the entropy score.
     In both the cases, we observe that Dropout performs near to random classifier and Deep Ensembles outperform all the other methods.
@@ -146,7 +142,7 @@
             \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/MSP_15.pdf} & 
             \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/MSP_20.pdf} \\
         \end{tabular}
-        \caption{ROC curves for Semantic3D vs S3DIS generated using Maximum Softmax Probability for Deep Ensembles, Flipout and Dropout.}
+        \caption{ROC curves for Semantic3D-vs-S3DIS generated using Maximum Softmax Probability for Deep Ensembles, Flipout and Dropout.}
         \label{fig:roc_msp_ood_1}
     \end{figure*}
     \begin{figure*}
@@ -158,7 +154,7 @@
             \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/Entropy_15.pdf} &
             \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/Entropy_20.pdf} \\
         \end{tabular}
-        \caption{ROC curves for Semantic3D vs S3DIS generated using Entropy for Deep Ensembles, Flipout and Dropout.}
+        \caption{ROC curves for Semantic3D-vs-S3DIS generated using Entropy for Deep Ensembles, Flipout and Dropout.}
         \label{fig:roc_ent_ood_1}
     \end{figure*}
 
@@ -172,7 +168,7 @@
             \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/MSP_cnc_20.pdf} 
             \\
         \end{tabular}
-        \caption{ROC curves for Semantic3D vs Semantic3D without color generated using Maximum Softmax Probability for Deep Ensembles, Flipout and Dropout.}
+        \caption{ROC curves for Semantic3D-vs-Semantic3D without color generated using Maximum Softmax Probability for Deep Ensembles, Flipout and Dropout.}
         \label{fig:roc_msp_ood_2}
     \end{figure*}
     \begin{figure*}
@@ -185,7 +181,7 @@
             \includegraphics[width = 0.42\textwidth, height= 0.3\textheight]{images/AUROC/Entropy_cnc_20.pdf} 
             \\
         \end{tabular}
-        \caption{ROC curves for Semantic3D vs Semantic3D without color generated using Entropy for Deep Ensembles, Flipout and Dropout.}
+        \caption{ROC curves for Semantic3D-vs-Semantic3D without color generated using Entropy for Deep Ensembles, Flipout and Dropout.}
         \label{fig:roc_ent_ood_2}
     \end{figure*}    
 \end{document}

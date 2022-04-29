@@ -20,7 +20,7 @@ The DNNs utilized in the perception module need to be trained on the dataset, wh
 For example, an autonomous driving agent must be trained on a dataset containing roads, vehicles, vegetation and other objects found around the road.
 This closedness of the dataset, i.e., a fixed number of classes, will cause an issue when the DNN encounter an unknown object in the real world.
 This unknown object will be predicted as one of the classes in the dataset, leading to radical decisions when this error is propagated down the pipeline in Figure \ref{fig:Apollopipeline}.
-These unknown objects in the real world which are not present in the training dataset can be regarded as Out-of-Distribution (OOD) objects and the trained dataset is called In Distribution (ID) dataset. 
+These unknown objects in the real world which are not present in the training dataset can be regarded as Out-of-Distribution (OOD) objects and the trained dataset is called In-Distribution (ID) dataset. 
 More discussion on the OOD and the difference between OOD and Anomaly is presented as an example in Section~\ref{sec:oodvanom}.
 The Tesla autonomous driving platform encounters one such problem of misdetection of unknown objects when deployed in the real world.
 \begin{figure}[h!]
@@ -66,7 +66,7 @@ This thesis studies OOD detection over the task of 3D semantic segmentation.
 Notably, we study the 3D semantic segmentation datasets available and create a benchmark for the ID and OOD datasets.
 Similar to \cite{Cao}, we define the OOD data based on two categories.
 In the first case, we define a point in the point cloud as OOD if the point is from an unknown class which is not present in the training set.
-As an example, \cite{liang2017enhancing_ODIN} uses CIFAR-10 vs SVHN.
+As an example of this kind of OOD data, \cite{liang2017enhancing_ODIN} uses CIFAR-10-vs-SVHN in image domain.
 Where CIFAR-10 consists of outdoor objects like aeroplanes, automobile and SVHN consist of images with digits.
 In the second category, we define a point in the point cloud as OOD if the features of the point are of inferior quality.
 An example of this category can be LiDAR data collected on a foggy day, as fog causes noise in the data.
@@ -94,7 +94,7 @@ whether uncertainty estimation is a practical approach for OOD detection in the 
 The contributions made in this thesis are
 \begin{enumerate}
     \item A complete survey of the available 3D LiDAR datasets and 3D semantic segmentation models.
-    \item Benchmarking of 3D LiDAR datasets for OOD detection. We proposed two benchmark datasets Sematic3D vs S3DIS and Semantic3D vs Semantic3D without colour, with Semantic3D being In-Distribution (ID) dataset, S3DIS and Semantic3D without colour being Out-Of-Distribution (OOD) datasets.
+    \item Benchmarking of 3D LiDAR datasets for OOD detection. We proposed two benchmark datasets Sematic3D-vs-S3DIS and Semantic3D-vs-Semantic3D without colour, with Semantic3D being In-Distribution (ID) dataset, S3DIS and Semantic3D without colour being Out-Of-Distribution (OOD) datasets.
     \item A survey on the uncertainty estimation methods and classical OOD methods.
     \item An evaluation of OOD detection on benchmarked datasets over the RandLA-Net model using Deep Ensembles and Flipout.
 \end{enumerate}

@@ -30,7 +30,7 @@ This phenomenon of having most points belonging to a class is common for all the
 The classes such as low vegetation, hardscapes, scanning artefacts and cars have fewer training points, and lower performance from the model in these classes is expected.
 Also, according to \cite{hackel2017semantic3d}, scanning artefacts, cars and hardscapes are the most challenging classes because of variation in object shapes.
 \cite{survey3d} also proves that the Semantic3D is one of the most diverse datasets in 3D LiDAR data compared to other datasets such as SemanticKITTI and SemanticPOSS.
-Because of these reasons, we considered using the Semantic3D dataset as In Distribution (ID) training data.
+Because of these reasons, we considered using the Semantic3D dataset as In-Distribution (ID) training data.
 The dataset is available to download on \footnote[1]{http://www.semantic3d.net/}. 
 As this is an ongoing benchmark challenge, the labels for the testing data are not available.
 We used a validation set for evaluation purposes, a subset of the training set.
@@ -110,7 +110,7 @@ This section discusses benchmark datasets and argues why these datasets are chos
 We provided two benchmark datasets, one being Semantic3D-vs-S3DIS and Semantic3D-vs-Semantic3D without colour.
 In addition to this section, Table~\ref{tab:OOD_reasons} represents the benchmark datasets and the reasons for choosing the OOD dataset.
 
-\subsection{Semantic3D vs S3DIS}
+\subsection{Semantic3D-vs-S3DIS}
 We chose Semantic3D as the training (In-Distribution (ID)) dataset for the following reasons.
 Semantic3D is a static dataset which means the high density of points in a scan compared to sequential datasets.
 Semantic3D also has RGB colours as input features apart from XYZ and intensity values.
@@ -120,10 +120,10 @@ Semantic3D is an ongoing benchmark challenge, so we evaluated our trained on the
 For a sanity check, we cross-checked the performance of our trained models on this validation set with the pretrained model from the authors provided in \footnote[1]{https://github.com/QingyongHu/RandLA-Net}.
 
 S3DIS is an indoor dataset with scans generated in a building.
-This difference in scenes (outdoor vs indoor) makes it an ideal dataset benchmark to study.
+This difference in scenes (outdoor-vs-indoor) makes it an ideal dataset benchmark to study.
 We expect the Semantic3D trained model to detect the S3DIS dataset as OOD with relative ease and high confidence because of the enormous difference in structural similarity between the datasets and different colour values.
 
-\subsection{Semantic3D vs Semantic3D without color}
+\subsection{Semantic3D-vs-Semantic3D without color}
 Our hypothesis is that the colour information plays a major role in defining OOD objects.
 To ensure, the structural similarity between the objects being intact and having different colors, we decided to use Semantic3D without colour as OOD dataset.
 For this we coloured the Semantic3D point cloud with uniform gray color and fed to the model for inference.
@@ -133,7 +133,7 @@ We expect the OOD detection performance to struggle in this case, as the data is
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{cccc}
     ID dataset                   & OOD dataset          &  OOD detection difficulty  & Summary                                                                                                                                                                             \\ \hline
-    \multirow{2}{*}{Semantic 3D} & S3DIS                & Easy    & \multicolumn{1}{l}{\begin{tabular}[c]{@{}l@{}}1. No class overlap\\ 2. Less structural similarity\\ 3. Different domain(outdoor vs indoor)\end{tabular}} \\ \cline{2-4} 
+    \multirow{2}{*}{Semantic 3D} & S3DIS                & Easy    & \multicolumn{1}{l}{\begin{tabular}[c]{@{}l@{}}1. No class overlap\\ 2. Less structural similarity\\ 3. Different domain(outdoor-vs-indoor)\end{tabular}} \\ \cline{2-4} 
                                  & Semantic3D without color & Hard & \multicolumn{1}{l}{\begin{tabular}[c]{@{}l@{}}1. Same structural properties\\ 2. Difference in RGB values\\ 3. Same domain as ID dataset\\ 4. Same classes\end{tabular}}     \\ \hline
                                                                                                                                                                                    
     \end{tabular}
