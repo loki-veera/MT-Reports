@@ -43,7 +43,7 @@ They are local spatial encoding (LocSE), attentive pooling and dilated residual 
 Let us discuss further each of these submodules in detail.
 
 \subsection{Local Spatial Encoding}
-The local spatial encoding (LocSE) module takes each point ($p_i$) in the point cloud (P) and encodes its neighbouring points' position(x, y and z).
+The local spatial encoding (LocSE) module takes each point ($p_i$) in the point cloud (P) and encodes its neighbouring point's position (x, y and z).
 This encoding makes sure that point p always has information about its neighbours.
 Also, this encoding helps in learning geometric patterns and learning complex structures progressively.
 This module works in three steps:
@@ -53,7 +53,7 @@ This module works in three steps:
     \item Feature augmentation
 \end{enumerate}
 
-In step 1, neighbour points for point ($p_i$) are collected using the Euclidean distance-based K-nearest neighbour (KNN) algorithm.
+In step 1, neighbour points for point ($p_i$) are collected using the Euclidean distance-based K-Nearest Neighbour (KNN) algorithm.
 Step 2 encodes these collected K-points for point ($p_i$) using a Multi-Layer Perceptron (MLP) into relative point position. The encoding formula is given by
 $$
 r_i^k = MLP(p_i \oplus p_i^k \oplus (p_i - p_i^k) \oplus ||p_i-p_i^k||)
@@ -93,7 +93,7 @@ Authors claim that the more LocSE and Attentive Pooling stacked in Dilated Resid
 Authors also claim that only the stacked application of two LocSE and Attentive Pooling modules is powerful enough, and it is effective and efficient in computational time.
 
 To summarize, up to this point, we have studied the unique feature of RandLA-Net. That is how random point sampling in conjecture with local features aggregation module in Figure \ref{fig:randlanetlfa} helps in the extraction of features progressively.
-We also studied how the local feature aggregation module is sub-divided into LocSE, Attentive Pooling and Dilated Residual Block. Each of these submodules' working procedures.
+We also studied how the local feature aggregation module is sub-divided into LocSE, Attentive Pooling and Dilated Residual Block. Each of these submodule working procedures.
 In the next section, we study the architecture of RandLA-Net.
 
 \subsection{RandLA-Net Architecture}
@@ -159,8 +159,8 @@ For a perfectly trained and calibrated network we expect all the entropy, NLL an
 \cite{lakshminarayanan2016simple} also studies the effect of entropy with out-of-distribution (OOD) classes.
 They performed the study on MNIST-NotMNIST and SVHN-CIFAR10, with the first dataset in the pair being ID and the second dataset being the OOD dataset.
 The authors verified that entropy distribution on the ID dataset is peaky. Similarly, the entropy distribution on the OOD dataset is more spread across all entropy values.
-We expect that similar performance is observed in 3D semantic segmentation also.
-Because their proven ability to classify OOD on the classification task boosts the model's performance and their ease of implementation makes Deep Ensembles an ideal candidate for OOD detection in 3D semantic segmentation.
+We expect that similar performance to be observed in 3D semantic segmentation also.
+Because their proven ability to classify OOD on the classification task, boosts the model's performance and their ease of implementation makes Deep Ensembles an ideal candidate for OOD detection in 3D semantic segmentation.
 
 \section{Flipout}
 \label{sec:meth_flipout}
@@ -171,7 +171,7 @@ Authors in \cite{Flipout} describe weight perturbations as methods whose weights
 In general, neural network weights are point estimates. In the case of weight perturbations, they are modelled as a distribution where each weight $W=\overline{W}+\Delta W$ in which $\overline{W}$ is the mean weight and $\Delta W$ is the perturbation.
 If this $\Delta W$ is sampled from a Gaussian distribution, it is called a Gaussian perturbation.
 Since the sampled weight perturbation is the same for all the examples over the mini-batch, the authors argue a correlation between the gradients.
-So athe uthors of Flipout make two critical assumptions to deal with this problem:
+So authors of Flipout make two critical assumptions to deal with this problem:
 They are, perturbation of different weights should be different, and the distribution of perturbation should be symmetric around zero.
 So under these assumptions, the authors observed that the perturbation distribution is invariant to element-wise multiplication of the random sign matrix.
 Here the random sign matrix is defined as a matrix whose elements are randomly sampled uniformly from $\pm 1$. 

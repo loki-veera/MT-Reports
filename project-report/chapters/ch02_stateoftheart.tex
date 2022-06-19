@@ -190,7 +190,7 @@ Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segm
     \section{Uncertainty Estimation Methods}
     \label{sec:ue_methods}
     This section will discuss existing methods to estimate uncertainty in deep neural networks.
-    Here we divide the uncertainty estimation methods into ensemble methods and Bayesian methods.
+    Here we divide the uncertainty estimation methods into Ensemble methods and Bayesian methods.
     The methods discussed here primarily estimate epistemic uncertainty. Only test time augmentation and Gaussian density models estimate aleatoric uncertainty.
 
     \cite{matias_uncertainty} argues that there are two kinds of uncertainties, they are epistemic and aleatoric uncertainty.
@@ -217,7 +217,7 @@ Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segm
     The main idea here is to train multiple instances of the head with the same trunk. For example, a trunk can be feature extraction layers in a deep classification network, and the head can be the classification layers.
     Since the primary motivation of the subensembles is to improve the training speed, there is a minute drop in performance compared to Deep Ensembles as it is a tradeoff between the computational time and quality of uncertainty.
     Masksembles proposed in \cite{masksembles} are relatively new and combine Deep Ensembles with MC-Dropout.
-    Masksembles also propose a predefined mask is stated for each layer, and only those specific neurons are dropped every time.
+    Masksembles also propose a predefined mask for each layer, and only those specific neurons are dropped every time.
 
     Other methods include snapshot ensembles \cite{snapshot_ensembles} which iterate over multiple local optima in the optimization landscape using a cyclic learning rate. 
     The model parameters are saved at each of the local optima. 
@@ -225,7 +225,7 @@ Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segm
     The other problem with snapshot ensembles is that the optimization landscape in deep neural networks is poorly studied, so one cannot say with certainty that the model saved at two local minima is uncorrelated.
     A neural ensemble search also exists \cite{NAS_Ensembles}, where the neural architecture search is applied over the Ensembles.
     Instead of using various instances of the same model, authors in \cite{NAS_Ensembles} use various instances of various models in the architecture search space.
-    In this thesis, we chose to use Deep Ensembles because of ease of implementation and Deep Ensembles also act as a baseline comparison for other ensemble methods in the future.
+    In this thesis, we chose to use Deep Ensembles because of ease of implementation and Deep Ensembles also act as a baseline comparison for other nsemble methods in the future.
 
     \subsection{Bayesian Methods}
     Existing neural networks are trained in maximum likelihood, resulting in point estimates for the weights.
@@ -279,7 +279,7 @@ Finally, graph neural networks \cite{dyn_graph_cnn} can also produce better segm
         \label{fig:Dropout_Connect}
     \end{figure}
     Another method for estimating uncertainty is Flipout, as proposed in \cite{Flipout}.
-    Although Flipout was proposed to decorrelate gradients in a minibatch by sampling independent weight perturbations for each example, it can be used for variational inference, and a detailed description is provided in Section~\ref{sec:meth_flipout}.
+    Although Flipout was proposed to decorrelate gradients in a minibatch by sampling independent weight perturbations for each example, it can be used for uncertainty estimation, and a detailed description is provided in Section~\ref{sec:meth_flipout}.
     
     % \textcolor{red}{Need refactoring a bit}
     % Sampling methods also called as Monte Carlo methods (not to be confused to Monte Carlo Dropout or Monte Carlo Dropconnect) estimate uncertainty without any approximation of parametric model.
